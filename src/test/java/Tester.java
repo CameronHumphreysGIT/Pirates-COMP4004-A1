@@ -4,14 +4,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.*;
 
 public class Tester {
     @org.junit.jupiter.api.Test
     @DisplayName("PlayerSendTest")
-    void NetworkingTests() {
+    void PlayerSendTest() {
         Player p = new Player();
         String message = "hello";
         try {
@@ -35,6 +33,37 @@ public class Tester {
             // Form a String from the byte array.
             String received = new String(data,0,len);
             assertEquals(received, message);
+        } catch (SocketException se) {
+            se.printStackTrace();
+            System.exit(1);
+        }
+    }
+    @org.junit.jupiter.api.Test
+    @DisplayName("ServerReceiveTest")
+    void ServerReceiveTest() {
+        Server s = new Server();
+        String message = "received";
+        try {
+            // Construct a datagram socket and bind it to any available
+            // port on the local host machine. This socket will be used to
+            // send UDP Datagram packets.
+            DatagramSocket sendSocket = new DatagramSocket();
+
+            byte msg[] = message.getBytes();
+            try {
+                DatagramPacket sendPacket = new DatagramPacket(msg, msg.length,
+                        InetAddress.getLocalHost(), 5000);
+                try {
+                    sendSocket.send(sendPacket);
+                    assertEquals(message, s.receive());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
