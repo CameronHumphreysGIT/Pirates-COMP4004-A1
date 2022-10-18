@@ -32,6 +32,9 @@ public class Tester {
         received = new String(data,0,len);
         //assert
         assertEquals(received, message);
+        //teardown
+        p.close();
+        datagramTeardown(receiveSocket, receivePacket);
     }
     @org.junit.jupiter.api.Test
     @DisplayName("ServerReceiveTest")
@@ -51,24 +54,26 @@ public class Tester {
 
         //assert
         assertEquals(message, s.receive());
+        //teardown
+        s.close();
+        datagramTeardown(sendSocket, sendPacket);
     }
     DatagramSocket setupSocket(boolean receive) {
-        DatagramSocket testSocket;
+        DatagramSocket testSocket = null;
         try {
             // Construct a datagram socket and bind it to any available
             // port on the local host machine. This socket will be used to
             //send or receive
             if (receive) {
-                testSocket = new DatagramSocket(5000);
+                testSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
             }else {
                 testSocket = new DatagramSocket();
             }
-            return testSocket;
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
         }
-        return null;
+        return testSocket;
     }
 
     DatagramPacket setupPacket(byte[] data, boolean receive) {
@@ -78,12 +83,20 @@ public class Tester {
         }else {
             try {
                 testPacket = new DatagramPacket(data, data.length,
-                        InetAddress.getLocalHost(), 5000);
+                        InetAddress.getLocalHost(), Config.SERVER_PORT_NUMBER);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
         }
+
         return testPacket;
+    }
+
+    void datagramTeardown (DatagramSocket s, DatagramPacket p) {
+        s.close();
+        //let the garbage collector do it's thing
+        s = null;
+        p = null;
     }
 }

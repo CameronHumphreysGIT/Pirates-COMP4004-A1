@@ -15,7 +15,7 @@ public class Server {
             // Construct a datagram socket and bind it to any available
             // port on the local host machine. This socket will be used to
             // receive UDP Datagram packets.
-            receiveSocket = new DatagramSocket(5000);
+            receiveSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
@@ -40,5 +40,8 @@ public class Server {
 
 
         return received;
+    }
+    public void close() {
+        receiveSocket.close();
     }
 }

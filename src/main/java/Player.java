@@ -32,7 +32,7 @@ public class Player {
         //  5000 - the destination port number on the destination host (this can change)
         try {
             sendPacket = new DatagramPacket(msg, msg.length,
-                    InetAddress.getLocalHost(), 5000);
+                    InetAddress.getLocalHost(), Config.SERVER_PORT_NUMBER);
         } catch (UnknownHostException e) {
             e.printStackTrace();
             System.exit(1);
@@ -47,5 +47,8 @@ public class Player {
             System.exit(1);
         }
         System.out.println("Player: Message sent.\n");
+    }
+    public void close() {
+        sendSocket.close();
     }
 }
