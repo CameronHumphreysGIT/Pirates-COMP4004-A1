@@ -14,31 +14,22 @@ public class Tester {
         Player p = new Player();
         String message = "hello";
         String received = " ";
+        DatagramSocket receiveSocket = setupSocket(true);
+
+        byte data[] = new byte[100];
+        DatagramPacket receivePacket = new DatagramPacket(data, data.length);
         try {
-            byte data[] = new byte[100];
-            DatagramPacket receivePacket = new DatagramPacket(data, data.length);
-
-            // Construct a datagram socket and bind it to port 5000
-            // on the local host machine. This socket will be used to
-            // receive UDP Datagram packets.
-            DatagramSocket receiveSocket = new DatagramSocket(5000);
-            try {
-                p.rpc_send(message);
-                // Block until a datagram packet is received from receiveSocket.
-                receiveSocket.receive(receivePacket);
-            } catch (IOException e) {
-                System.out.println("Receive Socket Timed Out.\n" + e);
-                e.printStackTrace();
-                System.exit(1);
-            }
-            int len = receivePacket.getLength();
-            // Form a String from the byte array.
-            received = new String(data,0,len);
-
-        } catch (SocketException se) {
-            se.printStackTrace();
+            p.rpc_send(message);
+            // Block until a datagram packet is received from receiveSocket.
+            receiveSocket.receive(receivePacket);
+        } catch (IOException e) {
+            System.out.println("Receive Socket Timed Out.\n" + e);
+            e.printStackTrace();
             System.exit(1);
         }
+        int len = receivePacket.getLength();
+        // Form a String from the byte array.
+        received = new String(data,0,len);
         //assert
         assertEquals(received, message);
     }
@@ -48,31 +39,40 @@ public class Tester {
         //fixture
         Server s = new Server();
         String message = "received";
+        DatagramSocket sendSocket = setupSocket(false);
+        byte msg[] = message.getBytes();
         try {
-            // Construct a datagram socket and bind it to any available
-            // port on the local host machine. This socket will be used to
-            // send UDP Datagram packets.
-            DatagramSocket sendSocket = new DatagramSocket();
-
-            byte msg[] = message.getBytes();
+            DatagramPacket sendPacket = new DatagramPacket(msg, msg.length,
+                    InetAddress.getLocalHost(), 5000);
             try {
-                DatagramPacket sendPacket = new DatagramPacket(msg, msg.length,
-                        InetAddress.getLocalHost(), 5000);
-                try {
-                    sendSocket.send(sendPacket);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.exit(1);
-                }
-            } catch (UnknownHostException e) {
+                sendSocket.send(sendPacket);
+            } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
-        } catch (SocketException se) {
-            se.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
             System.exit(1);
         }
         //assert
         assertEquals(message, s.receive());
+    }
+    DatagramSocket setupSocket(boolean receive) {
+        DatagramSocket testSocket;
+        try {
+            // Construct a datagram socket and bind it to any available
+            // port on the local host machine. This socket will be used to
+            //send or receive
+            if (receive) {
+                testSocket = new DatagramSocket(5000);
+            }else {
+                testSocket = new DatagramSocket();
+            }
+            return testSocket;
+        } catch (SocketException se) {
+            se.printStackTrace();
+            System.exit(1);
+        }
+        return null;
     }
 }
