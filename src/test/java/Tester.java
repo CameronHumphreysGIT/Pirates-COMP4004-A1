@@ -10,8 +10,10 @@ public class Tester {
     @org.junit.jupiter.api.Test
     @DisplayName("PlayerSendTest")
     void PlayerSendTest() {
+        //fixture
         Player p = new Player();
         String message = "hello";
+        String received = " ";
         try {
             byte data[] = new byte[100];
             DatagramPacket receivePacket = new DatagramPacket(data, data.length);
@@ -31,16 +33,19 @@ public class Tester {
             }
             int len = receivePacket.getLength();
             // Form a String from the byte array.
-            String received = new String(data,0,len);
-            assertEquals(received, message);
+            received = new String(data,0,len);
+
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
         }
+        //assert
+        assertEquals(received, message);
     }
     @org.junit.jupiter.api.Test
     @DisplayName("ServerReceiveTest")
     void ServerReceiveTest() {
+        //fixture
         Server s = new Server();
         String message = "received";
         try {
@@ -55,7 +60,6 @@ public class Tester {
                         InetAddress.getLocalHost(), 5000);
                 try {
                     sendSocket.send(sendPacket);
-                    assertEquals(message, s.receive());
                 } catch (IOException e) {
                     e.printStackTrace();
                     System.exit(1);
@@ -68,5 +72,7 @@ public class Tester {
             se.printStackTrace();
             System.exit(1);
         }
+        //assert
+        assertEquals(message, s.receive());
     }
 }
