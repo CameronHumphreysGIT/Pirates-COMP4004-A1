@@ -17,7 +17,7 @@ public class Tester {
         DatagramSocket receiveSocket = setupSocket(true);
 
         byte data[] = new byte[100];
-        DatagramPacket receivePacket = new DatagramPacket(data, data.length);
+        DatagramPacket receivePacket = setupPacket(data, true);
         try {
             p.rpc_send(message);
             // Block until a datagram packet is received from receiveSocket.
@@ -41,19 +41,14 @@ public class Tester {
         String message = "received";
         DatagramSocket sendSocket = setupSocket(false);
         byte msg[] = message.getBytes();
+        DatagramPacket sendPacket = setupPacket(msg, false);
         try {
-            DatagramPacket sendPacket = new DatagramPacket(msg, msg.length,
-                    InetAddress.getLocalHost(), 5000);
-            try {
-                sendSocket.send(sendPacket);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-        } catch (UnknownHostException e) {
+            sendSocket.send(sendPacket);
+        } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
+
         //assert
         assertEquals(message, s.receive());
     }
@@ -74,5 +69,21 @@ public class Tester {
             System.exit(1);
         }
         return null;
+    }
+
+    DatagramPacket setupPacket(byte[] data, boolean receive) {
+        DatagramPacket testPacket = null;
+        if (receive) {
+            testPacket = new DatagramPacket(data, data.length);
+        }else {
+            try {
+                testPacket = new DatagramPacket(data, data.length,
+                        InetAddress.getLocalHost(), 5000);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+        return testPacket;
     }
 }
