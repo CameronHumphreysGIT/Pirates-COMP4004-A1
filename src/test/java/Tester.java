@@ -88,6 +88,36 @@ public class Tester {
         p.close();
         datagramTeardown(sendSocket, sendPacket);
     }
+    @org.junit.jupiter.api.Test
+    @DisplayName("ServerSendTest")
+    void ServerSendTest() {
+        //fixture
+        Server s = new Server();
+        String message = "hello";
+        String received = " ";
+        DatagramSocket receiveSocket = setupSocket(true, false);
+
+        byte data[] = new byte[100];
+        DatagramPacket receivePacket = setupPacket(data, true, false);
+        try {
+            //needs to know the port number, since, unlike the player, may send to other entities
+            s.send(message, Config.PLAYER_PORT_NUMBER);
+            // Block until a datagram packet is received from receiveSocket.
+            receiveSocket.receive(receivePacket);
+        } catch (IOException e) {
+            System.out.println("Receive Socket Timed Out.\n" + e);
+            e.printStackTrace();
+            System.exit(1);
+        }
+        int len = receivePacket.getLength();
+        // Form a String from the byte array.
+        received = new String(data,0,len);
+        //assert
+        assertEquals(received, message);
+        //teardown
+        s.close();
+        datagramTeardown(receiveSocket, receivePacket);
+    }
 
     DatagramSocket setupSocket(boolean receive, boolean isServer) {
         DatagramSocket testSocket = null;
