@@ -4,7 +4,8 @@ import java.net.*;
 public class Player {
     private DatagramPacket sendPacket;
     //server will send to the address data it received from
-    private DatagramSocket sendReceiveSocket;
+    private DatagramSocket sendSocket;
+    private DatagramSocket receiveSocket;
     private DatagramPacket receivePacket;
     private String lastMessage;
 
@@ -14,8 +15,9 @@ public class Player {
             // Construct a datagram socket and bind it to any available
             // port on the local host machine. This socket will be used to
             // send UDP Datagram packets, add timeout for receiving
-            sendReceiveSocket = new DatagramSocket();
-            sendReceiveSocket.setSoTimeout(Config.TIMEOUT);
+            sendSocket = new DatagramSocket();
+            receiveSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER);
+            receiveSocket.setSoTimeout(Config.TIMEOUT);
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
@@ -45,7 +47,7 @@ public class Player {
         System.out.println("Player: sending message");
 
         try {
-            sendReceiveSocket.send(sendPacket);
+            sendSocket.send(sendPacket);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -56,23 +58,30 @@ public class Player {
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
 
+        System.out.println("Player: receiving message");
+
         try {
-            // Block until a datagram packet is received from sendReceiveSocket.
-            sendReceiveSocket.receive(receivePacket);
+            // Block until a datagram packet is received from receiveSocket.
+            receiveSocket.receive(receivePacket);
         } catch (SocketTimeoutException e) {
             //set last message to timeout
             lastMessage = "Timeout";
+            return;
         } catch (IOException e) {
             System.out.println("Player IO Exception.\n" + e);
             e.printStackTrace();
             System.exit(1);
         }
+
+        System.out.println("Player: message received");
+
         int len = receivePacket.getLength();
         // Form a String from the byte array, set to lastMessage
         lastMessage = new String(data,0,len);
     }
     public void close() {
-        sendReceiveSocket.close();
+        sendSocket.close();
+        receiveSocket.close();
     }
 
     public String getLastMessage() {

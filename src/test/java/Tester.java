@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -16,10 +15,10 @@ public class Tester {
         Player p = new Player();
         String message = "hello";
         String received = " ";
-        DatagramSocket receiveSocket = setupSocket(true);
+        DatagramSocket receiveSocket = setupSocket(true, true);
 
         byte data[] = new byte[100];
-        DatagramPacket receivePacket = setupPacket(data, true);
+        DatagramPacket receivePacket = setupPacket(data, true, false);
         try {
             p.rpc_send(message);
             // Block until a datagram packet is received from receiveSocket.
@@ -44,16 +43,15 @@ public class Tester {
         //fixture
         Server s = new Server();
         String message = "received";
-        DatagramSocket sendSocket = setupSocket(false);
+        DatagramSocket sendSocket = setupSocket(false, true);
         byte msg[] = message.getBytes();
-        DatagramPacket sendPacket = setupPacket(msg, false);
+        DatagramPacket sendPacket = setupPacket(msg, false, true);
         try {
             sendSocket.send(sendPacket);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
-
         //assert
         assertEquals(message, s.receive());
         //teardown
@@ -67,11 +65,11 @@ public class Tester {
     void PlayerRPCTest(String message) {
         //fixture
         Player p = new Player();
-        if (message == "message") {
-            DatagramSocket sendSocket = setupSocket(false);
-            byte[] data = message.getBytes();
-            DatagramPacket sendPacket = setupPacket(data, false);
-            //get the player to send something, and confirm it
+        DatagramSocket sendSocket = setupSocket(false, false);
+        byte[] data = message.getBytes();
+        DatagramPacket sendPacket = setupPacket(data, false, false);
+        //get the player to send something, and confirm it
+        if (message.equals("message")) {
             try {
                 sendSocket.send(sendPacket);
             } catch (IOException e) {
@@ -79,20 +77,30 @@ public class Tester {
                 System.exit(1);
             }
         }
-        PlayerSendTest();
+
+        //call rpc_send, don't worry if it sends or not.
+        p.rpc_send("hello");
 
         //assert, where player stores the reply
-        assertEquals(p.getLastMessage(), message);
+        assertEquals(message, p.getLastMessage());
+
+        //teardown
+        p.close();
+        datagramTeardown(sendSocket, sendPacket);
     }
 
-    DatagramSocket setupSocket(boolean receive) {
+    DatagramSocket setupSocket(boolean receive, boolean isServer) {
         DatagramSocket testSocket = null;
         try {
             // Construct a datagram socket and bind it to any available
             // port on the local host machine. This socket will be used to
             //send or receive
             if (receive) {
-                testSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
+                if (isServer) {
+                    testSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
+                }else {
+                    testSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER);
+                }
             }else {
                 testSocket = new DatagramSocket();
             }
@@ -103,14 +111,19 @@ public class Tester {
         return testSocket;
     }
 
-    DatagramPacket setupPacket(byte[] data, boolean receive) {
+    DatagramPacket setupPacket(byte[] data, boolean receive, boolean isServer) {
         DatagramPacket testPacket = null;
         if (receive) {
             testPacket = new DatagramPacket(data, data.length);
         }else {
             try {
-                testPacket = new DatagramPacket(data, data.length,
-                        InetAddress.getLocalHost(), Config.SERVER_PORT_NUMBER);
+                if (isServer) {
+                    testPacket = new DatagramPacket(data, data.length,
+                            InetAddress.getLocalHost(), Config.SERVER_PORT_NUMBER);
+                }else {
+                    testPacket = new DatagramPacket(data, data.length,
+                            InetAddress.getLocalHost(), Config.PLAYER_PORT_NUMBER);
+                }
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 System.exit(1);
