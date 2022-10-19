@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.net.*;
@@ -58,6 +60,31 @@ public class Tester {
         s.close();
         datagramTeardown(sendSocket, sendPacket);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"message", "Timeout"})
+    @DisplayName("PlayerRPCTest")
+    void PlayerRPCTest(String message) {
+        //fixture
+        Player p = new Player();
+        if (message == "message") {
+            DatagramSocket sendSocket = setupSocket(false);
+            byte[] data = message.getBytes();
+            DatagramPacket sendPacket = setupPacket(data, false);
+            //get the player to send something, and confirm it
+            try {
+                sendSocket.send(sendPacket);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+        PlayerSendTest();
+
+        //assert, where player stores the reply
+        assertEquals(p.getLastMessage(), message);
+    }
+
     DatagramSocket setupSocket(boolean receive) {
         DatagramSocket testSocket = null;
         try {
