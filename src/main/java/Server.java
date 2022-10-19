@@ -24,13 +24,13 @@ public class Server {
 
     public String receive() {
         byte data[] = new byte[100];
-        DatagramPacket receivePacket = new DatagramPacket(data, data.length);
+        receivePacket = new DatagramPacket(data, data.length);
 
         try {
             // Block until a datagram packet is received from receiveSocket.
             receiveSocket.receive(receivePacket);
         } catch (IOException e) {
-            System.out.println("Receive Socket Timed Out.\n" + e);
+            System.out.println("Server Receive Socket Timed Out.\n" + e);
             e.printStackTrace();
             System.exit(1);
         }
