@@ -1,13 +1,13 @@
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Server {
-    DatagramPacket receivePacket;
-    DatagramSocket receiveSocket;
+    private DatagramPacket receivePacket;
+    private DatagramSocket receiveSocket;
+    private DatagramPacket sendPacket;
+    private DatagramSocket sendSocket;
 
     public Server()
     {
@@ -16,6 +16,8 @@ public class Server {
             // port on the local host machine. This socket will be used to
             // receive UDP Datagram packets.
             receiveSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
+            //sending
+            sendSocket = new DatagramSocket();
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
@@ -41,6 +43,28 @@ public class Server {
 
         return received;
     }
+    public void send(String message, int port) {
+        byte msg[] = message.getBytes();
+        try {
+            sendPacket = new DatagramPacket(msg, msg.length,
+                    InetAddress.getLocalHost(), port);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        System.out.println("Server: sending message to " + port);
+
+        try {
+            sendSocket.send(sendPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        System.out.println("Server: Message sent.\n");
+
+    }
+
     public void close() {
         receiveSocket.close();
     }
