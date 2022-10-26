@@ -8,6 +8,7 @@ public class Player {
     private DatagramSocket receiveSocket;
     private DatagramPacket receivePacket;
     private String lastMessage;
+    private int number;
 
     public Player()
     {
@@ -79,6 +80,27 @@ public class Player {
         // Form a String from the byte array, set to lastMessage
         lastMessage = new String(data,0,len);
     }
+    public boolean join() {
+        //send join request and receive
+        rpc_send("Join Request");
+
+        //parse response
+        if (lastMessage.equals("Timeout")) {
+            //server busy or whatever
+            number = 0;
+            return false;
+        }
+        int lastdigit = Integer.parseInt(String.valueOf(lastMessage.charAt(lastMessage.length() - 1)));
+        //check that it's a return message
+        if (lastMessage.equals(Config.JOIN_MESSAGE(lastdigit))) {
+            //Set the number to be the last digit of the message
+            number = lastdigit;
+            return true;
+        }
+
+        return false;
+    }
+
     public void close() {
         sendSocket.close();
         receiveSocket.close();
@@ -86,5 +108,8 @@ public class Player {
 
     public String getLastMessage() {
         return lastMessage;
+    }
+    public int getNumber() {
+        return number;
     }
 }
