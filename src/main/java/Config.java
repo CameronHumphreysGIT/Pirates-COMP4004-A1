@@ -4,5 +4,8 @@ public class Config {
     public static final int PLAYER_PORT_NUMBER = 3010;
     public static final int NUM_OF_PLAYERS = 3;
     public static final int TIMEOUT = 5000; //5 seconds
+    public static String JOIN_MESSAGE(int i) {
+        return "You are Player" + i;
+    }
 
 }

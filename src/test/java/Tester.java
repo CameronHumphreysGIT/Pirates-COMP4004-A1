@@ -1,11 +1,11 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.net.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Tester {
     @org.junit.jupiter.api.Test
@@ -118,6 +118,43 @@ public class Tester {
         s.close();
         datagramTeardown(receiveSocket, receivePacket);
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 0})
+    @DisplayName("PlayerJoinTest")
+    void PlayerJoinTest(int playerNum) {
+        //make player
+        Player p = new Player();
+
+        //in the 0 case we won't send a server response
+        if (playerNum != 0) {
+            //send "You are Playerx"
+            DatagramSocket sendSocket = setupSocket(false, false);
+            byte[] data = Config.JOIN_MESSAGE(playerNum).getBytes();
+            DatagramPacket sendPacket = setupPacket(data, false, false);
+            try {
+                sendSocket.send(sendPacket);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+            //use player.join which returns a boolean...
+            assertTrue(p.join());
+        }else {
+            assertFalse(p.join());
+        }
+
+        //check that player.number is x
+        assertEquals(playerNum, p.getNumber);
+
+        //teardown
+        p.close();
+        datagramTeardown(sendSocket, sendPacket);
+    }
+
+
+
+    //Helpers
 
     DatagramSocket setupSocket(boolean receive, boolean isServer) {
         DatagramSocket testSocket = null;
