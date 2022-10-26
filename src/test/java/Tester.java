@@ -163,6 +163,28 @@ public class Tester {
                 s.close();
                 datagramTeardown(receiveSocket, receivePacket);
             }
+            @Test
+            @DisplayName("ServerAddPlayerTest")
+            void ServerAddPlayerTest() {
+                //make Game object
+                Game g = new Game();
+                //make server with game object param
+                Server s = new Server(g);
+                //send moque player join message
+                DatagramSocket sendSocket = setupSocket(false, true);
+                byte msg[] = Config.PLAYER_JOIN_MESSAGE.getBytes();
+                DatagramPacket sendPacket = setupPacket(msg, false, true);
+                try {
+                    sendSocket.send(sendPacket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+                //run server.addPlayer()
+                s.addPlayer();
+                //check game.playercount
+                assertEquals(1, g.getPlayerCount());
+            }
         }
     }
 
