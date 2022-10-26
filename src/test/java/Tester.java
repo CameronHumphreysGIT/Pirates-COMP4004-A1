@@ -140,16 +140,17 @@ public class Tester {
             }
             //use player.join which returns a boolean...
             assertTrue(p.join());
+            //teardown
+            datagramTeardown(sendSocket, sendPacket);
         }else {
             assertFalse(p.join());
         }
 
         //check that player.number is x
-        assertEquals(playerNum, p.getNumber);
+        assertEquals(playerNum, p.getNumber());
 
         //teardown
         p.close();
-        datagramTeardown(sendSocket, sendPacket);
     }
 
 
