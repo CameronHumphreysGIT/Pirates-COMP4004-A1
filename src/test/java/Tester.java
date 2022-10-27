@@ -217,6 +217,14 @@ public class Tester {
                 [INFO ] 2022-10-27 15:28:28.816 [main] Config - Player1: successfully joined the Server
                  */
             }
+            @Test
+            @DisplayName("Log4JPlayerJoinServerTest")
+            void PlayerFailsToJoinTest() {
+                //player init
+                //player tries connection
+                //fails
+                //tries until succeeds
+            }
 
         }
     }
