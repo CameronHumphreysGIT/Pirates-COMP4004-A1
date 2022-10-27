@@ -27,6 +27,10 @@ public class Player {
     public static void main(String[] args) {
         Player me = new Player();
         me.join();
+        while (me.getLastMessage().equals("Timeout")) {
+            //connection failed, retry
+            me.join();
+        }
     }
 
     public void rpc_send(String message) {
@@ -96,6 +100,8 @@ public class Player {
         //parse response
         if (lastMessage.equals("Timeout")) {
             //server busy or whatever
+            Config.LOGGER.info("Player: failed to join Server");
+            System.out.println("Player: failed to join Server");
             number = 0;
             return false;
         }
