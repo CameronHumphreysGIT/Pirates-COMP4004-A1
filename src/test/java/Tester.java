@@ -85,7 +85,7 @@ public class Tester {
                 if (playerNum != 0) {
                     //send "You are Playerx"
                     DatagramSocket sendSocket = setupSocket(false, false);
-                    byte[] data = Config.JOIN_MESSAGE(playerNum).getBytes();
+                    byte[] data = Config.SERVER_JOIN_MESSAGE(playerNum).getBytes();
                     DatagramPacket sendPacket = setupPacket(data, false, false);
                     try {
                         sendSocket.send(sendPacket);
@@ -115,7 +115,8 @@ public class Tester {
             @DisplayName("ServerReceiveTest")
             void ServerReceiveTest() {
                 //fixture
-                Server s = new Server();
+                Game g = new Game();
+                Server s = new Server(g);
                 String message = "received";
                 DatagramSocket sendSocket = setupSocket(false, true);
                 byte msg[] = message.getBytes();
@@ -137,7 +138,8 @@ public class Tester {
             @DisplayName("ServerSendTest")
             void ServerSendTest() {
                 //fixture
-                Server s = new Server();
+                Game g = new Game();
+                Server s = new Server(g);
                 String message = "hello";
                 String received = " ";
                 DatagramSocket receiveSocket = setupSocket(true, false);
@@ -184,6 +186,9 @@ public class Tester {
                 s.addPlayer();
                 //check game.playercount
                 assertEquals(1, g.getPlayerCount());
+                //teardown
+                s.close();
+                datagramTeardown(sendSocket, sendPacket);
             }
         }
     }

@@ -92,7 +92,7 @@ public class Player {
         }
         int lastdigit = Integer.parseInt(String.valueOf(lastMessage.charAt(lastMessage.length() - 1)));
         //check that it's a return message
-        if (lastMessage.equals(Config.JOIN_MESSAGE(lastdigit))) {
+        if (lastMessage.equals(Config.SERVER_JOIN_MESSAGE(lastdigit))) {
             //Set the number to be the last digit of the message
             number = lastdigit;
             return true;
