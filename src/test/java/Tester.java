@@ -200,6 +200,22 @@ public class Tester {
                 //server has a main method that calls addPlayer on init.
                 //Player has a main method that calls join on init
                 //if server is run before player, the logs should show successful joining of the server and a player declaration
+
+                //expected output
+                /*
+
+                [INFO ] 2022-10-27 15:28:28.358 [main] Config - Player: sending message
+                [INFO ] 2022-10-27 15:28:28.360 [main] Config - Player: Message sent.
+
+                [INFO ] 2022-10-27 15:28:28.361 [main] Config - Player: receiving message
+                [INFO ] 2022-10-27 15:28:28.811 [main] Config - Server: Player join request
+
+                [INFO ] 2022-10-27 15:28:28.815 [main] Config - Server: sending message to 3010
+                [INFO ] 2022-10-27 15:28:28.815 [main] Config - Server: Message sent.
+
+                [INFO ] 2022-10-27 15:28:28.816 [main] Config - Player: message received
+                [INFO ] 2022-10-27 15:28:28.816 [main] Config - Player1: successfully joined the Server
+                 */
             }
 
         }
