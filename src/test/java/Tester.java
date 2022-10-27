@@ -218,7 +218,7 @@ public class Tester {
                  */
             }
             @Test
-            @DisplayName("Log4JPlayerJoinServerTest")
+            @DisplayName("Log4JPlayerFailsToJoinTest")
             void PlayerFailsToJoinTest() {
                 //player init
                 //player tries connection
@@ -248,6 +248,18 @@ public class Tester {
 
                 [INFO ] 2022-10-27 15:55:33.610 [main] Config - Player: receiving message
                  */
+
+            }
+            @Test
+            @DisplayName("Log4J3PlayersJoinServerTest")
+            void AllPlayersJoinTest() {
+                //run Server
+                //start Player1
+                //ensure Server asks player1 if more people should join
+                //start Player2
+                //ensure Server asks player1 if more people should join
+                //start Player3
+                //check that all players have been added properly, and have corresponding player numbers.
 
             }
 
