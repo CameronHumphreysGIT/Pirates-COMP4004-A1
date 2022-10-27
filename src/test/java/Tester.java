@@ -191,6 +191,18 @@ public class Tester {
                 datagramTeardown(sendSocket, sendPacket);
             }
         }
+        @Nested
+        @DisplayName("Log4JTests")
+        class Log4JTests {
+            @Test
+            @DisplayName("Log4JPlayerJoinServerTest")
+            void PlayerJoinServerTest() {
+                //server has a main method that calls addPlayer on init.
+                //Player has a main method that calls join on init
+                //if server is run before player, the logs should show successful joining of the server and a player declaration
+            }
+
+        }
     }
 
 
