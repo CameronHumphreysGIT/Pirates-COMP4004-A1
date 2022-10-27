@@ -1,1 +1,12 @@
 
+[INFO ] 2022-10-27 15:28:28.358 [main] Config - Player: sending message
+[INFO ] 2022-10-27 15:28:28.360 [main] Config - Player: Message sent.
+
+[INFO ] 2022-10-27 15:28:28.361 [main] Config - Player: receiving message
+[INFO ] 2022-10-27 15:28:28.811 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-27 15:28:28.815 [main] Config - Server: sending message to 3010
+[INFO ] 2022-10-27 15:28:28.815 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-27 15:28:28.816 [main] Config - Player: message received
+[INFO ] 2022-10-27 15:28:28.816 [main] Config - Player1: successfully joined the Server

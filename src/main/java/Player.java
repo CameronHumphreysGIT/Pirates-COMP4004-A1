@@ -10,8 +10,7 @@ public class Player {
     private String lastMessage;
     private int number;
 
-    public Player()
-    {
+    public Player() {
         try {
             // Construct a datagram socket and bind it to any available
             // port on the local host machine. This socket will be used to
@@ -24,6 +23,12 @@ public class Player {
             System.exit(1);
         }
     }
+
+    public static void main(String[] args) {
+        Player me = new Player();
+        me.join();
+    }
+
     public void rpc_send(String message) {
         //construct a packet
         //datagram sends and receives bytes, we will use a more complex system to send and receive event objects.
@@ -99,6 +104,8 @@ public class Player {
         if (lastMessage.equals(Config.SERVER_JOIN_MESSAGE(lastdigit))) {
             //Set the number to be the last digit of the message
             number = lastdigit;
+            Config.LOGGER.info("Player" + number + ": successfully joined the Server");
+            System.out.println("Player" + number + ": successfully joined the Server");
             return true;
         }
 

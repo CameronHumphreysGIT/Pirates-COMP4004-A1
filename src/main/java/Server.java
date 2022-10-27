@@ -25,6 +25,12 @@ public class Server {
         }
     }
 
+    public static void main(String[] args) {
+        Game game = new Game();
+        Server me = new Server(game);
+        me.addPlayer();
+    }
+
     public String receive() {
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
@@ -72,10 +78,12 @@ public class Server {
         //first, listen for a message
         String message = receive();
         if (message.equals(Config.PLAYER_JOIN_MESSAGE)) {
+            Config.LOGGER.info("Server: Player join request\n");
+            System.out.println("Server: Player join request\n");
             //message is good, now we set a player num and return
             int playerNum = game.getPlayerCount() + 1;
             //receive packet still has the last sender's info
-            send(Config.SERVER_JOIN_MESSAGE(playerNum), receivePacket.getPort());
+            send(Config.SERVER_JOIN_MESSAGE(playerNum), Config.PLAYER_PORT_NUMBER);
             game.addPlayer();
         }
     }
