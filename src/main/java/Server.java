@@ -8,9 +8,10 @@ public class Server {
     private DatagramSocket receiveSocket;
     private DatagramPacket sendPacket;
     private DatagramSocket sendSocket;
+    private Game game;
 
-    public Server()
-    {
+    public Server(Game g) {
+        game = g;
         try {
             // Construct a datagram socket and bind it to any available
             // port on the local host machine. This socket will be used to
@@ -63,6 +64,18 @@ public class Server {
         }
         System.out.println("Server: Message sent.\n");
 
+    }
+
+    public void addPlayer() {
+        //first, listen for a message
+        String message = receive();
+        if (message.equals(Config.PLAYER_JOIN_MESSAGE)) {
+            //message is good, now we set a player num and return
+            int playerNum = game.getPlayerCount() + 1;
+            //receive packet still has the last sender's info
+            send(Config.SERVER_JOIN_MESSAGE(playerNum), receivePacket.getPort());
+            game.addPlayer();
+        }
     }
 
     public void close() {
