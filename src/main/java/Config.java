@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Config {
 
     public static final int SERVER_PORT_NUMBER = 5000;
@@ -8,5 +11,5 @@ public class Config {
         return "You are Player" + i;
     }
     public static final String PLAYER_JOIN_MESSAGE = "Join Request";
-
+    public static final Logger LOGGER = LogManager.getLogger(Config.class);
 }

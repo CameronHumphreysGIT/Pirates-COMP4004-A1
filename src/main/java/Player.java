@@ -45,6 +45,7 @@ public class Player {
             System.exit(1);
         }
 
+        Config.LOGGER.info("Player: sending message");
         System.out.println("Player: sending message");
 
         try {
@@ -53,12 +54,14 @@ public class Player {
             e.printStackTrace();
             System.exit(1);
         }
+        Config.LOGGER.info("Player: Message sent.\n");
         System.out.println("Player: Message sent.\n");
 
         //wait for a reply with a timeout
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
 
+        Config.LOGGER.info("Player: receiving message");
         System.out.println("Player: receiving message");
 
         try {
@@ -74,6 +77,7 @@ public class Player {
             System.exit(1);
         }
 
+        Config.LOGGER.info("Player: message received");
         System.out.println("Player: message received");
 
         int len = receivePacket.getLength();

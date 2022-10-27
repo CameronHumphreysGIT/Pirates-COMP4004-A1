@@ -54,6 +54,7 @@ public class Server {
             System.exit(1);
         }
 
+        Config.LOGGER.info("Server: sending message to " + port);
         System.out.println("Server: sending message to " + port);
 
         try {
@@ -62,6 +63,7 @@ public class Server {
             e.printStackTrace();
             System.exit(1);
         }
+        Config.LOGGER.info("Server: Message sent.\n");
         System.out.println("Server: Message sent.\n");
 
     }
