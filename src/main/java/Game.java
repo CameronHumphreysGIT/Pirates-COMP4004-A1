@@ -3,10 +3,6 @@ public class Game {
     private int currentTurn;
     private int[] scores = new int[3];
 
-    public int getPlayerCount() {
-        return playerCount;
-    }
-
     public void addPlayer() {
         playerCount++;
     }
@@ -18,5 +14,39 @@ public class Game {
         for (int i = 0; i < playerCount; i++) {
             scores[i] = 0;
         }
+    }
+
+    public boolean score(String dice, int player) {
+        //check validity
+        if (dice.length() > 6) {
+            return false;
+        }
+        int sum = 0;
+        for (int i = 0; i < 6; i++) {
+            //parse the int at each index
+            try {
+                sum += Integer.parseInt("" + dice.charAt(i));
+            } catch (NumberFormatException e){
+                //happens if any character is not an int
+                return false;
+            }
+        }
+        if (sum != 8) {
+            return false;
+        }
+        //non error
+        return true;
+    }
+
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public int[] getScores() {
+        return scores;
     }
 }
