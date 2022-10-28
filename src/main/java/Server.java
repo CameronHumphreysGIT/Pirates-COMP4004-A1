@@ -124,6 +124,17 @@ public class Server {
         }
     }
 
+    public String scorePlayer(String dice, int player) {
+        //get the initial score
+        int first = game.getScores()[player - 1];
+        if (game.score(dice, player)) {
+            //final score is calculated and set already
+            return Config.SERVER_SCORE_MESSAGE(first, game.getScores()[player - 1]);
+        }else {
+            return "ERROR, Invalid dice combination";
+        }
+    }
+
     public void sendWelcomes() {
         //send welcome to each player sequentially
         for (int i = 0; i < game.getPlayerCount(); i++) {

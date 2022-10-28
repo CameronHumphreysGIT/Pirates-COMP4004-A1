@@ -16,6 +16,9 @@ public class Config {
     public static String SERVER_JOIN_MESSAGE(int i) {
         return "You are Player" + i;
     }
+    public static String SERVER_SCORE_MESSAGE(int before, int after) {
+        return "Your score was " + before + " and you scored " + (after-before) + " so your score is now: " + after;
+    }
     public static final String PLAYER_JOIN_MESSAGE = "Join Request";
     public static final Logger LOGGER = LogManager.getLogger(Config.class);
     public static final String WELCOME =

@@ -12,6 +12,7 @@ public class Player {
     private DatagramPacket receivePacket;
     private String lastMessage;
     private int number = 0;
+    private boolean isTurn;
     private ArrayList<String> dice = new ArrayList<>();
 
     public Player() {
@@ -191,6 +192,13 @@ public class Player {
         return "" + diceCount[0] + diceCount[1] + diceCount[2] + diceCount[3] + diceCount[4] + diceCount[5];
     }
 
+    public void endTurn() {
+        //first off, not my turn anymore
+        isTurn = false;
+        //we are going to send dice in for scoring and get a reply
+        rpc_send(getDiceString());
+    }
+
     public void close() {
         sendSocket.close();
     }
@@ -204,5 +212,17 @@ public class Player {
 
     public ArrayList<String> getDice() {
         return dice;
+    }
+
+    public boolean getTurn() {
+        return isTurn;
+    }
+
+    public void setTurn(boolean turn) {
+        isTurn = turn;
+    }
+
+    public void setDice(ArrayList<String> dice) {
+        this.dice = dice;
     }
 }

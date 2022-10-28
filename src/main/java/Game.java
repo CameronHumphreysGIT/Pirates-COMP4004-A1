@@ -35,7 +35,22 @@ public class Game {
             return false;
         }
         //non error
+        if (Integer.parseInt("" + dice.charAt(0)) == 3) {
+            //There are exactly three skulls
+            //don't change the score.
+            scores[player - 1] += 0;
+        }
+        nextTurn();
         return true;
+    }
+
+    public void nextTurn() {
+        if (currentTurn == playerCount) {
+            //next turn goes to the first player
+            currentTurn = 1;
+        }else {
+            currentTurn++;
+        }
     }
 
     public int getPlayerCount() {
