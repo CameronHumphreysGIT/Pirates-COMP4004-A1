@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -267,6 +268,30 @@ public class Tester {
                  */
 
             }
+        }
+    }
+    @Nested
+    @DisplayName("GameTests")
+    class GameTests {
+        @Test
+        @DisplayName("PlayerDiceRoll")
+        void PlayerDiceRoll() {
+            //create a player
+            Player p = new Player();
+            //use dice roll function
+            p.rollDice();
+            //confirm each dice is of the possible dice and add them up
+            int[] countDie = new int[6];
+            ArrayList<String> playerDice = p.getDice();
+            for (String d : playerDice) {
+                //indexOf returns -1 as an error value
+                assertNotEquals(Config.DICE.indexOf(d), -1);
+                countDie[Config.DICE.indexOf(d)]++;
+            }
+            String diceString = p.getDiceString();
+            //we want the diceString to be a sum of each type of dice in the config specified order.
+            assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5], diceString);
+
         }
     }
 

@@ -1,6 +1,11 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+
 public class Config {
 
     public static final int SERVER_PORT_NUMBER = 5000;
@@ -21,4 +26,5 @@ public class Config {
             "|  while avoiding the deadly Skulls                                   |\n" +
             "|  if you roll 3 skulls, your turn ends                               |\n" +
             "|=====================================================================|\n";
+    public static final ArrayList<String> DICE = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "MONKEY", "PARROT", "DIAMOND", "GOLD"));
 }
