@@ -4,10 +4,8 @@ import org.apache.logging.log4j.Logger;
 public class Config {
 
     public static final int SERVER_PORT_NUMBER = 5000;
-    public static int PLAYER_PORT_NUMBER(int i) {
-        //3010 for player 1... and so on
-        return 3009 + i;
-    }
+    //player_port_number is for testing
+    public static int PLAYER_PORT_NUMBER = 3010;
     public static final int MAX_PLAYERS = 3;
     public static final int TIMEOUT = 5000; //5 seconds
     public static String SERVER_JOIN_MESSAGE(int i) {

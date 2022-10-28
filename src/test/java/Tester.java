@@ -50,7 +50,7 @@ public class Tester {
             @DisplayName("PlayerRPCTest")
             void PlayerRPCTest(String message) {
                 //fixture
-                Player p = new Player();
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
                 DatagramSocket sendSocket = setupSocket(false, false);
                 byte[] data = message.getBytes();
                 DatagramPacket sendPacket = setupPacket(data, false, false);
@@ -79,7 +79,7 @@ public class Tester {
             @DisplayName("PlayerJoinTest")
             void PlayerJoinTest(int playerNum) {
                 //make player
-                Player p = new Player();
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
 
                 //in the 0 case we won't send a server response
                 if (playerNum != 0) {
@@ -147,8 +147,7 @@ public class Tester {
                 byte data[] = new byte[100];
                 DatagramPacket receivePacket = setupPacket(data, true, false);
                 try {
-                    //needs to know the port number, since, unlike the player, may send to other entities
-                    s.send(message, Config.PLAYER_PORT_NUMBER(1));
+                    s.send(message, Config.PLAYER_PORT_NUMBER);
                     // Block until a datagram packet is received from receiveSocket.
                     receiveSocket.receive(receivePacket);
                 } catch (IOException e) {
@@ -194,6 +193,24 @@ public class Tester {
         @Nested
         @DisplayName("Log4JTests")
         class Log4JTests {
+            @Test
+            @DisplayName("Log4J3PlayersJoinServerTest")
+            void AllPlayersJoinTest() {
+                //run Server
+                //start Player1
+                //ensure Server asks player1 if more people should join
+                //start Player2
+                //ensure Server asks player1 if more people should join
+                //start Player3
+                //check that all players have been added properly, and have corresponding player numbers.
+
+                //expected logs in the Log4J3PlayersJoinServerTest.log file
+            }
+        }
+        @Nested
+        @DisplayName("Log4JTestsOld")
+        class Log4JTestsOld {
+            //Legacy Unit testing, all of which are covered by Log4JTests
             @Test
             @DisplayName("Log4JPlayerJoinServerTest")
             void PlayerJoinServerTest() {
@@ -250,19 +267,6 @@ public class Tester {
                  */
 
             }
-            @Test
-            @DisplayName("Log4J3PlayersJoinServerTest")
-            void AllPlayersJoinTest() {
-                //run Server
-                //start Player1
-                //ensure Server asks player1 if more people should join
-                //start Player2
-                //ensure Server asks player1 if more people should join
-                //start Player3
-                //check that all players have been added properly, and have corresponding player numbers.
-
-            }
-
         }
     }
 
@@ -280,7 +284,7 @@ public class Tester {
                 if (isServer) {
                     testSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
                 }else {
-                    testSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER(1));
+                    testSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER);
                 }
             }else {
                 testSocket = new DatagramSocket();
@@ -303,7 +307,7 @@ public class Tester {
                             InetAddress.getLocalHost(), Config.SERVER_PORT_NUMBER);
                 }else {
                     testPacket = new DatagramPacket(data, data.length,
-                            InetAddress.getLocalHost(), Config.PLAYER_PORT_NUMBER(1));
+                            InetAddress.getLocalHost(), Config.PLAYER_PORT_NUMBER);
                 }
             } catch (UnknownHostException e) {
                 e.printStackTrace();

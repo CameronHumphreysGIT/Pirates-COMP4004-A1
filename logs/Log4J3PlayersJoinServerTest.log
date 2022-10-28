@@ -1,0 +1,76 @@
+[INFO ] 2022-10-28 15:52:23.030 [main] Config - Server: receiving
+[INFO ] 2022-10-28 15:52:25.088 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-28 15:52:25.090 [main] Config - Server: sending message to Player1: at 51449
+[INFO ] 2022-10-28 15:52:25.091 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:25.091 [main] Config - Server: sending message to Player1: at 51449
+[INFO ] 2022-10-28 15:52:25.091 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:25.091 [main] Config - Server: receiving
+[INFO ] 2022-10-28 15:52:25.561 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 15:52:25.564 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-28 15:52:25.568 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-28 15:52:28.495 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-28 15:52:28.495 [main] Config - Server: Player responded N
+[INFO ] 2022-10-28 15:52:28.495 [main] Config - Server: receiving
+[INFO ] 2022-10-28 15:52:31.518 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-28 15:52:31.519 [main] Config - Server: sending message to Player2: at 51450
+[INFO ] 2022-10-28 15:52:31.519 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:31.519 [main] Config - Server: sending message to Player1: at 51449
+[INFO ] 2022-10-28 15:52:31.519 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:31.519 [main] Config - Server: receiving
+[INFO ] 2022-10-28 15:52:31.520 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-28 15:52:31.994 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 15:52:31.998 [main] Config - Player2: successfully joined the Server
+[INFO ] 2022-10-28 15:52:35.819 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-28 15:52:35.819 [main] Config - Server: Player responded N
+[INFO ] 2022-10-28 15:52:35.819 [main] Config - Server: receiving
+[INFO ] 2022-10-28 15:52:39.342 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - Server: sending message to Player3: at 51451
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - Server: sending message to Player1: at 51449
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - Server: sending message to Player2: at 51450
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-28 15:52:39.343 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:39.344 [main] Config - Server: sending message to Player3: at 51451
+[INFO ] 2022-10-28 15:52:39.344 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-28 15:52:39.344 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 15:52:39.808 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 15:52:39.812 [main] Config - Player3: successfully joined the Server
+[INFO ] 2022-10-28 15:52:39.812 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+

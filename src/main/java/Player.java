@@ -6,7 +6,6 @@ public class Player {
     private DatagramPacket sendPacket;
     //server will send to the address data it received from
     private DatagramSocket sendSocket;
-    private DatagramSocket receiveSocket;
     private DatagramPacket receivePacket;
     private String lastMessage;
     private int number = 0;
@@ -17,6 +16,16 @@ public class Player {
             // port on the local host machine. This socket will be used to
             // send UDP Datagram packets, add timeout for receiving
             sendSocket = new DatagramSocket();
+            sendSocket.setSoTimeout(Config.TIMEOUT);
+        } catch (SocketException se) {
+            se.printStackTrace();
+            System.exit(1);
+        }
+    }
+    //constructor for testing
+    public Player(int port) {
+        try {
+            sendSocket = new DatagramSocket(port);
             sendSocket.setSoTimeout(Config.TIMEOUT);
         } catch (SocketException se) {
             se.printStackTrace();
@@ -61,7 +70,7 @@ public class Player {
             System.exit(1);
         }
 
-        Config.LOGGER.info("Player" + number + ": sending message");
+        //Config.LOGGER.info("Player" + number + ": sending message");
         System.out.println("Player" + number + ": sending message");
 
         try {
@@ -80,7 +89,7 @@ public class Player {
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
 
-        Config.LOGGER.info("Player" + number + ": receiving message");
+        //Config.LOGGER.info("Player" + number + ": receiving message");
         System.out.println("Player" + number + ": receiving message");
 
         try {
@@ -96,7 +105,7 @@ public class Player {
             System.exit(1);
         }
 
-        Config.LOGGER.info("Player" + number + ": message received");
+        //Config.LOGGER.info("Player" + number + ": message received");
         System.out.println("Player" + number + ": message received");
 
         int len = receivePacket.getLength();
@@ -111,7 +120,7 @@ public class Player {
         //parse response
         if (lastMessage.equals("Timeout")) {
             //server busy or whatever
-            Config.LOGGER.info("Player" + number + ": failed to join Server");
+            //Config.LOGGER.info("Player" + number + ": failed to join Server");
             System.out.println("Player" + number + ": failed to join Server");
             number = 0;
             return false;
@@ -160,7 +169,6 @@ public class Player {
 
     public void close() {
         sendSocket.close();
-        receiveSocket.close();
     }
 
     public String getLastMessage() {
