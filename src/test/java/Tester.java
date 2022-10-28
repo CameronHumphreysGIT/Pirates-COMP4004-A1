@@ -293,6 +293,20 @@ public class Tester {
             assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5], diceString);
 
         }
+        @ParameterizedTest
+        @ValueSource(strings = {"020000", "123456", "0131210", "150210","-103402"})
+        @DisplayName("ScoreDiceInvalidTest")
+        void ScoreDiceInvalidTest(String dice) {
+            //create a game
+            Game g = new Game();
+            g.start();
+            //call score function with a given player.
+            assertFalse(g.score(dice, 1));
+            //check the player's score has not changed
+            assertEquals(0, g.getScores()[0]);
+            //check that the current Turn hasn't changed
+            assertEquals(1, g.getCurrentTurn());
+        }
     }
 
 
