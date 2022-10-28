@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Player {
@@ -9,6 +12,7 @@ public class Player {
     private DatagramPacket receivePacket;
     private String lastMessage;
     private int number = 0;
+    private ArrayList<String> dice = new ArrayList<>();
 
     public Player() {
         try {
@@ -167,6 +171,26 @@ public class Player {
         }
     }
 
+    public void rollDice() {
+        Random rand = new Random();
+        //roll 8 dice, set the dice data structure
+        for (int i = 0; i < 8; i++) {
+            //roll from 0-5
+            int roll = rand.nextInt(6);
+            //get the string that corresponds to the index from Config
+            dice.add(Config.DICE.get(roll));
+        }
+    }
+
+    public String getDiceString() {
+        int[] diceCount = new int[6];
+        for (String s : dice) {
+            diceCount[Config.DICE.indexOf(s)]++;
+        }
+        //just like in tester.
+        return "" + diceCount[0] + diceCount[1] + diceCount[2] + diceCount[3] + diceCount[4] + diceCount[5];
+    }
+
     public void close() {
         sendSocket.close();
     }
@@ -176,5 +200,9 @@ public class Player {
     }
     public int getNumber() {
         return number;
+    }
+
+    public ArrayList<String> getDice() {
+        return dice;
     }
 }

@@ -1,0 +1,27 @@
+[INFO ] 2022-10-28 17:29:20.603 [main] Config - Server: receiving
+[INFO ] 2022-10-28 17:29:20.609 [main] Config - Server: receiving
+[INFO ] 2022-10-28 17:29:20.610 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-28 17:29:20.613 [main] Config - Server: sending message to Player1: at 63835
+[INFO ] 2022-10-28 17:29:20.613 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 17:29:20.617 [main] Config - Server: sending message to Player0: at 3010
+[INFO ] 2022-10-28 17:29:20.618 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-28 17:29:20.670 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 17:29:20.671 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-28 17:29:20.685 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 17:29:20.686 [main] Config - Player2: successfully joined the Server
+[INFO ] 2022-10-28 17:29:20.690 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 17:29:20.691 [main] Config - Player3: successfully joined the Server
+[INFO ] 2022-10-28 17:29:20.695 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 17:29:25.703 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 17:29:25.706 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-28 17:29:30.711 [main] Config - Player0: message sent
+
