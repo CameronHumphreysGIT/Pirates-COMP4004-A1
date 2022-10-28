@@ -279,6 +279,7 @@ public class Tester {
                 //Player sends the dice to the server for scoring and receives a score
                 //Player is returned to waiting for their turn...
 
+                //expected logs in the Log4JPlayerTakesSimpleTurnTest.log file
             }
         }
     }
