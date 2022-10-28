@@ -94,8 +94,7 @@ public class Player {
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
 
-        //Config.LOGGER.info("Player" + number + ": receiving message");
-        System.out.println("Player" + number + ": receiving message");
+        Config.LOGGER.info("Player" + number + ": receiving message");
 
         try {
             // Block until a datagram packet is received from receiveSocket.
@@ -110,8 +109,7 @@ public class Player {
             System.exit(1);
         }
 
-        //Config.LOGGER.info("Player" + number + ": message received");
-        System.out.println("Player" + number + ": message received");
+        Config.LOGGER.info("Player" + number + ": message received");
 
         int len = receivePacket.getLength();
         // Form a String from the byte array, set to lastMessage

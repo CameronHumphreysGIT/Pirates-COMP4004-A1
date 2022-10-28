@@ -320,14 +320,14 @@ public class Tester {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             p.setTurn(true);
             //setup is just an example
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL"));
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL", "PARROT"));
             p.rollDice();
             p.setDice(setup);
             //let's simulate the server to send the response
             DatagramSocket sendSocket = setupSocket(false, true);
             //scorePlayer will send a nice response for the player
-            byte msg[] = s.scorePlayer(p.getDiceString()).getBytes();
-            DatagramPacket sendPacket = setupPacket(msg, false, true);
+            byte msg[] = s.scorePlayer(p.getDiceString(), 1).getBytes();
+            DatagramPacket sendPacket = setupPacket(msg, false, false);
             try {
                 sendSocket.send(sendPacket);
             } catch (IOException e) {
