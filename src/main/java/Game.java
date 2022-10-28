@@ -1,7 +1,7 @@
 public class Game {
     private int playerCount;
     private int currentTurn;
-    private int[] scores;
+    private int[] scores = new int[3];
 
     public int getPlayerCount() {
         return playerCount;

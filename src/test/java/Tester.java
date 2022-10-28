@@ -148,7 +148,7 @@ public class Tester {
                 DatagramPacket receivePacket = setupPacket(data, true, false);
                 try {
                     //needs to know the port number, since, unlike the player, may send to other entities
-                    s.send(message, Config.PLAYER_PORT_NUMBER);
+                    s.send(message, Config.PLAYER_PORT_NUMBER(1));
                     // Block until a datagram packet is received from receiveSocket.
                     receiveSocket.receive(receivePacket);
                 } catch (IOException e) {
@@ -280,7 +280,7 @@ public class Tester {
                 if (isServer) {
                     testSocket = new DatagramSocket(Config.SERVER_PORT_NUMBER);
                 }else {
-                    testSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER);
+                    testSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER(1));
                 }
             }else {
                 testSocket = new DatagramSocket();
@@ -303,7 +303,7 @@ public class Tester {
                             InetAddress.getLocalHost(), Config.SERVER_PORT_NUMBER);
                 }else {
                     testPacket = new DatagramPacket(data, data.length,
-                            InetAddress.getLocalHost(), Config.PLAYER_PORT_NUMBER);
+                            InetAddress.getLocalHost(), Config.PLAYER_PORT_NUMBER(1));
                 }
             } catch (UnknownHostException e) {
                 e.printStackTrace();

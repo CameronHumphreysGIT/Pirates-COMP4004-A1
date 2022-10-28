@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,6 +10,7 @@ public class Server {
     private DatagramPacket sendPacket;
     private DatagramSocket sendSocket;
     private Game game;
+    private ArrayList<Integer> playerPorts = new ArrayList<Integer>();
 
     public Server(Game g) {
         game = g;
@@ -29,12 +31,20 @@ public class Server {
         Game game = new Game();
         Server me = new Server(game);
         me.addPlayer();
+        //ask the host if they want to close the lobby
+        while (me.getGame().getPlayerCount() != Config.MAX_PLAYERS && !me.closeLobby(1)) {
+            //host doesn't want to close the lobby, we want to add a player
+            me.addPlayer();
+        }
+        me.sendWelcomes();
     }
 
     public String receive() {
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
 
+        Config.LOGGER.info("Server: receiving");
+        System.out.println("Server: receiving");
         try {
             // Block until a datagram packet is received from receiveSocket.
             receiveSocket.receive(receivePacket);
@@ -44,12 +54,16 @@ public class Server {
             System.exit(1);
         }
         int len = receivePacket.getLength();
+
+        //add to playerports if unknown
+        if (!playerPorts.contains(receivePacket.getPort())) {
+            playerPorts.add(receivePacket.getPort());
+        }
+
         // Form a String from the byte array.
-        String received = new String(data,0,len);
-
-
-        return received;
+        return new String(data,0,len);
     }
+
     public void send(String message, int port) {
         byte msg[] = message.getBytes();
         try {
@@ -60,8 +74,8 @@ public class Server {
             System.exit(1);
         }
 
-        Config.LOGGER.info("Server: sending message to " + port);
-        System.out.println("Server: sending message to " + port);
+        Config.LOGGER.info("Server: sending message to Player" + (playerPorts.indexOf(port) + 1) + ": at " + port);
+        System.out.println("Server: sending message to Player" + (playerPorts.indexOf(port) + 1) + ": at " + port);
 
         try {
             sendSocket.send(sendPacket);
@@ -83,12 +97,46 @@ public class Server {
             //message is good, now we set a player num and return
             int playerNum = game.getPlayerCount() + 1;
             //receive packet still has the last sender's info
-            send(Config.SERVER_JOIN_MESSAGE(playerNum), Config.PLAYER_PORT_NUMBER);
+            send(Config.SERVER_JOIN_MESSAGE(playerNum), playerPorts.get(playerNum - 1));
             game.addPlayer();
+        }
+    }
+
+    public boolean closeLobby(int n) {
+        //ask player if they want to close the lobby
+        send("Would you like to close the Lobby?", playerPorts.get(n - 1));
+        String response = receive();
+        //loop until Y or N
+        while (!(response.equals("Y") || response.equals("N"))) {
+            Config.LOGGER.info("Server: bad response, likely the wrong player");
+            System.out.println("Server: bad response, likely the wrong player");
+            response = receive();
+        }
+        if (response.equals("Y")) {
+            Config.LOGGER.info("Server: Player responded Y");
+            System.out.println("Server: Player responded Y");
+            game.start();
+            return true;
+        }else {
+            Config.LOGGER.info("Server: Player responded N");
+            System.out.println("Server: Player responded N");
+            return false;
+        }
+    }
+
+    public void sendWelcomes() {
+        //send welcome to each player sequentially
+        for (int i = 0; i < game.getPlayerCount(); i++) {
+            send("Welcome", playerPorts.get(i));
         }
     }
 
     public void close() {
         receiveSocket.close();
+        sendSocket.close();
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.*;
+import java.util.Scanner;
 
 public class Player {
     private DatagramPacket sendPacket;
@@ -8,7 +9,7 @@ public class Player {
     private DatagramSocket receiveSocket;
     private DatagramPacket receivePacket;
     private String lastMessage;
-    private int number;
+    private int number = 0;
 
     public Player() {
         try {
@@ -16,8 +17,7 @@ public class Player {
             // port on the local host machine. This socket will be used to
             // send UDP Datagram packets, add timeout for receiving
             sendSocket = new DatagramSocket();
-            receiveSocket = new DatagramSocket(Config.PLAYER_PORT_NUMBER);
-            receiveSocket.setSoTimeout(Config.TIMEOUT);
+            sendSocket.setSoTimeout(Config.TIMEOUT);
         } catch (SocketException se) {
             se.printStackTrace();
             System.exit(1);
@@ -26,11 +26,18 @@ public class Player {
 
     public static void main(String[] args) {
         Player me = new Player();
-        me.join();
-        while (me.getLastMessage().equals("Timeout")) {
-            //connection failed, retry
-            me.join();
+        boolean joined = me.join();
+        while (!joined) {
+          joined = me.join();
         }
+        //good connection, receive
+        me.receive();
+        //lobbyWait will wait until we get a Welcome message, and collect input from player 1 if necessary.
+        me.lobbyWait();
+        //do a welcome message
+        Config.LOGGER.info(Config.WELCOME);
+        System.out.println(Config.WELCOME);
+
     }
 
     public void rpc_send(String message) {
@@ -54,8 +61,8 @@ public class Player {
             System.exit(1);
         }
 
-        Config.LOGGER.info("Player: sending message");
-        System.out.println("Player: sending message");
+        Config.LOGGER.info("Player" + number + ": sending message");
+        System.out.println("Player" + number + ": sending message");
 
         try {
             sendSocket.send(sendPacket);
@@ -63,19 +70,22 @@ public class Player {
             e.printStackTrace();
             System.exit(1);
         }
-        Config.LOGGER.info("Player: Message sent.\n");
-        System.out.println("Player: Message sent.\n");
+        Config.LOGGER.info("Player" + number + ": message sent\n");
+        System.out.println("Player" + number + ": message sent\n");
+        receive();
+    }
 
+    public void receive() {
         //wait for a reply with a timeout
         byte data[] = new byte[100];
         receivePacket = new DatagramPacket(data, data.length);
 
-        Config.LOGGER.info("Player: receiving message");
-        System.out.println("Player: receiving message");
+        Config.LOGGER.info("Player" + number + ": receiving message");
+        System.out.println("Player" + number + ": receiving message");
 
         try {
             // Block until a datagram packet is received from receiveSocket.
-            receiveSocket.receive(receivePacket);
+            sendSocket.receive(receivePacket);
         } catch (SocketTimeoutException e) {
             //set last message to timeout
             lastMessage = "Timeout";
@@ -86,13 +96,14 @@ public class Player {
             System.exit(1);
         }
 
-        Config.LOGGER.info("Player: message received");
-        System.out.println("Player: message received");
+        Config.LOGGER.info("Player" + number + ": message received");
+        System.out.println("Player" + number + ": message received");
 
         int len = receivePacket.getLength();
         // Form a String from the byte array, set to lastMessage
         lastMessage = new String(data,0,len);
     }
+
     public boolean join() {
         //send join request and receive
         rpc_send("Join Request");
@@ -100,8 +111,8 @@ public class Player {
         //parse response
         if (lastMessage.equals("Timeout")) {
             //server busy or whatever
-            Config.LOGGER.info("Player: failed to join Server");
-            System.out.println("Player: failed to join Server");
+            Config.LOGGER.info("Player" + number + ": failed to join Server");
+            System.out.println("Player" + number + ": failed to join Server");
             number = 0;
             return false;
         }
@@ -116,6 +127,35 @@ public class Player {
         }
 
         return false;
+    }
+
+    public void lobbyWait() {
+        //if we are player 1, receive until we get the lobby question
+        if (number == 1) {
+            String msg;
+            Scanner input = new Scanner(System.in);
+            while(!(lastMessage.equals("Welcome"))) {
+                while (!lastMessage.equals("Would you like to close the Lobby?")) {
+                    System.out.println(lastMessage);
+                    receive();
+                }
+                Config.LOGGER.info(getLastMessage() + " {Y/N}");
+                System.out.println(getLastMessage() + " {Y/N}");
+                msg = input.nextLine();
+                while (!(msg.equals("Y") || msg.equals("N"))) {
+                    Config.LOGGER.info("Invalid input, try again");
+                    System.out.println("Invalid input, try again");
+                    msg = input.nextLine();
+                }
+                rpc_send(msg);
+            }
+        }else {
+            //not lobby host, just wait for welcome card
+            while (!lastMessage.equals("Welcome")) {
+                System.out.println(lastMessage);
+                receive();
+            }
+        }
     }
 
     public void close() {
