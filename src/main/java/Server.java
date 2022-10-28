@@ -11,6 +11,7 @@ public class Server {
     private DatagramSocket sendSocket;
     private Game game;
     private ArrayList<Integer> playerPorts = new ArrayList<Integer>();
+    private int lastPort;
 
     public Server(Game g) {
         game = g;
@@ -37,6 +38,8 @@ public class Server {
             me.addPlayer();
         }
         me.sendWelcomes();
+        //doTurn will tell player 1 to do their turn and wait for a reply.
+        me.doTurn(1);
     }
 
     public String receive() {
@@ -59,7 +62,7 @@ public class Server {
         if (!playerPorts.contains(receivePacket.getPort())) {
             playerPorts.add(receivePacket.getPort());
         }
-
+        lastPort = receivePacket.getPort();
         // Form a String from the byte array.
         return new String(data,0,len);
     }
@@ -140,6 +143,19 @@ public class Server {
         for (int i = 0; i < game.getPlayerCount(); i++) {
             send("Welcome", playerPorts.get(i));
         }
+    }
+
+    public void doTurn(int playerNum) {
+        send("It's you're turn", playerPorts.get(playerNum - 1));
+        //receive the player's response(a set of die to score)
+        String response = receive();
+        //loop until response is from the expected player
+        while (lastPort != playerPorts.get(playerNum - 1)) {
+            Config.LOGGER.info("Server: bad response, likely the wrong player");
+            response = receive();
+        }
+        //got response, score and send back
+        send(scorePlayer(response, playerNum), playerPorts.get(playerNum - 1));
     }
 
     public void close() {

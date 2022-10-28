@@ -278,7 +278,7 @@ public class Tester {
                 //Player rolls dice and sees a list describing their roll
                 //Player sends the dice to the server for scoring and receives a score
                 //Player is returned to waiting for their turn...
-                
+
             }
         }
     }

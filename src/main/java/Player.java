@@ -12,7 +12,7 @@ public class Player {
     private DatagramPacket receivePacket;
     private String lastMessage;
     private int number = 0;
-    private boolean isTurn;
+    private boolean isTurn = false;
     private ArrayList<String> dice = new ArrayList<>();
 
     public Player() {
@@ -51,7 +51,16 @@ public class Player {
         //do a welcome message
         Config.LOGGER.info(Config.WELCOME);
         System.out.println(Config.WELCOME);
-
+        while (!me.getTurn()) {
+            //wait for my turn
+            me.waitTurn();
+            //now it's my turn
+            me.takeTurn();
+            //now, end my turn
+            me.endTurn();
+            //print new score
+            System.out.println(me.getLastMessage());
+        }
     }
 
     public void rpc_send(String message) {
@@ -170,6 +179,34 @@ public class Player {
         }
     }
 
+    public void waitTurn() {
+        System.out.println("Waiting for my turn");
+        receive();
+        while (!lastMessage.equals("It's you're turn")) {
+            receive();
+        }
+        isTurn = true;
+    }
+
+    public void takeTurn() {
+        //roll for the player and display the dice
+        System.out.println("Rolling Dice...");
+        rollDice();
+        System.out.println("Dice shown as a list with numbers representing the position in the list.\n");
+        for (String d : dice) {
+            System.out.print("[" + dice.indexOf(d) + "]: " + d + ", ");
+        }
+        System.out.print("\n");
+        //that's all, for now....
+    }
+
+    public void endTurn() {
+        //first off, not my turn anymore
+        isTurn = false;
+        //we are going to send dice in for scoring and get a reply
+        rpc_send(getDiceString());
+    }
+
     public void rollDice() {
         Random rand = new Random();
         //roll 8 dice, set the dice data structure
@@ -188,13 +225,6 @@ public class Player {
         }
         //just like in tester.
         return "" + diceCount[0] + diceCount[1] + diceCount[2] + diceCount[3] + diceCount[4] + diceCount[5];
-    }
-
-    public void endTurn() {
-        //first off, not my turn anymore
-        isTurn = false;
-        //we are going to send dice in for scoring and get a reply
-        rpc_send(getDiceString());
     }
 
     public void close() {
