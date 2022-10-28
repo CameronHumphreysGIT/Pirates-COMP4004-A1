@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -199,9 +200,9 @@ public class Tester {
             void AllPlayersJoinTest() {
                 //run Server
                 //start Player1
-                //ensure Server asks player1 if more people should join
+                //ensure Server asks player1 if lobby should close (N as response)
                 //start Player2
-                //ensure Server asks player1 if more people should join
+                //ensure Server asks player1 if lobby should close (N as response)
                 //start Player3
                 //check that all players have been added properly, and have corresponding player numbers.
 
@@ -266,6 +267,10 @@ public class Tester {
 
                 [INFO ] 2022-10-27 15:55:33.610 [main] Config - Player: receiving message
                  */
+            }
+            @Test
+            @DisplayName("Log4JPlayerTakesSimpleTurnTest")
+            void Log4JPlayerTakesSimpleTurnTest() {
 
             }
         }
@@ -306,6 +311,38 @@ public class Tester {
             assertEquals(0, g.getScores()[0]);
             //check that the current Turn hasn't changed
             assertEquals(1, g.getCurrentTurn());
+        }
+        @Test
+        @DisplayName("45PlayerOneTurnTest")
+        void PlayerOneTurnTest() {
+            Game g = new Game();
+            Server s = new Server(g);
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            p.setTurn(true);
+            //setup is just an example
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL"));
+            p.rollDice();
+            p.setDice(setup);
+            //let's simulate the server to send the response
+            DatagramSocket sendSocket = setupSocket(false, true);
+            //scorePlayer will send a nice response for the player
+            byte msg[] = s.scorePlayer(p.getDiceString()).getBytes();
+            DatagramPacket sendPacket = setupPacket(msg, false, true);
+            try {
+                sendSocket.send(sendPacket);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+            p.endTurn();
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //ensure Server asks player1 if lobby should close (Y as response)
+            //Player is told it's their turn
+            //Player rolls dice and sees a list describing their roll
+            //Player sends the dice to the server for scoring and receives a score
         }
     }
 
