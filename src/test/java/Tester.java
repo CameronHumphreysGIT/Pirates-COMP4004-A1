@@ -271,7 +271,14 @@ public class Tester {
             @Test
             @DisplayName("Log4JPlayerTakesSimpleTurnTest")
             void Log4JPlayerTakesSimpleTurnTest() {
-
+                //server init
+                //player init
+                //ensure Server asks player1 if lobby should close (Y as response)
+                //Player is told it's their turn
+                //Player rolls dice and sees a list describing their roll
+                //Player sends the dice to the server for scoring and receives a score
+                //Player is returned to waiting for their turn...
+                
             }
         }
     }
@@ -339,10 +346,6 @@ public class Tester {
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
-            //ensure Server asks player1 if lobby should close (Y as response)
-            //Player is told it's their turn
-            //Player rolls dice and sees a list describing their roll
-            //Player sends the dice to the server for scoring and receives a score
         }
     }
 
