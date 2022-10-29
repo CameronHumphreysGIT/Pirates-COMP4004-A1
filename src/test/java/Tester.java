@@ -326,9 +326,9 @@ public class Tester {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup is just an example, with 3 skulls
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL", "PARROT"));
-            setupSinglePlayer(p, setup);
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //now simulate server response and endturn
-            serverResponseDice(p);
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
@@ -378,7 +378,7 @@ public class Tester {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 46
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
-            setupSinglePlayer(p, setup);
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
             p.reRoll("356");
             System.out.println("Initial reRoll:");
@@ -388,7 +388,7 @@ public class Tester {
             System.out.println("Setup:");
             p.displayDice();
             //now simulate server response and endturn
-            serverResponseDice(p);
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
@@ -402,7 +402,7 @@ public class Tester {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 46
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SKULL", "PARROT"));
-            setupSinglePlayer(p, setup);
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
             p.reRoll("35");
             System.out.println("Initial reRoll:");
@@ -412,7 +412,7 @@ public class Tester {
             System.out.println("Setup:");
             p.displayDice();
             //now simulate server response and endturn
-            serverResponseDice(p);
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
@@ -426,7 +426,7 @@ public class Tester {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 46
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
-            setupSinglePlayer(p, setup);
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
             p.reRoll("356");
             System.out.println("Initial reRoll:");
@@ -444,7 +444,7 @@ public class Tester {
             System.out.println("Setup:");
             p.displayDice();
             //now simulate server response and endturn
-            serverResponseDice(p);
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
@@ -458,7 +458,7 @@ public class Tester {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 46
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
-            setupSinglePlayer(p, setup);
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
             p.reRoll("02");
             System.out.println("Initial reRoll:");
@@ -476,7 +476,7 @@ public class Tester {
             System.out.println("Setup:");
             p.displayDice();
             //now simulate server response and endTurn, be sure to set the fortune cards in the game object.
-            serverResponseDice(p, Config.FORTUNE_CARDS.get(4));
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
             //shouldn't be the player's turn anymore

@@ -204,6 +204,8 @@ public class Player {
         }
         System.out.print("\n");
         System.out.println("\n");
+        System.out.println("Your Fortune Card is: " + fortuneCard);
+        System.out.println(Config.FORTUNE_DESCRIPTION(fortuneCard));
     }
 
     public void endTurn() {
@@ -298,7 +300,7 @@ public class Player {
         return isTurn;
     }
 
-    public void setFortuneCard(String fortuneCard) {
+    public void setFortune(String fortuneCard) {
         this.fortuneCard = fortuneCard;
     }
 

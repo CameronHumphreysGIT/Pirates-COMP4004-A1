@@ -52,18 +52,24 @@ public class Game {
         int score = 0;
         //only score for non skulls (start at 1)
         for (int i = 1; i < 6; i++) {
+            System.out.println(diceCount[i]);
             //score for each combination
             switch (diceCount[i]) {
                 case 8:
                     score += 4000;
+                    break;
                 case 7:
                     score += 2000;
+                    break;
                 case 6:
                     score += 1000;
+                    break;
                 case 5:
                     score += 500;
+                    break;
                 case 4:
                     score += 200;
+                    break;
                 case 3:
                     score += 100;
             }
