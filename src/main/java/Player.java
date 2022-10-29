@@ -251,7 +251,7 @@ public class Player {
         Random rand = new Random();
         //check if we reroll a skull
         for (int i : reRolls) {
-            if (dice.get(i).equals("SKULL")) {
+            if (backup.get(i).equals("SKULL")) {
                 //reset to the backup before leaving
                 dice.clear();
                 dice.addAll(backup);
