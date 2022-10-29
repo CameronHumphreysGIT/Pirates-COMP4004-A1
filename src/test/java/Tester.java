@@ -341,7 +341,7 @@ public class Tester {
         void FortyFiveTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup is just an example, with 3 skulls
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL", "PARROT"));
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SWORD", "SWORD", "SWORD", "SKULL", "SWORD"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //now simulate server response and endturn
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
