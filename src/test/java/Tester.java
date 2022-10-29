@@ -552,7 +552,7 @@ public class Tester {
         void FiftyFourTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 54
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "MONKEY", "SWORD", "PARROT", "MONKEY", "SKULL", "MONKEY"));
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "MONKEY", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //now simulate server response and endturn
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
