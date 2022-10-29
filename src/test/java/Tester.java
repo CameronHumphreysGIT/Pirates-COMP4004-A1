@@ -351,7 +351,7 @@ public class Tester {
             assertFalse(p.getTurn());
         }
         @ParameterizedTest
-        @ValueSource(strings = {"12345672", "8", "-1", "1", "", "01g"})
+        @ValueSource(strings = {"12345672", "8", "-1", "1", "01g"})
         @DisplayName("PlayerReRollInvalidTest")
         void PlayerReRollInvalidTest(String reRoll) {
             //cannot reroll more then there are dice
@@ -369,8 +369,8 @@ public class Tester {
 
         @ParameterizedTest
         @ValueSource(strings = {"023567", "62", "00"})
-        @DisplayName("PlayerReRollInvalidTest")
-        void PlayerReRollInvalidTest(String reRoll) {
+        @DisplayName("PlayerReRollValidTest")
+        void PlayerReRollValidTest(String reRoll) {
             //avoids rerolling a skull
             //repeated nums are ignored
             Player p = new Player();
