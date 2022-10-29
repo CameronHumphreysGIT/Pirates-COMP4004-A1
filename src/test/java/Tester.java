@@ -620,12 +620,20 @@ public class Tester {
         void FiftyEightTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 58
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "PARROT", "PARROT", "SWORD", "PARROT", "SKULL", "PARROT"));
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "PARROT", "PARROT", "SWORD", "GOLD", "SKULL", "GOLD"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+            //do reRolls (parrots)
+            p.reRoll("23");
+            System.out.println("Initial reRoll:");
+            p.displayDice();
+            //now set the dice again
+            p.setDice(new ArrayList<>(Arrays.asList("SWORD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD")));
+            System.out.println("Setup:");
+            p.displayDice();
             //now simulate server response and endturn
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 400), p.getLastMessage());
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
             System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
