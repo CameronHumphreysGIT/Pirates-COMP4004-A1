@@ -71,6 +71,7 @@ public class Tester {
 
                 //assert, where player stores the reply
                 assertEquals(message, p.getLastMessage());
+                System.out.println(p.getLastMessage());
 
                 //teardown
                 p.close();
@@ -346,6 +347,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -406,6 +408,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -430,6 +433,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -462,6 +466,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -494,6 +499,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -510,6 +516,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(1));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -534,6 +541,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 200), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -550,6 +558,7 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
@@ -566,6 +575,24 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
+            System.out.println(p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //teardown
+            p.close();
+        }
+        @Test
+        @DisplayName("56PlayerOneTurnRerollTest")
+        void FiftySixTest() {
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            //setup according to line 56
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "DIAMOND", "MONKEY", "SWORD", "DIAMOND", "MONKEY", "SKULL", "PARROT"));
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+            //now simulate server response and endturn
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
+            System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
