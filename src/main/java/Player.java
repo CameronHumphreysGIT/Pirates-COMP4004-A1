@@ -222,6 +222,51 @@ public class Player {
         }
     }
 
+    public boolean reRoll(String indices) {
+        //error checking
+        if (indices.length() > 8) {
+            return false;
+        }
+        if (indices.equals("")) {
+            return true;
+        }
+        int[] reRolls = new int[indices.length()];
+        //create an int array of indices
+        for (int i =0; i < indices.length(); i++) {
+            try {
+                reRolls[i] = Integer.parseInt("" + indices.charAt(i));
+            } catch (NumberFormatException e){
+                //happens if any character is not an int
+                return false;
+            }
+            //ensure we don't get any non existent indices
+            if (reRolls[i] > 7) {
+                return false;
+            }
+        }
+        //backup dice incase we are rerolling a skull
+        ArrayList<String> backup = new ArrayList<>(dice);
+        Random rand = new Random();
+        //check if we reroll a skull
+        for (int i : reRolls) {
+            if (dice.get(i).equals("SKULL")) {
+                //reset to the backup before leaving
+                dice.clear();
+                dice.addAll(backup);
+                return false;
+            }else {
+                //roll from 0-5
+                int roll = rand.nextInt(6);
+                //loop to insure it isn't the same value
+                while (Config.DICE.get(roll).equals(backup.get(i))) {
+                    roll = rand.nextInt(6);
+                }
+                dice.set(i, Config.DICE.get(roll));
+            }
+        }
+        return true;
+    }
+
     public String getDiceString() {
         int[] diceCount = new int[6];
         for (String s : dice) {
@@ -255,6 +300,7 @@ public class Player {
     }
 
     public void setDice(ArrayList<String> dice) {
-        this.dice = dice;
+        this.dice.clear();
+        this.dice.addAll(dice);
     }
 }
