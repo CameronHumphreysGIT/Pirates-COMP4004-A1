@@ -223,12 +223,13 @@ public class Player {
     }
 
     public boolean reRoll(String indices) {
-        //error checking
-        if (indices.length() > 8) {
-            return false;
-        }
+        //firstly, empty indices means we reRoll nothing.
         if (indices.equals("")) {
             return true;
+        }
+        //error checking
+        if (indices.length() > 8 || indices.length() < 2) {
+            return false;
         }
         int[] reRolls = new int[indices.length()];
         //create an int array of indices
