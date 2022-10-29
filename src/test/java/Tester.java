@@ -468,8 +468,8 @@ public class Tester {
             p.close();
         }
         @Test
-        @DisplayName("49PlayerOneTurnRerollTest")
-        void FortyNineTest() {
+        @DisplayName("50PlayerOneTurnRerollTest")
+        void FiftyTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 46
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
