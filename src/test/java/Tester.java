@@ -281,6 +281,21 @@ public class Tester {
 
                 //expected logs in the Log4JPlayerTakesSimpleTurnTest.log file
             }
+            @Test
+            @DisplayName("Log4JPlayerTakesReRollTurnTest")
+            void Log4JPlayerTakesReRollTurnTest() {
+                //server init
+                //player init
+                //ensure Server asks player1 if lobby should close (Y as response)
+                //Player is told it's their turn
+                //Player rolls dice and sees a list describing their roll
+                //Player is asked if they would like to reroll or end their turn
+                //Player may reRoll until their dice have three skulls, or they with to end their turn
+                //Player sends the dice to the server for scoring and receives a score
+                //Player is returned to waiting for their turn...
+
+                //expected logs in the Log4JPlayerTakesReRollTurnTest.log file
+            }
         }
     }
     @Nested
