@@ -330,7 +330,9 @@ public class Tester {
             //setup is just an example
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL", "PARROT"));
             p.rollDice();
+            p.displayDice();
             p.setDice(setup);
+            p.displayDice();
             //let's simulate the server to send the response
             DatagramSocket sendSocket = setupSocket(false, true);
             //scorePlayer will send a nice response for the player

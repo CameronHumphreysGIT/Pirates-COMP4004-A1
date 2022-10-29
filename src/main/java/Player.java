@@ -192,12 +192,16 @@ public class Player {
         //roll for the player and display the dice
         System.out.println("Rolling Dice...");
         rollDice();
+        displayDice();
+        //that's all, for now....
+    }
+
+    public void displayDice() {
         System.out.println("Dice shown as a list with numbers representing the position in the list.\n");
-        for (String d : dice) {
-            System.out.print("[" + dice.indexOf(d) + "]: " + d + ", ");
+        for (int i = 0; i < dice.size(); i++) {
+            System.out.print("[" + i + "]: " + dice.get(i) + ", ");
         }
         System.out.print("\n");
-        //that's all, for now....
     }
 
     public void endTurn() {
