@@ -63,7 +63,6 @@ public class Game {
         int score = 0;
         //only score for non skulls (start at 1)
         for (int i = 1; i < 6; i++) {
-            System.out.println(diceCount[i]);
             //score for each combination
             switch (diceCount[i]) {
                 case 8:
@@ -87,6 +86,10 @@ public class Game {
         }
         //score for gold and diamond
         score += 100 * (diceCount[4] + diceCount[5]);
+        if (fortunes[player - 1] == 1) {
+            //captain, double score
+            scores[player - 1] += score;
+        }
         scores[player - 1] += score;
         nextTurn();
         return true;
