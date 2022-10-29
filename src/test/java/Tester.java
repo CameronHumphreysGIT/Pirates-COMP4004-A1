@@ -617,6 +617,8 @@ public class Tester {
         }
     }
 
+    //Helpers
+
     void setupSinglePlayer(Player p, ArrayList<String> dice, String fc) {
         p.setTurn(true);
         p.setFortune(fc);
@@ -647,8 +649,6 @@ public class Tester {
         datagramTeardown(sendSocket, sendPacket);
         s.close();
     }
-
-    //Helpers
 
     DatagramSocket setupSocket(boolean receive, boolean isServer) {
         DatagramSocket testSocket = null;
