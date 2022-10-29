@@ -322,33 +322,19 @@ public class Tester {
         }
         @Test
         @DisplayName("45PlayerOneTurnTest")
-        void PlayerOneTurnTest() {
-            Game g = new Game();
-            Server s = new Server(g);
+        void FortyFiveTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            p.setTurn(true);
             //setup is just an example, with 3 skulls
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL", "PARROT"));
-            p.rollDice();
-            p.displayDice();
-            p.setDice(setup);
-            p.displayDice();
-            //let's simulate the server to send the response
-            DatagramSocket sendSocket = setupSocket(false, true);
-            //scorePlayer will send a nice response for the player
-            byte msg[] = s.scorePlayer(p.getDiceString(), 1).getBytes();
-            DatagramPacket sendPacket = setupPacket(msg, false, false);
-            try {
-                sendSocket.send(sendPacket);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-            p.endTurn();
+            setupSinglePlayer(p, setup);
+            //now simulate server response and endturn
+            serverResponseDice(p);
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
+            //teardown
+            p.close();
         }
         @ParameterizedTest
         @ValueSource(strings = {"12345672", "8", "-1", "1", "01g"})
@@ -388,7 +374,34 @@ public class Tester {
         }
     }
 
-
+    void setupSinglePlayer(Player p, ArrayList<String> dice) {
+        p.setTurn(true);
+        System.out.println("Initial roll:");
+        p.rollDice();
+        p.displayDice();
+        p.setDice(dice);
+        System.out.println("Setup:");
+        p.displayDice();
+    }
+    void serverResponseDice(Player p) {
+        Game g = new Game();
+        Server s = new Server(g);
+        //let's simulate the server to send the response
+        DatagramSocket sendSocket = setupSocket(false, true);
+        //scorePlayer will send a nice response for the player
+        byte msg[] = s.scorePlayer(p.getDiceString(), 1).getBytes();
+        DatagramPacket sendPacket = setupPacket(msg, false, false);
+        try {
+            sendSocket.send(sendPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        p.endTurn();
+        //teardown
+        datagramTeardown(sendSocket, sendPacket);
+        s.close();
+    }
 
     //Helpers
 

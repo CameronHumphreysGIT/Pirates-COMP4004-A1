@@ -202,6 +202,7 @@ public class Player {
             System.out.print("[" + i + "]: " + dice.get(i) + ", ");
         }
         System.out.print("\n");
+        System.out.println("\n");
     }
 
     public void endTurn() {
