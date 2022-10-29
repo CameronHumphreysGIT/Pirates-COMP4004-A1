@@ -586,12 +586,12 @@ public class Tester {
         void FiftySixTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 56
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "DIAMOND", "MONKEY", "SWORD", "DIAMOND", "MONKEY", "SKULL", "PARROT"));
-            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "SKULL", "SWORD", "GOLD", "SWORD", "SKULL", "GOLD"));
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(8));
             //now simulate server response and endturn
-            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(8));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 700), p.getLastMessage());
             System.out.println(p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
