@@ -14,6 +14,7 @@ public class Player {
     private int number = 0;
     private boolean isTurn = false;
     private ArrayList<String> dice = new ArrayList<>();
+    private String fortuneCard;
 
     public Player() {
         try {
@@ -295,6 +296,10 @@ public class Player {
 
     public boolean getTurn() {
         return isTurn;
+    }
+
+    public void setFortuneCard(String fortuneCard) {
+        this.fortuneCard = fortuneCard;
     }
 
     public void setTurn(boolean turn) {

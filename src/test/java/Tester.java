@@ -486,8 +486,9 @@ public class Tester {
         }
     }
 
-    void setupSinglePlayer(Player p, ArrayList<String> dice) {
+    void setupSinglePlayer(Player p, ArrayList<String> dice, String fc) {
         p.setTurn(true);
+        p.setFortune(fc);
         System.out.println("Initial roll:");
         p.rollDice();
         p.displayDice();
@@ -495,9 +496,10 @@ public class Tester {
         System.out.println("Setup:");
         p.displayDice();
     }
-    void serverResponseDice(Player p) {
+    void serverResponseDice(Player p, String fc) {
         Game g = new Game();
         Server s = new Server(g);
+        g.setFortune(fc, 1);
         //let's simulate the server to send the response
         DatagramSocket sendSocket = setupSocket(false, true);
         //scorePlayer will send a nice response for the player
