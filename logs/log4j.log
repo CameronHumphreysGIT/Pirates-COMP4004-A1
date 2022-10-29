@@ -54,3 +54,89 @@
 
 [INFO ] 2022-10-29 17:18:08.951 [main] Config - Player0: receiving message
 [INFO ] 2022-10-29 17:18:08.952 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:19:49.159 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:19:49.163 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:19:49.165 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.835 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.838 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.838 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.854 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.855 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.855 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.860 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.863 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.863 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.869 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.869 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.869 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.878 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.878 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.878 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.884 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.884 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.884 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.889 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.889 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.889 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.953 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.954 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.954 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.960 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.960 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.961 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.966 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.966 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.966 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:05.969 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:05.970 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:05.970 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:06.035 [main] Config - Server: receiving
+[INFO ] 2022-10-29 17:20:06.038 [main] Config - Server: receiving
+[INFO ] 2022-10-29 17:20:06.038 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-29 17:20:06.040 [main] Config - Server: sending message to Player1: at 59562
+[INFO ] 2022-10-29 17:20:06.041 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-29 17:20:06.044 [main] Config - Server: sending message to Player0: at 3010
+[INFO ] 2022-10-29 17:20:06.044 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-29 17:20:06.051 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:06.051 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:06.051 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:06.052 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-29 17:20:06.056 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:06.056 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:06.056 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:06.056 [main] Config - Player2: successfully joined the Server
+[INFO ] 2022-10-29 17:20:06.060 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:06.060 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:06.060 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:06.060 [main] Config - Player3: successfully joined the Server
+[INFO ] 2022-10-29 17:20:06.064 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:06.064 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:11.080 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:11.081 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:11.081 [main] Config - Player0: message received
+[INFO ] 2022-10-29 17:20:11.087 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:11.087 [main] Config - Player0: receiving message
+[INFO ] 2022-10-29 17:20:16.102 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-29 17:20:16.102 [main] Config - Player0: receiving message

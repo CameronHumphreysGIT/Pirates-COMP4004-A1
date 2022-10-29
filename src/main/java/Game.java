@@ -60,6 +60,10 @@ public class Game {
             //increment the amount of gold
             diceCount[5]++;
         }
+        if (fortunes[player - 1] == 8) {
+            //increment the amount of diamonds
+            diceCount[4]++;
+        }
         int score = 0;
         //only score for non skulls (start at 1)
         for (int i = 1; i < 6; i++) {
