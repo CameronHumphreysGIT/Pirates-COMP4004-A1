@@ -452,6 +452,38 @@ public class Tester {
             //teardown
             p.close();
         }
+        @Test
+        @DisplayName("49PlayerOneTurnRerollTest")
+        void FortyNineTest() {
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            //setup according to line 46
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
+            setupSinglePlayer(p, setup);
+            //do reRolls (swords)
+            p.reRoll("02");
+            System.out.println("Initial reRoll:");
+            p.displayDice();
+            //now set the dice again
+            p.setDice(new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD")));
+            System.out.println("Setup:");
+            p.displayDice();
+            //do reRolls (Monkeys)
+            p.reRoll("356");
+            System.out.println("Second reRoll:");
+            p.displayDice();
+            //now set the dice again
+            p.setDice(new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD")));
+            System.out.println("Setup:");
+            p.displayDice();
+            //now simulate server response and endTurn, be sure to set the fortune cards in the game object.
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(4));
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //teardown
+            p.close();
+        }
     }
 
     void setupSinglePlayer(Player p, ArrayList<String> dice) {
