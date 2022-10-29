@@ -539,6 +539,22 @@ public class Tester {
             //teardown
             p.close();
         }
+        @Test
+        @DisplayName("54PlayerOneTurnRerollTest")
+        void FiftyFourTest() {
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            //setup according to line 54
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "MONKEY", "SWORD", "PARROT", "MONKEY", "SKULL", "MONKEY"));
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+            //now simulate server response and endturn
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //teardown
+            p.close();
+        }
     }
 
     void setupSinglePlayer(Player p, ArrayList<String> dice, String fc) {
