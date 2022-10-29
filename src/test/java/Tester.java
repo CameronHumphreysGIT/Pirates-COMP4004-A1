@@ -327,7 +327,7 @@ public class Tester {
             Server s = new Server(g);
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             p.setTurn(true);
-            //setup is just an example
+            //setup is just an example, with 3 skulls
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "MONKEY", "PARROT", "GOLD", "SKULL", "PARROT"));
             p.rollDice();
             p.displayDice();
@@ -349,6 +349,42 @@ public class Tester {
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
+        }
+        @ParameterizedTest
+        @ValueSource(strings = {"12345672", "8", "-1", "1", "", "01g"})
+        @DisplayName("PlayerReRollInvalidTest")
+        void PlayerReRollInvalidTest(String reRoll) {
+            //cannot reroll more then there are dice
+            //cannot reroll a non-index
+            //cannot reroll a skull
+            //cannot reroll a letter
+            Player p = new Player();
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "PARROT", "MONKEY", "PARROT", "GOLD", "DIAMOND", "PARROT"));
+            p.setDice(setup);
+            //reroll
+            assertFalse(p.reRoll(reRoll));
+            //make sure we have the same dice as we started
+            assertEquals(setup, p.getDice());
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"023567", "62", "00"})
+        @DisplayName("PlayerReRollInvalidTest")
+        void PlayerReRollInvalidTest(String reRoll) {
+            //avoids rerolling a skull
+            //repeated nums are ignored
+            Player p = new Player();
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "PARROT", "MONKEY", "SKULL", "GOLD", "DIAMOND", "PARROT"));
+            p.setDice(setup);
+            //reroll
+            assertTrue(p.reRoll(reRoll));
+            char[] chars = reRoll.toCharArray();
+            //make sure the dice we did reRoll are different
+            for (int j = 0; j < chars.length; j++) {
+                //basically, reroll ensures that every rerolled dice changes.
+                int current = Integer.parseInt("" + chars[j]);
+                assertNotEquals(p.getDice().get(current), setup.get(current));
+            }
         }
     }
 
