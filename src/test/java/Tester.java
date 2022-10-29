@@ -415,7 +415,7 @@ public class Tester {
         @DisplayName("47PlayerOneTurnRerollTest")
         void FortySevenTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 46
+            //setup according to line 47
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SKULL", "PARROT"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
@@ -439,7 +439,7 @@ public class Tester {
         @DisplayName("48PlayerOneTurnRerollTest")
         void FortyEightTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 46
+            //setup according to line 48
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
@@ -471,7 +471,7 @@ public class Tester {
         @DisplayName("50PlayerOneTurnRerollTest")
         void FiftyTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 46
+            //setup according to line 50
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
             //do reRolls (swords)
@@ -494,6 +494,22 @@ public class Tester {
             serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
             //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
             assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //teardown
+            p.close();
+        }
+        @Test
+        @DisplayName("52PlayerOneTurnRerollTest")
+        void FiftyTwoTest() {
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            //setup according to line 52
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "SKULL", "PARROT", "SWORD", "DIAMOND", "GOLD", "GOLD", "MONKEY"));
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(1));
+            //now simulate server response and endturn
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(1));
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
             //shouldn't be the player's turn anymore
             assertFalse(p.getTurn());
             //teardown
