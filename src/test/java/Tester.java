@@ -510,7 +510,7 @@ public class Tester {
         void FiftyTwoTest() {
             Player p = new Player(Config.PLAYER_PORT_NUMBER);
             //setup according to line 52
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "SKULL", "PARROT", "SWORD", "DIAMOND", "GOLD", "GOLD", "MONKEY"));
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "PARROT", "PARROT", "MONKEY", "DIAMOND", "GOLD", "GOLD", "MONKEY"));
             setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(1));
             //now simulate server response and endturn
             serverResponseDice(p, Config.FORTUNE_CARDS.get(1));
