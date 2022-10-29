@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Game {
     private int playerCount;
     private int currentTurn;
     private int[] scores = new int[3];
     private int[] fortunes = new int[3];
+    private ArrayList<Integer> deck = new ArrayList<>();
 
     public void addPlayer() {
         playerCount++;
@@ -14,6 +18,13 @@ public class Game {
         //set scores
         for (int i = 0; i < playerCount; i++) {
             scores[i] = 0;
+        }
+        //set fortune cards
+        setupDeck();
+        for (int i = 0; i < playerCount; i++) {
+            //get the fortune and remove it.
+            fortunes[i] = deck.get(0);
+            deck.remove(0);
         }
     }
 
@@ -90,6 +101,40 @@ public class Game {
         }
     }
 
+    public void setupDeck() {
+        //there are 35 cards, but we don't have a specific knowledge about the compisition:
+        //my comp: 4xTreasure, Captain, Sorceress, and Monkey(16), 5x gold and diamond (10), 2xseabattles1, 1x2, 3 and 4 2xskulls (9)
+        for (int i = 0; i < 4; i++) {
+            //treasure
+            deck.add(0);
+            //Captain
+            deck.add(1);
+            //Sorceress
+            deck.add(2);
+            //Monkey
+            deck.add(9);
+        }
+        for (int i = 0; i < 5; i++) {
+            //gold
+            deck.add(7);
+            //diamond
+            deck.add(8);
+        }
+        for (int i = 0; i < 2; i++) {
+            //seabattle1
+            deck.add(3);
+            //skulls
+            deck.add(10);
+            deck.add(11);
+        }
+        //seabattles
+        deck.add(4);
+        deck.add(5);
+        deck.add(6);
+        //now shuffle
+        Collections.shuffle(deck);
+    }
+
     public boolean setFortune(String fc, int player) {
         int index = Config.FORTUNE_CARDS.indexOf(fc);
         if (index != -1) {
@@ -99,6 +144,10 @@ public class Game {
         }else {
             return false;
         }
+    }
+
+    public int getFortune(int playerNum) {
+        return fortunes[playerNum - 1];
     }
 
     public int getPlayerCount() {

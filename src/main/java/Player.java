@@ -183,10 +183,19 @@ public class Player {
     public void waitTurn() {
         System.out.println("Waiting for my turn");
         receive();
-        while (!lastMessage.equals("It's you're turn")) {
+        String response;
+        try {
+            response = lastMessage.substring(0, 16);
+        } catch (StringIndexOutOfBoundsException e) {
+            response = "something";
+        }
+        while (!response.equals("It's you're turn")) {
             receive();
         }
         isTurn = true;
+        //set fortune card
+        int index = Integer.parseInt("" + lastMessage.charAt(16));
+        setFortune(Config.FORTUNE_CARDS.get(index));
     }
 
     public void takeTurn() {
@@ -194,7 +203,28 @@ public class Player {
         System.out.println("Rolling Dice...");
         rollDice();
         displayDice();
-        //that's all, for now....
+        String response = "something";
+        while (Integer.parseInt("" + getDiceString().charAt(0)) < 3 && !(response.equals(""))) {
+            Config.LOGGER.info("Select dice you would like to re-roll");
+            System.out.println("Select dice you would like to re-roll");
+            System.out.println("You must select atleast two die, and they may not be skulls");
+            System.out.println("type response as an undivided sequence of indices ie: 037 , type nothing to end your turn.\n");
+            Scanner input = new Scanner(System.in);
+            response = input.nextLine();
+            while (!(reRoll(response))) {
+                Config.LOGGER.info("Invalid input, try again");
+                System.out.println("Invalid input, try again");
+                response = input.nextLine();
+            }
+            //good response, already reRolled
+            displayDice();
+        }
+        //check if we died:
+        if (!response.equals("")) {
+            Config.LOGGER.info("You have three Skulls and have died, no points for you");
+            System.out.println("You have three Skulls and have died, no points for you");
+        }
+        //that's all...
     }
 
     public void displayDice() {

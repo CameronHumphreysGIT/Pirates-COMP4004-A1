@@ -146,7 +146,7 @@ public class Server {
     }
 
     public void doTurn(int playerNum) {
-        send("It's you're turn", playerPorts.get(playerNum - 1));
+        send("It's you're turn" + game.getFortune(playerNum), playerPorts.get(playerNum - 1));
         //receive the player's response(a set of die to score)
         String response = receive();
         //loop until response is from the expected player
