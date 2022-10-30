@@ -65,6 +65,12 @@ public class Game {
             //increment the amount of diamonds
             diceCount[4]++;
         }
+        if (fortunes[player - 1] == 9) {
+            //monkey buisiness...
+            //treat as though all parrots are monkeys
+            diceCount[2] += diceCount[3];
+            diceCount[3] = 0;
+        }
         int score = 0;
         //only score for non skulls (start at 1)
         for (int i = 1; i < 6; i++) {
