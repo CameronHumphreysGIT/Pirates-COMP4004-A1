@@ -145,7 +145,7 @@ public class Game {
 
     public void setupDeck() {
         //there are 35 cards, but we don't have a specific knowledge about the compisition:
-        //my comp: 4xTreasure, Captain, Sorceress, and Monkey(16), 5x gold and diamond (10), 2xseabattles1, 1x2, 3 and 4 2xskulls (9)
+        //my comp: 4xTreasure, Captain, Sorceress, and Monkey(16), 5x gold and diamond (10), 2xseabattles2 and 3 and 1x4 2xskulls (9)
         for (int i = 0; i < 4; i++) {
             //treasure
             deck.add(0);
@@ -163,15 +163,14 @@ public class Game {
             deck.add(8);
         }
         for (int i = 0; i < 2; i++) {
-            //seabattle1
-            deck.add(3);
+            //seabattles
+            deck.add(4);
+            deck.add(5);
             //skulls
+            deck.add(3);
             deck.add(10);
-            deck.add(11);
         }
-        //seabattles
-        deck.add(4);
-        deck.add(5);
+        //seabattle4
         deck.add(6);
         //now shuffle
         Collections.shuffle(deck);

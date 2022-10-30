@@ -30,8 +30,8 @@ public class Config {
             "|  if you roll 3 skulls, your turn ends                               |\n" +
             "|=====================================================================|\n";
     public static final ArrayList<String> DICE = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "MONKEY", "PARROT", "DIAMOND", "GOLD"));
-    //update me later
-    public static final ArrayList<String> FORTUNE_CARDS = new ArrayList<>(Arrays.asList("TREASURE", "CAPTAIN", "SORCERESS", "SEABATTLE1", "SEABATTLE2", "SEABATTLE3", "SEABATTLE4", "GOLD", "DIAMOND","MONKEY","SKULL1", "SKULL2"));
+    //awkwardly placed SKULL1 is due to the fact that there is no seabattle1...
+    public static final ArrayList<String> FORTUNE_CARDS = new ArrayList<>(Arrays.asList("TREASURE", "CAPTAIN", "SORCERESS", "SKULL1", "SEABATTLE2", "SEABATTLE3", "SEABATTLE4", "GOLD", "DIAMOND","MONKEY", "SKULL2"));
     public static String FORTUNE_DESCRIPTION(String fc) {
         switch (fc) {
             case "TREASURE":
@@ -65,4 +65,5 @@ public class Config {
         }
         return "";
     }
+    public static int[] SEABATTLE_BONUS = {300, 500, 1000};
 }
