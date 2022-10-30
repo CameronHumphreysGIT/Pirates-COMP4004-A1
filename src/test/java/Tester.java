@@ -297,6 +297,20 @@ public class Tester {
 
                 //expected logs in the Log4JPlayerTakesReRollTurnTest.log file
             }
+            @Test
+            @DisplayName("Log4JPlayerIsSorceressTurnTest")
+            void Log4JPlayerIsSorceressTurnTest() {
+                //uncomment line(#) in game to ensure sorceress as player's card.
+                //server init
+                //player init
+                //ensure Server asks player1 if lobby should close (Y as response)
+                //Player is told it's their turn
+                //player get's three skulls and doesn't immediately die
+                //player tries rerolling 2 skulls (can't)
+                //player tries rerolling 1 skull twice (can't)
+                //player submits for scoring.
+
+            }
         }
     }
     @Nested
