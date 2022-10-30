@@ -958,6 +958,41 @@ public class Tester {
                     //teardown
                     p.close();
                 }
+                @Test
+                @DisplayName("92TreasureTest")
+                void NinetyTwoTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 83
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "PARROT", "SKULL", "GOLD", "PARROT", "GOLD", "SKULL", "GOLD"));
+                    setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(0));
+                    //put 2 diamonds and 1 gold into the chest
+                    assertTrue(p.addChest("357"));
+                    //do reRolls
+                    assertTrue(p.reRoll("014"));
+                    System.out.println("================Initial reRoll:========================");
+                    p.displayDice();
+                    p.setDice(new ArrayList<>(Arrays.asList("GOLD", "DIAMOND", "SKULL", "GOLD", "DIAMOND", "GOLD", "SKULL", "GOLD")));
+                    System.out.println("================Setup reRoll:========================");
+                    p.displayDice();
+                    //now put into chest again
+                    assertTrue(p.addChest("0"));
+                    //do reRolls
+                    assertTrue(p.reRoll("14"));
+                    System.out.println("================Second reRoll:========================");
+                    p.displayDice();
+                    p.setDice(new ArrayList<>(Arrays.asList("GOLD", "SKULL", "SKULL", "GOLD", "GOLD", "GOLD", "SKULL", "GOLD")));
+                    System.out.println("================Setup reRoll:========================");
+                    p.displayDice();
+                    //now score
+                    serverResponseDice(p, Config.FORTUNE_CARDS.get(0));
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
             }
         }
     }
