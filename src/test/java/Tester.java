@@ -430,17 +430,8 @@ public class Tester {
                 Player p = new Player(Config.PLAYER_PORT_NUMBER);
                 //setup according to line 48
                 ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
-                setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
-                //do reRolls (swords)
-                p.reRoll("356");
-                System.out.println("Initial reRoll:");
-                p.displayDice();
-                //now set the dice again
-                p.setDice(new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "MONKEY", "MONKEY", "PARROT")));
-                System.out.println("Setup:");
-                p.displayDice();
-                //does the setup and rerolls once for us
-                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "MONKEY", "PARROT")), "56", 7);
+                //does the setup and rerolls twice for us
+                twoReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "MONKEY", "MONKEY", "PARROT")), new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "MONKEY", "PARROT")), "356","56", 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
                 assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
                 System.out.println(p.getLastMessage());
@@ -456,17 +447,8 @@ public class Tester {
                 Player p = new Player(Config.PLAYER_PORT_NUMBER);
                 //setup according to line 50
                 ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
-                setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
-                //do reRolls (swords)
-                p.reRoll("02");
-                System.out.println("Initial reRoll:");
-                p.displayDice();
-                //now set the dice again
-                p.setDice(new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD")));
-                System.out.println("Setup:");
-                p.displayDice();
                 //does the setup and rerolls once for us
-                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD")), "356", 7);
+                twoReRollTest(p, setup, new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD")), new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD")), "02", "356", 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
                 assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
                 System.out.println(p.getLastMessage());
@@ -618,17 +600,8 @@ public class Tester {
                 Player p = new Player(Config.PLAYER_PORT_NUMBER);
                 //setup according to line 60
                 ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "PARROT", "SWORD", "MONKEY", "SKULL", "SWORD"));
-                setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
-                //do reRolls (MONKEYS)
-                p.reRoll("05");
-                System.out.println("Initial reRoll:");
-                p.displayDice();
-                //now set the dice again
-                p.setDice(new ArrayList<>(Arrays.asList("SKULL", "SWORD", "PARROT", "PARROT", "SWORD", "SWORD", "SKULL", "SWORD")));
-                System.out.println("Setup:");
-                p.displayDice();
                 //this will do the second reroll
-                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SWORD", "MONKEY", "SWORD", "SWORD", "SKULL", "SWORD")), "23", 7);
+                twoReRollTest(p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "PARROT", "PARROT", "SWORD", "SWORD", "SKULL", "SWORD")), new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SWORD", "MONKEY", "SWORD", "SWORD", "SKULL", "SWORD")), "05", "23", 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
                 assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
                 System.out.println(p.getLastMessage());
@@ -837,13 +810,7 @@ public class Tester {
                     Player p = new Player(Config.PLAYER_PORT_NUMBER);
                     //setup according to line 77
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "DIAMOND", "GOLD", "DIAMOND", "PARROT", "PARROT"));
-                    //reRoll the first (PARROTS)
-                    p.reRoll("267");
-                    System.out.println("Initial reRoll:");
-                    p.displayDice();
-                    p.setDice(new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "SKULL", "DIAMOND", "GOLD", "DIAMOND", "MONKEY", "MONKEY")));
-                    //this does the test for us...
-                    oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "MONKEY", "DIAMOND", "GOLD", "DIAMOND", "MONKEY", "MONKEY")), "2", 2);
+                    twoReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "SKULL", "DIAMOND", "GOLD", "DIAMOND", "MONKEY", "MONKEY")), new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "MONKEY", "DIAMOND", "GOLD", "DIAMOND", "MONKEY", "MONKEY")), "267", "2", 2);
                     //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
                     assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
                     System.out.println(p.getLastMessage());
@@ -867,10 +834,32 @@ public class Tester {
     void oneReRollTest(Player player, ArrayList<String> setup, ArrayList<String> setupTwo, String reRoll, int fc) {
         setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
         //do reRolls (SWORDS)
-        player.reRoll(reRoll);
-        System.out.println("Initial reRoll:");
+        assertTrue(player.reRoll(reRoll));
+        System.out.println("================Initial reRoll:========================");
         player.displayDice();
         player.setDice(setupTwo);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //now simulate server response and endturn
+        serverResponseDice(player, Config.FORTUNE_CARDS.get(fc));
+    }
+
+    void twoReRollTest(Player player, ArrayList<String> setup, ArrayList<String> setupTwo, ArrayList<String> setupThree, String reRoll, String reRollTwo, int fc) {
+        setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
+        //do reRolls
+        assertTrue(player.reRoll(reRoll));
+        System.out.println("================Initial reRoll:========================");
+        player.displayDice();
+        player.setDice(setupTwo);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //do reRolls
+        assertTrue(player.reRoll(reRollTwo));
+        System.out.println("================Second reRoll:========================");
+        player.displayDice();
+        player.setDice(setupThree);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
         //now simulate server response and endturn
         serverResponseDice(player, Config.FORTUNE_CARDS.get(fc));
     }
