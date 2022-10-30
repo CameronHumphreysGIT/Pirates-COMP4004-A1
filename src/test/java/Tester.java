@@ -783,6 +783,28 @@ public class Tester {
             //teardown
             p.close();
         }
+        @Test
+        @DisplayName("67PlayerOneTurnRerollTest")
+        void SixtySevenTest() {
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            //setup according to line 67
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "MONKEY", "MONKEY", "SWORD", "MONKEY", "MONKEY", "MONKEY"));
+            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+            //do reRolls (SWORDS)
+            p.reRoll("14");
+            System.out.println("Initial reRoll:");
+            p.displayDice();
+            p.setDice(new ArrayList<>(Arrays.asList("MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY")));
+            //now simulate server response and endturn
+            serverResponseDice(p, Config.FORTUNE_CARDS.get(7));
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4600), p.getLastMessage());
+            System.out.println(p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //teardown
+            p.close();
+        }
     }
 
     //Helpers
