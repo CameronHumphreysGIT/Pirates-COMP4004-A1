@@ -320,7 +320,6 @@ public class Tester {
             String diceString = p.getDiceString();
             //we want the diceString to be a sum of each type of dice in the config specified order.
             assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5], diceString);
-
         }
         @ParameterizedTest
         @ValueSource(strings = {"020000", "123456", "0131210", "150210","-103402"})
@@ -335,22 +334,6 @@ public class Tester {
             assertEquals(0, g.getScores()[0]);
             //check that the current Turn hasn't changed
             assertEquals(1, g.getCurrentTurn());
-        }
-        @Test
-        @DisplayName("45PlayerOneTurnTest")
-        void FortyFiveTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup is just an example, with 3 skulls
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SWORD", "SWORD", "SWORD", "SKULL", "SWORD"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
         }
         @ParameterizedTest
         @ValueSource(strings = {"12345672", "8", "-1", "1", "01g"})
@@ -388,416 +371,459 @@ public class Tester {
                 assertNotEquals(p.getDice().get(current), setup.get(current));
             }
         }
-        @Test
-        @DisplayName("46PlayerOneTurnRerollTest")
-        void FortySixTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 46
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
-            //does the setup and rerolls once for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "SWORD", "PARROT")), "356", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("47PlayerOneTurnRerollTest")
-        void FortySevenTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 47
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SKULL", "PARROT"));
-            //does the setup and rerolls once for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SWORD", "SKULL", "PARROT")), "35", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("48PlayerOneTurnRerollTest")
-        void FortyEightTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 48
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
-            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
-            //do reRolls (swords)
-            p.reRoll("356");
-            System.out.println("Initial reRoll:");
-            p.displayDice();
-            //now set the dice again
-            p.setDice(new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "MONKEY", "MONKEY", "PARROT")));
-            System.out.println("Setup:");
-            p.displayDice();
-            //does the setup and rerolls once for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "MONKEY", "PARROT")), "56", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("50PlayerOneTurnRerollTest")
-        void FiftyTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 50
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
-            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
-            //do reRolls (swords)
-            p.reRoll("02");
-            System.out.println("Initial reRoll:");
-            p.displayDice();
-            //now set the dice again
-            p.setDice(new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD")));
-            System.out.println("Setup:");
-            p.displayDice();
-            //does the setup and rerolls once for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD")), "356", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("52PlayerOneTurnRerollTest")
-        void FiftyTwoTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 52
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "PARROT", "PARROT", "MONKEY", "DIAMOND", "GOLD", "GOLD", "MONKEY"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 1);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("53PlayerOneTurnRerollTest")
-        void FiftyThreeTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 53
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "MONKEY", "PARROT", "SWORD", "PARROT", "SWORD", "SKULL"));
-            //does the setup and rerolls for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "MONKEY", "MONKEY", "SWORD", "SWORD", "SWORD", "SKULL")), "35", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("54PlayerOneTurnRerollTest")
-        void FiftyFourTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 54
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "MONKEY", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("55PlayerOneTurnRerollTest")
-        void FiftyFiveTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 55
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "DIAMOND", "SWORD", "DIAMOND", "PARROT", "SKULL", "SKULL", "MONKEY"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("56PlayerOneTurnRerollTest")
-        void FiftySixTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 56
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "SKULL", "SWORD", "GOLD", "SWORD", "SKULL", "GOLD"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 8);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 700), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("57PlayerOneTurnRerollTest")
-        void FiftySevenTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 57
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "PARROT", "PARROT", "SWORD", "PARROT", "SWORD", "PARROT", "SWORD"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 400), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("58PlayerOneTurnRerollTest")
-        void FiftyEightTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 58
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "PARROT", "PARROT", "SWORD", "GOLD", "SKULL", "GOLD"));
-            //does the setup and rerolls for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SWORD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD")), "23", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("59PlayerOneTurnRerollTest")
-        void FiftyNineTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 59
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "PARROT", "PARROT", "SWORD", "GOLD", "SKULL", "GOLD"));
-            //does the setup and rerolls for us
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SWORD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD")), "23", 1);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1200), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("60PlayerOneTurnRerollTest")
-        void SixtyTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 60
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "PARROT", "SWORD", "MONKEY", "SKULL", "SWORD"));
-            setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
-            //do reRolls (MONKEYS)
-            p.reRoll("05");
-            System.out.println("Initial reRoll:");
-            p.displayDice();
-            //now set the dice again
-            p.setDice(new ArrayList<>(Arrays.asList("SKULL", "SWORD", "PARROT", "PARROT", "SWORD", "SWORD", "SKULL", "SWORD")));
-            System.out.println("Setup:");
-            p.displayDice();
-            //this will do the second reroll
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SWORD", "MONKEY", "SWORD", "SWORD", "SKULL", "SWORD")), "23", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("62PlayerOneTurnRerollTest")
-        void SixtyTwoTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 62
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "MONKEY", "SKULL", "MONKEY", "MONKEY", "MONKEY", "SKULL", "MONKEY"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1100), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("63PlayerOneTurnRerollTest")
-        void SixtyThreeTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 63
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "PARROT", "PARROT", "PARROT", "PARROT", "PARROT", "SKULL", "PARROT"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 2100), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("64PlayerOneTurnRerollTest")
-        void SixtyFourTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 64
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 5400), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("65PlayerOneTurnRerollTest")
-        void SixtyFiveTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 65
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 8);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 5400), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("66PlayerOneTurnRerollTest")
-        void SixtySixTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 66
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 1);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 9000), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("67PlayerOneTurnRerollTest")
-        void SixtySevenTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 67
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "MONKEY", "MONKEY", "SWORD", "MONKEY", "MONKEY", "MONKEY"));
-            //this does the test for us...
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY")), "14", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4600), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("68PlayerOneTurnRerollTest")
-        void SixtyEightTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 68
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "PARROT", "SWORD", "MONKEY", "SKULL", "SKULL"));
-            //this will do the second reroll
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "DIAMOND", "DIAMOND", "SWORD", "MONKEY", "SKULL", "SKULL")), "23", 8);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 400), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("69PlayerOneTurnRerollTest")
-        void SixtyNineTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 69
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "DIAMOND", "SWORD", "MONKEY", "SKULL", "SKULL"));
-            //this will do the second reroll
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("DIAMOND", "SWORD", "PARROT", "DIAMOND", "SWORD", "DIAMOND", "SKULL", "SKULL")), "05", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("70PlayerOneTurnRerollTest")
-        void SeventyTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 70
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD"));
-            //this will do the second reroll
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "GOLD", "MONKEY", "GOLD", "SKULL", "GOLD")), "134", 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("71PlayerOneTurnRerollTest")
-        void SeventyOneTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 71
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD"));
-            //this will do the second reroll
-            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "GOLD", "MONKEY", "GOLD", "SKULL", "GOLD")), "134", 8);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
-        }
-        @Test
-        @DisplayName("72PlayerOneTurnRerollTest")
-        void SeventyTwoTest() {
-            Player p = new Player(Config.PLAYER_PORT_NUMBER);
-            //setup according to line 72
-            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "GOLD", "SKULL", "MONKEY", "GOLD", "MONKEY", "MONKEY", "SKULL"));
-            //this helper runs everything for us
-            noReRollTest(p, setup, 7);
-            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
-            System.out.println(p.getLastMessage());
-            //shouldn't be the player's turn anymore
-            assertFalse(p.getTurn());
-            //teardown
-            p.close();
+        @Nested
+        @DisplayName("AcceptancePart1Tests")
+        class AcceptancePartOneTests {
+            @Test
+            @DisplayName("45PlayerOneTurnTest")
+            void FortyFiveTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup is just an example, with 3 skulls
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SWORD", "SWORD", "SWORD", "SKULL", "SWORD"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+            @Test
+            @DisplayName("46PlayerOneTurnRerollTest")
+            void FortySixTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 46
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
+                //does the setup and rerolls once for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "SWORD", "PARROT")), "356", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("47PlayerOneTurnRerollTest")
+            void FortySevenTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 47
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SKULL", "PARROT"));
+                //does the setup and rerolls once for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SWORD", "SKULL", "PARROT")), "35", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("48PlayerOneTurnRerollTest")
+            void FortyEightTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 48
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "PARROT", "SWORD", "SWORD", "PARROT"));
+                setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+                //do reRolls (swords)
+                p.reRoll("356");
+                System.out.println("Initial reRoll:");
+                p.displayDice();
+                //now set the dice again
+                p.setDice(new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "MONKEY", "MONKEY", "PARROT")));
+                System.out.println("Setup:");
+                p.displayDice();
+                //does the setup and rerolls once for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "MONKEY", "PARROT")), "56", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("50PlayerOneTurnRerollTest")
+            void FiftyTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 50
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD"));
+                setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+                //do reRolls (swords)
+                p.reRoll("02");
+                System.out.println("Initial reRoll:");
+                p.displayDice();
+                //now set the dice again
+                p.setDice(new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD")));
+                System.out.println("Setup:");
+                p.displayDice();
+                //does the setup and rerolls once for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("GOLD", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD")), "356", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4800), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("52PlayerOneTurnRerollTest")
+            void FiftyTwoTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 52
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "PARROT", "PARROT", "MONKEY", "DIAMOND", "GOLD", "GOLD", "MONKEY"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 1);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("53PlayerOneTurnRerollTest")
+            void FiftyThreeTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 53
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "MONKEY", "PARROT", "SWORD", "PARROT", "SWORD", "SKULL"));
+                //does the setup and rerolls for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "MONKEY", "MONKEY", "SWORD", "SWORD", "SWORD", "SKULL")), "35", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("54PlayerOneTurnRerollTest")
+            void FiftyFourTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 54
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "MONKEY", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 300), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("55PlayerOneTurnRerollTest")
+            void FiftyFiveTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 55
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("DIAMOND", "DIAMOND", "SWORD", "DIAMOND", "PARROT", "SKULL", "SKULL", "MONKEY"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("56PlayerOneTurnRerollTest")
+            void FiftySixTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 56
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "SKULL", "SWORD", "GOLD", "SWORD", "SKULL", "GOLD"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 8);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 700), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("57PlayerOneTurnRerollTest")
+            void FiftySevenTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 57
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "PARROT", "PARROT", "SWORD", "PARROT", "SWORD", "PARROT", "SWORD"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 400), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("58PlayerOneTurnRerollTest")
+            void FiftyEightTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 58
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "PARROT", "PARROT", "SWORD", "GOLD", "SKULL", "GOLD"));
+                //does the setup and rerolls for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SWORD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD")), "23", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 800), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("59PlayerOneTurnRerollTest")
+            void FiftyNineTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 59
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "PARROT", "PARROT", "SWORD", "GOLD", "SKULL", "GOLD"));
+                //does the setup and rerolls for us
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SWORD", "SWORD", "GOLD", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD")), "23", 1);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1200), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("60PlayerOneTurnRerollTest")
+            void SixtyTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 60
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "PARROT", "SWORD", "MONKEY", "SKULL", "SWORD"));
+                setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(7));
+                //do reRolls (MONKEYS)
+                p.reRoll("05");
+                System.out.println("Initial reRoll:");
+                p.displayDice();
+                //now set the dice again
+                p.setDice(new ArrayList<>(Arrays.asList("SKULL", "SWORD", "PARROT", "PARROT", "SWORD", "SWORD", "SKULL", "SWORD")));
+                System.out.println("Setup:");
+                p.displayDice();
+                //this will do the second reroll
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SWORD", "MONKEY", "SWORD", "SWORD", "SKULL", "SWORD")), "23", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("62PlayerOneTurnRerollTest")
+            void SixtyTwoTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 62
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "MONKEY", "SKULL", "MONKEY", "MONKEY", "MONKEY", "SKULL", "MONKEY"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1100), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("63PlayerOneTurnRerollTest")
+            void SixtyThreeTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 63
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "PARROT", "PARROT", "PARROT", "PARROT", "PARROT", "SKULL", "PARROT"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 2100), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("64PlayerOneTurnRerollTest")
+            void SixtyFourTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 64
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 5400), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("65PlayerOneTurnRerollTest")
+            void SixtyFiveTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 65
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD", "GOLD"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 8);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 5400), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("66PlayerOneTurnRerollTest")
+            void SixtySixTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 66
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 1);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 9000), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("67PlayerOneTurnRerollTest")
+            void SixtySevenTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 67
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "MONKEY", "MONKEY", "SWORD", "MONKEY", "MONKEY", "MONKEY"));
+                //this does the test for us...
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY", "MONKEY")), "14", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 4600), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("68PlayerOneTurnRerollTest")
+            void SixtyEightTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 68
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "PARROT", "SWORD", "MONKEY", "SKULL", "SKULL"));
+                //this will do the second reroll
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "DIAMOND", "DIAMOND", "SWORD", "MONKEY", "SKULL", "SKULL")), "23", 8);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 400), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("69PlayerOneTurnRerollTest")
+            void SixtyNineTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 69
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "DIAMOND", "SWORD", "MONKEY", "SKULL", "SKULL"));
+                //this will do the second reroll
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("DIAMOND", "SWORD", "PARROT", "DIAMOND", "SWORD", "DIAMOND", "SKULL", "SKULL")), "05", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("70PlayerOneTurnRerollTest")
+            void SeventyTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 70
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD"));
+                //this will do the second reroll
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "GOLD", "MONKEY", "GOLD", "SKULL", "GOLD")), "134", 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("71PlayerOneTurnRerollTest")
+            void SeventyOneTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 71
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "SWORD", "SWORD", "GOLD", "SKULL", "GOLD"));
+                //this will do the second reroll
+                oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "GOLD", "MONKEY", "GOLD", "SKULL", "GOLD")), "134", 8);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
+
+            @Test
+            @DisplayName("72PlayerOneTurnRerollTest")
+            void SeventyTwoTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 72
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "GOLD", "SKULL", "MONKEY", "GOLD", "MONKEY", "MONKEY", "SKULL"));
+                //this helper runs everything for us
+                noReRollTest(p, setup, 7);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 600), p.getLastMessage());
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
         }
     }
 
