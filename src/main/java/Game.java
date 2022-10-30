@@ -100,7 +100,8 @@ public class Game {
                 break;
             }
         }
-        if (full) {
+        if (full && diceCount[0] == 0) {
+            //fullchest also needs to have 0 skulls
             score += 500;
         }
         //score for gold and diamond
