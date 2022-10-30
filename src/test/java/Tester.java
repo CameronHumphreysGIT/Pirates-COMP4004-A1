@@ -300,7 +300,7 @@ public class Tester {
             @Test
             @DisplayName("Log4JPlayerIsSorceressTurnTest")
             void Log4JPlayerIsSorceressTurnTest() {
-                //uncomment line(#) in game to ensure sorceress as player's card.
+                //uncomment line(24) in game to ensure sorceress as player's card.
                 //server init
                 //player init
                 //ensure Server asks player1 if lobby should close (Y as response)
@@ -310,6 +310,7 @@ public class Tester {
                 //player tries rerolling 1 skull twice (can't)
                 //player submits for scoring.
 
+                //comment 24 in game afterwards
             }
         }
     }
