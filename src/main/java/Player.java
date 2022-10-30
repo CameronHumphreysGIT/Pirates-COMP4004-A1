@@ -15,6 +15,7 @@ public class Player {
     private boolean isTurn = false;
     private ArrayList<String> dice = new ArrayList<>();
     private String fortuneCard;
+    private boolean[] inChest = {false, false, false, false, false, false, false, false};
 
     public Player() {
         try {
@@ -229,8 +230,15 @@ public class Player {
 
     public void displayDice() {
         System.out.println("Dice shown as a list with numbers representing the position in the list.\n");
+        if (fortuneCard.equals("TREASURE")) {
+            System.out.println("Values surrounded by {} are in your Treasure Chest");
+        }
         for (int i = 0; i < dice.size(); i++) {
-            System.out.print("[" + i + "]: " + dice.get(i) + ", ");
+            if (inChest[i]) {
+                System.out.print("[" + i + "]: {" + dice.get(i) + "}, ");
+            }else {
+                System.out.print("[" + i + "]: " + dice.get(i) + ", ");
+            }
         }
         System.out.print("\n");
         System.out.println("\n");
@@ -265,26 +273,11 @@ public class Player {
         if (indices.length() > 8 || (indices.length() < 2 && !fortuneCard.equals("SORCERESS"))) {
             return false;
         }
-        int[] reRolls = new int[indices.length()];
-        //create an int array of indices
-        for (int i =0; i < indices.length(); i++) {
-            try {
-                reRolls[i] = Integer.parseInt("" + indices.charAt(i));
-                for (int j =0; j < indices.length(); j++) {
-                    if (i != j && reRolls[i] == Integer.parseInt("" + indices.charAt(j))) {
-                        //found a duplicate
-                        return false;
-                    }
-                }
-            } catch (NumberFormatException e){
-                //happens if any character is not an int
-                return false;
-            }
-            //ensure we don't get any non existent indices
-            if (reRolls[i] > 7) {
-                return false;
-            }
+        if (checkIndices(indices) == null) {
+            //checkIndices will return null if it found something bad
+            return false;
         }
+        int[] reRolls = checkIndices(indices);
         //backup dice incase we are rerolling a skull
         ArrayList<String> backup = new ArrayList<>(dice);
         Random rand = new Random();
@@ -321,13 +314,94 @@ public class Player {
         return true;
     }
 
+    public boolean addChest(String indices) {
+        //error checking
+        if (!fortuneCard.equals("TREASURE")) {
+            return false;
+        }
+        if (indices.equals("")) {
+            return true;
+        }
+        //error checking, sorceress can reroll 1 die
+        if (indices.length() > 8) {
+            return false;
+        }
+        if (checkIndices(indices) == null) {
+            //checkIndices will return null if it found something bad
+            return false;
+        }
+        int[] addTo = checkIndices(indices);
+        //error free, now let's see
+        for (int i : addTo) {
+            //add each to the chest.
+            inChest[i] = true;
+        }
+        return true;
+    }
+
+    public boolean removeChest(String indices) {
+        //error checking
+        if (!fortuneCard.equals("TREASURE")) {
+            return false;
+        }
+        if (indices.equals("")) {
+            return true;
+        }
+        if (indices.length() > 8) {
+            return false;
+        }
+        if (checkIndices(indices) == null) {
+            //checkIndices will return null if it found something bad
+            return false;
+        }
+        int[] removeFrom = checkIndices(indices);
+        //error free, now let's see
+        for (int i : removeFrom) {
+            //remove it
+            inChest[i] = false;
+        }
+        return true;
+    }
+
+    private int[] checkIndices(String indices) {
+        int[] addTo = new int[indices.length()];
+        //create an int array of indices
+        for (int i =0; i < indices.length(); i++) {
+            try {
+                addTo[i] = Integer.parseInt("" + indices.charAt(i));
+                for (int j =0; j < indices.length(); j++) {
+                    if (i != j && addTo[i] == Integer.parseInt("" + indices.charAt(j))) {
+                        //found a duplicate
+                        return null;
+                    }
+                }
+            } catch (NumberFormatException e){
+                //happens if any character is not an int
+                return null;
+            }
+            //ensure we don't get any non existent indices
+            if (addTo[i] > 7) {
+                return null;
+            }
+        }
+        return addTo;
+    }
+
     public String getDiceString() {
         int[] diceCount = new int[6];
         for (String s : dice) {
             diceCount[Config.DICE.indexOf(s)]++;
         }
+        //add something for treasurechest
+        StringBuilder chest = new StringBuilder();
+        for (int i = 0; i < inChest.length; i++) {
+            if (inChest[i]) {
+                //seems complex, we are getting the string value of the dice, then converting it to a config reference for scoring
+                chest.append(Config.DICE.indexOf(dice.get(i)));
+            }
+        }
         //just like in tester.
-        return "" + diceCount[0] + diceCount[1] + diceCount[2] + diceCount[3] + diceCount[4] + diceCount[5];
+        return "" + diceCount[0] + diceCount[1] + diceCount[2] + diceCount[3] + diceCount[4] + diceCount[5] + chest.toString();
     }
 
     public void close() {

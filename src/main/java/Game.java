@@ -31,11 +31,12 @@ public class Game {
 
     public boolean score(String dice, int player) {
         //check validity
-        if (dice.length() > 6) {
+        if (dice.length() > 6 && fortunes[player - 1] != 0) {
+            //in treasure chest, the contents are appended to the dice string
             return false;
         }
         int sum = 0;
-        int[] diceCount = new int[8];
+        int[] diceCount = new int[6];
         for (int i = 0; i < 6; i++) {
             //parse the int at each index
             try {
@@ -51,11 +52,22 @@ public class Game {
             return false;
         }
         //non error
-        if (diceCount[0] == 3) {
-            //There are exactly three skulls
-            //don't change the score.
-            scores[player - 1] += 0;
-            return true;
+        if (diceCount[0] >= 3) {
+            if (fortunes[player - 1] == 0) {
+                //they got the treasure chest and died
+                //empty the diceCount, keep the skulls to avoid fullChest buggyness
+                diceCount = new int[]{3, 0, 0, 0, 0, 0};
+                //add all the chest dice
+                for (int i = 5; i < dice.length(); i++) {
+                    //looks weird, just getting the dice from the chest and adding to the diceCount
+                    diceCount[Integer.parseInt(dice.charAt(i) + "")]++;
+                }
+            }else {
+                //There are exactly three skulls
+                //don't change the score.
+                scores[player - 1] += 0;
+                return true;
+            }
         }
         if (fortunes[player - 1] == 7) {
             //increment the amount of gold
