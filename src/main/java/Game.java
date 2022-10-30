@@ -69,6 +69,8 @@ public class Game {
         for (int i = 1; i < 6; i++) {
             //score for each combination
             switch (diceCount[i]) {
+                //case 9 is for diamond and gold possible combinations
+                case 9:
                 case 8:
                     score += 4000;
                     break;
@@ -87,6 +89,19 @@ public class Game {
                 case 3:
                     score += 100;
             }
+        }
+        //check if there's a full chest
+        boolean full = true;
+        //loop through sword, parrot and monkey, gold and diamond score no matter what
+        for (int i = 1; i < 4; i++) {
+            //fullchest can be ignored if the count is 1 or 2 for any non gold/diamond
+            if (diceCount[i] < 3 && diceCount[i] != 0) {
+                full = false;
+                break;
+            }
+        }
+        if (full) {
+            score += 500;
         }
         //score for gold and diamond
         score += 100 * (diceCount[4] + diceCount[5]);
