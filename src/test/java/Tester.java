@@ -873,12 +873,28 @@ public class Tester {
                 @DisplayName("82MonkeyTest")
                 void EightyTwoTest() {
                     Player p = new Player(Config.PLAYER_PORT_NUMBER);
-                    //setup according to line 70
+                    //setup according to line 82
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "MONKEY", "PARROT", "GOLD", "SKULL", "MONKEY"));
                     //this will do the second reroll
                     noReRollTest(p, setup, 9);
                     //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
                     assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1100), p.getLastMessage());
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
+                @Test
+                @DisplayName("83MonkeyTest")
+                void EightyThreeTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 83
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "MONKEY", "SWORD", "GOLD", "GOLD", "SWORD"));
+                    //this will do the second reroll
+                    oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "PARROT", "PARROT", "MONKEY", "PARROT", "GOLD", "GOLD", "MONKEY")), "47",9);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1700), p.getLastMessage());
                     System.out.println(p.getLastMessage());
                     //shouldn't be the player's turn anymore
                     assertFalse(p.getTurn());
