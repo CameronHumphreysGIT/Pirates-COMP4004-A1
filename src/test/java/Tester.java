@@ -919,6 +919,46 @@ public class Tester {
                     p.close();
                 }
             }
+            @Nested
+            @DisplayName("TreasureChestTests")
+            class TreasureChestTests {
+                @Test
+                @DisplayName("87TreasureTest")
+                void EightySevenTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 83
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("PARROT", "PARROT", "DIAMOND", "SWORD", "PARROT", "SWORD", "DIAMOND", "GOLD"));
+                    setupSinglePlayer(p, setup, Config.FORTUNE_CARDS.get(0));
+                    //put 2 diamonds and 1 gold into the chest
+                    assertTrue(p.addChest("276"));
+                    //do reRolls
+                    assertTrue(p.reRoll("35"));
+                    System.out.println("================Initial reRoll:========================");
+                    p.displayDice();
+                    p.setDice(new ArrayList<>(Arrays.asList("PARROT", "PARROT", "DIAMOND", "PARROT", "PARROT", "PARROT", "DIAMOND", "GOLD")));
+                    System.out.println("================Setup reRoll:========================");
+                    p.displayDice();
+                    //now put into chest again
+                    assertTrue(p.addChest("01345"));
+                    assertTrue(p.removeChest("276"));
+                    //do reRolls
+                    assertTrue(p.reRoll("276"));
+                    System.out.println("================Second reRoll:========================");
+                    p.displayDice();
+                    p.setDice(new ArrayList<>(Arrays.asList("PARROT", "PARROT", "SKULL", "PARROT", "PARROT", "PARROT", "PARROT", "GOLD")));
+                    System.out.println("================Setup reRoll:========================");
+                    p.displayDice();
+                    //now score
+                    serverResponseDice(p, Config.FORTUNE_CARDS.get(0));
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1100), p.getLastMessage());
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
+            }
         }
     }
 
