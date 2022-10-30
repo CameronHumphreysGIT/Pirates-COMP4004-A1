@@ -132,7 +132,12 @@ public class Server {
         int first = game.getScores()[player - 1];
         if (game.score(dice, player)) {
             //final score is calculated and set already
-            return Config.SERVER_SCORE_MESSAGE(first, game.getScores()[player - 1]);
+            String death = "";
+            //append a "YOU'VE DIED " message if they died
+            if (Integer.parseInt(dice.charAt(0)+ "") >= 3) {
+                death = "YOU'VE DIED ";
+            }
+            return death + Config.SERVER_SCORE_MESSAGE(first, game.getScores()[player - 1]);
         }else {
             return "ERROR, Invalid dice combination";
         }

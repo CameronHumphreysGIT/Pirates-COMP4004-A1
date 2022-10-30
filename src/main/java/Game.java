@@ -58,7 +58,7 @@ public class Game {
                 //empty the diceCount, keep the skulls to avoid fullChest buggyness
                 diceCount = new int[]{3, 0, 0, 0, 0, 0};
                 //add all the chest dice
-                for (int i = 5; i < dice.length(); i++) {
+                for (int i = 6; i < dice.length(); i++) {
                     //looks weird, just getting the dice from the chest and adding to the diceCount
                     diceCount[Integer.parseInt(dice.charAt(i) + "")]++;
                 }
