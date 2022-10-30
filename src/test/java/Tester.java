@@ -719,6 +719,22 @@ public class Tester {
             //teardown
             p.close();
         }
+        @Test
+        @DisplayName("68PlayerOneTurnRerollTest")
+        void SixtyEightTest() {
+            Player p = new Player(Config.PLAYER_PORT_NUMBER);
+            //setup according to line 68
+            ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "PARROT", "SWORD", "MONKEY", "SKULL", "SKULL"));
+            //this will do the second reroll
+            oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "DIAMOND", "DIAMOND", "SWORD", "MONKEY", "SKULL", "SKULL")), "23", 8);
+            //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+            assertEquals(Config.SERVER_SCORE_MESSAGE(0, 400), p.getLastMessage());
+            System.out.println(p.getLastMessage());
+            //shouldn't be the player's turn anymore
+            assertFalse(p.getTurn());
+            //teardown
+            p.close();
+        }
     }
 
     //Helpers
