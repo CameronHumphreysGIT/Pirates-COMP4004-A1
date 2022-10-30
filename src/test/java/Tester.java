@@ -343,6 +343,8 @@ public class Tester {
             //create a game
             Game g = new Game();
             g.start();
+            //treasurechest can mess with testing
+            g.setFortune("GOLD", 1);
             //call score function with a given player.
             assertFalse(g.score(dice, 1));
             //check the player's score has not changed
@@ -400,7 +402,7 @@ public class Tester {
                 //this helper runs everything for us
                 noReRollTest(p, setup, 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero.
-                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
                 System.out.println(p.getLastMessage());
                 //shouldn't be the player's turn anymore
                 assertFalse(p.getTurn());
@@ -416,7 +418,7 @@ public class Tester {
                 //does the setup and rerolls once for us
                 oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "SWORD", "PARROT")), "356", 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
                 System.out.println(p.getLastMessage());
                 //shouldn't be the player's turn anymore
                 assertFalse(p.getTurn());
@@ -433,7 +435,7 @@ public class Tester {
                 //does the setup and rerolls once for us
                 oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SWORD", "SKULL", "PARROT")), "35", 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
                 System.out.println(p.getLastMessage());
                 //shouldn't be the player's turn anymore
                 assertFalse(p.getTurn());
@@ -450,7 +452,7 @@ public class Tester {
                 //does the setup and rerolls twice for us
                 twoReRollTest(p, setup, new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "MONKEY", "MONKEY", "PARROT")), new ArrayList<>(Arrays.asList("PARROT", "SKULL", "PARROT", "SKULL", "PARROT", "SKULL", "MONKEY", "PARROT")), "356","56", 7);
                 //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
                 System.out.println(p.getLastMessage());
                 //shouldn't be the player's turn anymore
                 assertFalse(p.getTurn());
@@ -911,7 +913,7 @@ public class Tester {
                     //this will do the second reroll
                     noReRollTest(p, setup,9);
                     //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-                    assertEquals(Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
                     System.out.println(p.getLastMessage());
                     //shouldn't be the player's turn anymore
                     assertFalse(p.getTurn());
