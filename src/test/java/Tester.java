@@ -344,6 +344,7 @@ public class Tester {
             //cannot reroll a skull
             //cannot reroll a letter
             Player p = new Player();
+            p.setFortune(Config.FORTUNE_CARDS.get(7));
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "PARROT", "MONKEY", "PARROT", "GOLD", "DIAMOND", "PARROT"));
             p.setDice(setup);
             //reroll
@@ -353,12 +354,13 @@ public class Tester {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"023567", "62", "00"})
+        @ValueSource(strings = {"023567", "62", "30"})
         @DisplayName("PlayerReRollValidTest")
         void PlayerReRollValidTest(String reRoll) {
             //avoids rerolling a skull
             //repeated nums are ignored
             Player p = new Player();
+            p.setFortune(Config.FORTUNE_CARDS.get(7));
             ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SKULL", "PARROT", "MONKEY", "SKULL", "GOLD", "DIAMOND", "PARROT"));
             p.setDice(setup);
             //reroll

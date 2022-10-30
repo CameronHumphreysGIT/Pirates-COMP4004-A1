@@ -261,8 +261,8 @@ public class Player {
         if (indices.equals("")) {
             return true;
         }
-        //error checking
-        if (indices.length() > 8 || indices.length() < 2) {
+        //error checking, sorceress can reroll 1 die
+        if (indices.length() > 8 || (indices.length() < 2 && !fortuneCard.equals("SORCERESS"))) {
             return false;
         }
         int[] reRolls = new int[indices.length()];
@@ -270,6 +270,12 @@ public class Player {
         for (int i =0; i < indices.length(); i++) {
             try {
                 reRolls[i] = Integer.parseInt("" + indices.charAt(i));
+                for (int j =0; j < indices.length(); j++) {
+                    if (i != j && reRolls[i] == Integer.parseInt("" + indices.charAt(j))) {
+                        //found a duplicate
+                        return false;
+                    }
+                }
             } catch (NumberFormatException e){
                 //happens if any character is not an int
                 return false;
@@ -282,9 +288,18 @@ public class Player {
         //backup dice incase we are rerolling a skull
         ArrayList<String> backup = new ArrayList<>(dice);
         Random rand = new Random();
+        int skullBackup = -1;
         //check if we reroll a skull
         for (int i : reRolls) {
-            if (backup.get(i).equals("SKULL")) {
+            if (fortuneCard.equals("SORCERESS")) {
+                if (dice.get(i).equals("SKULL")) {
+                    //set it to a monkey so it gets rerolled.
+                    dice.set(i, "MONKEY");
+                    //now, reset the fortune card
+                    fortuneCard = "Already Used SORCERESS";
+                }
+            }
+            if (dice.get(i).equals("SKULL")) {
                 //reset to the backup before leaving
                 dice.clear();
                 dice.addAll(backup);
