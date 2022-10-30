@@ -1,0 +1,285 @@
+[INFO ] 2022-10-30 17:22:03.789 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:22:12.476 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-30 17:22:12.478 [main] Config - Server: sending message to Player1: at 52920
+[INFO ] 2022-10-30 17:22:12.479 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:22:12.479 [main] Config - Server: sending message to Player1: at 52920
+[INFO ] 2022-10-30 17:22:12.479 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:22:12.479 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:22:13.025 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-30 17:22:13.028 [main] Config - Player0: receiving message
+[INFO ] 2022-10-30 17:22:13.029 [main] Config - Player0: message received
+[INFO ] 2022-10-30 17:22:13.029 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-30 17:22:13.029 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:22:13.029 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:22:13.037 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-30 17:22:15.745 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:22:15.745 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:22:15.745 [main] Config - Server: Player responded Y
+[INFO ] 2022-10-30 17:22:15.745 [main] Config - Server: sending message to Player1: at 52920
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Server: sending message to Player1: at 52920
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:22:15.746 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:22:15.754 [main] Config - Select dice you would like to re-roll
+[INFO ] 2022-10-30 17:25:08.314 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:25:10.410 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-30 17:25:10.412 [main] Config - Server: sending message to Player1: at 55899
+[INFO ] 2022-10-30 17:25:10.413 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:25:10.413 [main] Config - Server: sending message to Player1: at 55899
+[INFO ] 2022-10-30 17:25:10.413 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:25:10.413 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:25:10.882 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-30 17:25:10.885 [main] Config - Player0: receiving message
+[INFO ] 2022-10-30 17:25:10.886 [main] Config - Player0: message received
+[INFO ] 2022-10-30 17:25:10.886 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-30 17:25:10.887 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:10.887 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:25:10.894 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Server: Player responded Y
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Server: sending message to Player1: at 55899
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-30 17:25:12.948 [main] Config - Server: sending message to Player1: at 55899
+[INFO ] 2022-10-30 17:25:12.949 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:12.949 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:25:12.949 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:25:12.949 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:25:12.956 [main] Config - Select dice you would like to re-roll
+[INFO ] 2022-10-30 17:25:33.626 [main] Config - You have three Skulls and have died, no points for you
+[INFO ] 2022-10-30 17:25:33.627 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:25:33.627 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:33.631 [main] Config - Server: sending message to Player1: at 55899
+[INFO ] 2022-10-30 17:25:33.632 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:25:33.632 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:25:33.632 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:38.641 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:43.645 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:25:48.652 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:29.190 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:27:30.741 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-30 17:27:30.743 [main] Config - Server: sending message to Player1: at 59937
+[INFO ] 2022-10-30 17:27:30.744 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:27:30.744 [main] Config - Server: sending message to Player1: at 59937
+[INFO ] 2022-10-30 17:27:30.744 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:27:30.744 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:27:31.232 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-30 17:27:31.235 [main] Config - Player0: receiving message
+[INFO ] 2022-10-30 17:27:31.236 [main] Config - Player0: message received
+[INFO ] 2022-10-30 17:27:31.236 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-30 17:27:31.236 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:31.236 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:27:31.241 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Server: Player responded Y
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Server: sending message to Player1: at 59937
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Server: sending message to Player1: at 59937
+[INFO ] 2022-10-30 17:27:33.580 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:27:33.581 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:27:33.581 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:27:33.588 [main] Config - You have three Skulls and have died, no points for you
+[INFO ] 2022-10-30 17:27:33.588 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:27:33.588 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:33.591 [main] Config - Server: sending message to Player1: at 59937
+[INFO ] 2022-10-30 17:27:33.591 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:27:33.591 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:27:33.591 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:38.595 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:43.601 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:48.607 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:53.616 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:27:58.626 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:03.639 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:08.639 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:13.654 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:18.659 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:23.672 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:28.672 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:33.677 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:38.685 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:43.686 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:45.804 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:28:47.678 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-30 17:28:47.680 [main] Config - Server: sending message to Player1: at 64530
+[INFO ] 2022-10-30 17:28:47.681 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:28:47.681 [main] Config - Server: sending message to Player1: at 64530
+[INFO ] 2022-10-30 17:28:47.681 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:28:47.681 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:28:48.279 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-30 17:28:48.281 [main] Config - Player0: receiving message
+[INFO ] 2022-10-30 17:28:48.282 [main] Config - Player0: message received
+[INFO ] 2022-10-30 17:28:48.282 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-30 17:28:48.283 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:48.283 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:28:48.287 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-30 17:28:50.202 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:28:50.202 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:50.202 [main] Config - Server: Player responded Y
+[INFO ] 2022-10-30 17:28:50.202 [main] Config - Server: sending message to Player1: at 64530
+[INFO ] 2022-10-30 17:28:50.202 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:28:50.202 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:28:50.203 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-30 17:28:50.203 [main] Config - Server: sending message to Player1: at 64530
+[INFO ] 2022-10-30 17:28:50.203 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:28:50.203 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:28:50.203 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:28:50.203 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:28:50.211 [main] Config - Select dice you would like to re-roll
+[INFO ] 2022-10-30 17:29:05.882 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:09.733 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:19.473 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:36.725 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:39.193 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:43.070 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:44.022 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:29:53.332 [main] Config - You have three Skulls and have died, no points for you
+[INFO ] 2022-10-30 17:29:53.332 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:29:53.333 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:29:53.337 [main] Config - Server: sending message to Player1: at 64530
+[INFO ] 2022-10-30 17:29:53.337 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:29:53.337 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:29:53.337 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:29:58.342 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:03.344 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:08.349 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:13.351 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:18.355 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:23.355 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:28.356 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:33.365 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:38.379 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:43.390 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:48.396 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:53.401 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:30:58.404 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:03.404 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:08.415 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:13.420 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:15.481 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:31:16.939 [main] Config - Server: Player join request
+
+[INFO ] 2022-10-30 17:31:16.942 [main] Config - Server: sending message to Player1: at 62824
+[INFO ] 2022-10-30 17:31:16.943 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:31:16.943 [main] Config - Server: sending message to Player1: at 62824
+[INFO ] 2022-10-30 17:31:16.943 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:31:16.943 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:31:17.526 [main] Config - Player0: message sent
+
+[INFO ] 2022-10-30 17:31:17.529 [main] Config - Player0: receiving message
+[INFO ] 2022-10-30 17:31:17.529 [main] Config - Player0: message received
+[INFO ] 2022-10-30 17:31:17.530 [main] Config - Player1: successfully joined the Server
+[INFO ] 2022-10-30 17:31:17.530 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:17.530 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:31:17.535 [main] Config - Would you like to close the Lobby? {Y/N}
+[INFO ] 2022-10-30 17:31:19.682 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:31:19.682 [main] Config - Server: Player responded Y
+[INFO ] 2022-10-30 17:31:19.682 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:19.682 [main] Config - Server: sending message to Player1: at 62824
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - |=====================================================================|
+|  WELCOME TO PIRATES                                                 |
+|                                                                     |
+|  PIRATES is a game of rolling and re-rolling a set of 8 dice        |
+|  while avoiding the deadly Skulls                                   |
+|  if you roll 3 skulls, your turn ends                               |
+|=====================================================================|
+
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Server: sending message to Player1: at 62824
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:31:19.683 [main] Config - Server: receiving
+[INFO ] 2022-10-30 17:31:19.691 [main] Config - Select dice you would like to re-roll
+[INFO ] 2022-10-30 17:31:36.370 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:31:39.649 [main] Config - Invalid input, try again
+[INFO ] 2022-10-30 17:31:43.350 [main] Config - Select dice you would like to re-roll
+[INFO ] 2022-10-30 17:31:53.548 [main] Config - Select dice you would like to re-roll
+[INFO ] 2022-10-30 17:32:14.647 [main] Config - You have three Skulls and have died, no points for you
+[INFO ] 2022-10-30 17:32:14.648 [main] Config - Player1: message sent
+
+[INFO ] 2022-10-30 17:32:14.649 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:32:14.652 [main] Config - Server: sending message to Player1: at 62824
+[INFO ] 2022-10-30 17:32:14.652 [main] Config - Server: Message sent.
+
+[INFO ] 2022-10-30 17:32:14.652 [main] Config - Player1: message received
+[INFO ] 2022-10-30 17:32:14.653 [main] Config - Player1: receiving message
+[INFO ] 2022-10-30 17:32:19.662 [main] Config - Player1: receiving message

@@ -204,10 +204,10 @@ public class Player {
         rollDice();
         displayDice();
         String response = "something";
-        while (Integer.parseInt("" + getDiceString().charAt(0)) < 3 && !(response.equals(""))) {
+        while ((Integer.parseInt("" + getDiceString().charAt(0)) < 3 || fortuneCard.equals("SORCERESS")) && !(response.equals(""))) {
             Config.LOGGER.info("Select dice you would like to re-roll");
             System.out.println("Select dice you would like to re-roll");
-            System.out.println("You must select atleast two die, and they may not be skulls");
+            System.out.println("You must select at least two die, and they may not be skulls");
             System.out.println("type response as an undivided sequence of indices ie: 037 , type nothing to end your turn.\n");
             Scanner input = new Scanner(System.in);
             response = input.nextLine();
@@ -303,6 +303,10 @@ public class Player {
                 //reset to the backup before leaving
                 dice.clear();
                 dice.addAll(backup);
+                if (fortuneCard.equals("Already Used SORCERESS")) {
+                    //asked to reroll two skulls, return false and keep the sorceress
+                    fortuneCard = "SORCERESS";
+                }
                 return false;
             }else {
                 //roll from 0-5

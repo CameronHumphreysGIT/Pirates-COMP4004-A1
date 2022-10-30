@@ -20,7 +20,8 @@ public class Game {
             scores[i] = 0;
         }
         //set fortune cards
-        setupDeck();
+        //setupDeck();
+        setupDeck(2);
         for (int i = 0; i < playerCount; i++) {
             //get the fortune and remove it.
             fortunes[i] = deck.get(0);
@@ -156,6 +157,13 @@ public class Game {
         deck.add(6);
         //now shuffle
         Collections.shuffle(deck);
+    }
+
+    public void setupDeck(int card) {
+        //rigging for testing, set whole deck to be one card
+        for (int i = 0; i < 35; i++) {
+            deck.add(card);
+        }
     }
 
     public boolean setFortune(String fc, int player) {
