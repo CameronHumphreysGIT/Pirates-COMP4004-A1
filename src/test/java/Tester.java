@@ -825,6 +825,35 @@ public class Tester {
                 p.close();
             }
         }
+        @Nested
+        @DisplayName("AcceptancePart2Tests")
+        class AcceptancePartTwoTests {
+            @Nested
+            @DisplayName("SorceressTests")
+            class SorceressTests {
+                @Test
+                @DisplayName("77SorceressTest")
+                void SeventySevenTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 77
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "PARROT", "DIAMOND", "GOLD", "DIAMOND", "PARROT", "PARROT"));
+                    //reRoll the first (PARROTS)
+                    p.reRoll("267");
+                    System.out.println("Initial reRoll:");
+                    p.displayDice();
+                    p.setDice(new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "SKULL", "DIAMOND", "GOLD", "DIAMOND", "MONKEY", "MONKEY")));
+                    //this does the test for us...
+                    oneReRollTest(p, setup, new ArrayList<>(Arrays.asList("MONKEY", "SWORD", "MONKEY", "DIAMOND", "GOLD", "DIAMOND", "MONKEY", "MONKEY")), "2", 2);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals(Config.SERVER_SCORE_MESSAGE(0, 500), p.getLastMessage());
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
+            }
+        }
     }
 
     //Helpers
