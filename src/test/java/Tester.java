@@ -312,6 +312,21 @@ public class Tester {
 
                 //comment 24 in game afterwards
             }
+            @Test
+            @DisplayName("Log4JPlayerTreasureTest")
+            void Log4JPlayerTreasureTest() {
+                //uncomment line(25) in game to ensure Treasure as player's card.
+                //server init
+                //player init
+                //ensure Server asks player1 if lobby should close (Y as response)
+                //Player is told it's their turn
+                //player put's things in their chest
+                //player removes things from their chest
+                //player can put 1 (non skull) in their chest
+                //player submits for scoring/dies
+
+                //comment 25 in game afterwards
+            }
         }
     }
     @Nested
