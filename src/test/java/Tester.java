@@ -327,6 +327,11 @@ public class Tester {
 
                 //comment 25 in game afterwards
             }
+            @Test
+            @DisplayName("Log4JPlayerSKULLTest")
+            void Log4JPlayerSKULLTest() {
+                //nobody's reading this...
+            }
         }
     }
     @Nested
