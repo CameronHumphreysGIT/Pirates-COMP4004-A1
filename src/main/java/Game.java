@@ -164,6 +164,9 @@ public class Game {
             skulls ++;
             skulls ++;
         }
+        if (fortunes[playerNum - 1] == 1) {
+            skulls = skulls * 2;
+        }
         for (int i = 0; i < scores.length; i++) {
             if (i != playerNum - 1) {
                 scores[i] -= skulls * 100;
