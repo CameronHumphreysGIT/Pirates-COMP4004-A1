@@ -40,6 +40,12 @@ public class Server {
         me.sendWelcomes();
         //doTurn will tell player 1 to do their turn and wait for a reply.
         me.doTurn(1);
+        //great reply, next
+        game.nextTurn();
+        while(true) {
+            me.doTurn(game.getCurrentTurn());
+            game.nextTurn();
+        }
     }
 
     public String receive() {
@@ -77,8 +83,8 @@ public class Server {
             System.exit(1);
         }
 
-        Config.LOGGER.info("Server: sending message to Player" + (playerPorts.indexOf(port) + 1) + ": at " + port);
-        System.out.println("Server: sending message to Player" + (playerPorts.indexOf(port) + 1) + ": at " + port);
+        Config.LOGGER.info("Server: sending message" + msg + " to Player" + (playerPorts.indexOf(port) + 1) + ": at " + port);
+        System.out.println("Server: sending message " + msg + " to Player" + (playerPorts.indexOf(port) + 1) + ": at " + port);
 
         try {
             sendSocket.send(sendPacket);

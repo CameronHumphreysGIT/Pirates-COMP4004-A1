@@ -20,9 +20,9 @@ public class Game {
             scores[i] = 0;
         }
         //set fortune cards
-        //setupDeck();
+        setupDeck();
         //setupDeck(2);
-        setupDeck(0);
+        //setupDeck(0);
         for (int i = 0; i < playerCount; i++) {
             //get the fortune and remove it.
             fortunes[i] = deck.get(0);

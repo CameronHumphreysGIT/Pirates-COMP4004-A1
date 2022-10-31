@@ -192,7 +192,13 @@ public class Player {
             response = "something";
         }
         while (!response.equals("It's you're turn")) {
+            System.out.println("SERVER: " + response);
             receive();
+            try {
+                response = lastMessage.substring(0, 16);
+            } catch (StringIndexOutOfBoundsException e) {
+                response = "something";
+            }
         }
         isTurn = true;
         //set fortune card
@@ -206,20 +212,21 @@ public class Player {
         rollDice();
         displayDice();
         String response = "something";
-        while ((Integer.parseInt("" + getDiceString().charAt(0)) < 3 || fortuneCard.equals("SORCERESS")) && !(response.equals(""))) {
+        while ((Integer.parseInt("" + getDiceString().charAt(0)) < 3 || fortuneCard.equals("SORCERESS") || skullIsland) && !(response.equals(""))) {
             Config.LOGGER.info("Select dice you would like to re-roll");
             System.out.println("Select dice you would like to re-roll");
             System.out.println("You must select at least two die, and they may not be skulls");
             System.out.println("type response as an undivided sequence of indices ie: 037 , type nothing to end your turn.\n");
             Scanner input = new Scanner(System.in);
             response = input.nextLine();
-            if (fortuneCard.equals("TREASURE") && ((response.charAt(0) == 'A' || response.charAt(0) == 'R'))) {
+            String skulls = getDiceString();
+            if (response.length() > 1 && ((fortuneCard.equals("TREASURE") && ((response.charAt(0) == 'A' || response.charAt(0) == 'R'))))) {
                 while ((response.charAt(0) == 'A' && !(addChest(response))) || (response.charAt(0) == 'R' && !(removeChest(response)))) {
                     Config.LOGGER.info("Invalid Treasure Chest input, try again");
                     System.out.println("Invalid Treasure Chest input, try again");
                     response = input.nextLine();
                 }
-            }else {
+            } else {
                 while (!(reRoll(response))) {
                     Config.LOGGER.info("Invalid input, try again");
                     System.out.println("Invalid input, try again");
@@ -228,11 +235,22 @@ public class Player {
             }
             //good response, already reRolled / added/ removed
             displayDice();
+            if (skullIsland) {
+                if (getDiceString().charAt(0) == skulls.charAt(0)) {
+                    //skulls didn't increment, cancel
+                    break;
+                }
+            }
         }
         //check if we died:
         if (!response.equals("")) {
-            Config.LOGGER.info("You have three Skulls and have died, maybe points for you");
-            System.out.println("You have three Skulls and have died, maybe points for you");
+            if (skullIsland) {
+                Config.LOGGER.info("You didn't get any more skulls, no points for you");
+                System.out.println("You didn't get any more skulls, no points for you");
+            }else {
+                Config.LOGGER.info("You have three Skulls and have died, maybe points for you");
+                System.out.println("You have three Skulls and have died, maybe points for you");
+            }
         }
         //that's all...
     }
@@ -261,6 +279,8 @@ public class Player {
         isTurn = false;
         //we are going to send dice in for scoring and get a reply
         rpc_send(getDiceString());
+        //delete dice
+        dice.clear();
     }
 
     public void rollDice() {
