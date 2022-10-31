@@ -334,8 +334,15 @@ public class Tester {
                 countDie[Config.DICE.indexOf(d)]++;
             }
             String diceString = p.getDiceString();
-            //we want the diceString to be a sum of each type of dice in the config specified order.
-            assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5], diceString);
+            if (countDie[0] >= 4) {
+                //skull island
+                assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5] + 0, diceString);
+            }else {
+                //we want the diceString to be a sum of each type of dice in the config specified order.
+                assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5], diceString);
+            }
+
+
         }
         @ParameterizedTest
         @ValueSource(strings = {"020000", "123456", "0131212", "150210","-103402"})

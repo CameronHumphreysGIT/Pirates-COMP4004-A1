@@ -80,12 +80,9 @@ public class Game {
                     diceCount[Integer.parseInt(dice.charAt(i) + "")]++;
                 }
             }else if (fortunes[player - 1] == 4 || fortunes[player - 1] == 5 || fortunes[player - 1] == 6) {
-                System.out.println(diceCount[1] + "   " + (fortunes[player - 1] - 2));
                 //deduct score
-                if (diceCount[1] < (fortunes[player - 1] - 2)) {
-                    // we lost the battle
-                    scores[player - 1] -=  Config.SEABATTLE_BONUS[fortunes[player - 1] - 4];
-                }
+                // we lost the battle even if we have enough swords
+                scores[player - 1] -=  Config.SEABATTLE_BONUS[fortunes[player - 1] - 4];
                 if (scores[player - 1] < 0) {
                     scores[player - 1] = 0;
                 }
