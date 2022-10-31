@@ -1117,7 +1117,24 @@ public class Tester {
                     //player is in skull island, start all player's with score of 1000
                     twoReRollTest(1000, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY", "MONKEY")), new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SWORD", "SKULL")), "125", "2467", 10);
                     //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
-                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(1000, 1000), p.getLastMessage());
+                    //asserts on each player's score are outside done in functions called by twoReRollTest
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
+                @Test
+                @DisplayName("110SkullTest")
+                void OneHundredTenTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 108
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "MONKEY", "SKULL", "MONKEY", "MONKEY"));
+                    //player is in skull island, start all player's with score of 1000
+                    oneReRollTest(1500, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "GOLD", "SKULL")), "467", 1);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(1500, 1500), p.getLastMessage());
                     //asserts on each player's score are outside done in functions called by twoReRollTest
                     System.out.println(p.getLastMessage());
                     //shouldn't be the player's turn anymore
