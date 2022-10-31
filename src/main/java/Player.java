@@ -16,6 +16,7 @@ public class Player {
     private ArrayList<String> dice = new ArrayList<>();
     private String fortuneCard;
     private boolean[] inChest = {false, false, false, false, false, false, false, false};
+    private boolean skullIsland = false;
 
     public Player() {
         try {
@@ -262,6 +263,16 @@ public class Player {
             //get the string that corresponds to the index from Config
             dice.add(Config.DICE.get(roll));
         }
+        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
+            skullIsland = true;
+        }
+        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
+            skullIsland = true;
+        }
+        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
+            skullIsland = true;
+        }
+        System.out.println("WELCOME TO THE ISLAND OF SKULLS");
     }
 
     public boolean reRoll(String indices) {
@@ -392,13 +403,17 @@ public class Player {
         for (String s : dice) {
             diceCount[Config.DICE.indexOf(s)]++;
         }
-        //add something for treasurechest
+        //add something for treasurechest and skull island
         StringBuilder chest = new StringBuilder();
         for (int i = 0; i < inChest.length; i++) {
             if (inChest[i]) {
                 //seems complex, we are getting the string value of the dice, then converting it to a config reference for scoring
                 chest.append(Config.DICE.indexOf(dice.get(i)));
             }
+        }
+        //this is how we tell the server and game that we are on skull island
+        if(skullIsland) {
+            chest.append(Config.DICE.indexOf("SKULL"));
         }
         //just like in tester.
         return "" + diceCount[0] + diceCount[1] + diceCount[2] + diceCount[3] + diceCount[4] + diceCount[5] + chest.toString();
@@ -434,5 +449,15 @@ public class Player {
     public void setDice(ArrayList<String> dice) {
         this.dice.clear();
         this.dice.addAll(dice);
+        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
+            skullIsland = true;
+        }
+        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
+            skullIsland = true;
+        }
+        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
+            skullIsland = true;
+        }
+        System.out.println("WELCOME TO THE ISLAND OF SKULLS");
     }
 }

@@ -30,8 +30,17 @@ public class Game {
     }
 
     public boolean score(String dice, int player) {
+        try {
+            if (Integer.parseInt("" + dice.charAt(6)) == 0) {
+                //this means we are in skull island, score differently.
+                //this func will score for skull island, give it the amount of skulls and the player num
+                skullScore(Integer.parseInt("" + dice.charAt(0)), player);
+                return true;
+            }
+        } catch (StringIndexOutOfBoundsException ignored) {
+        }
         //check validity
-        if (dice.length() > 6 && fortunes[player - 1] != 0) {
+        if (dice.length() > 6 &&(fortunes[player - 1] != 0)) {
             //in treasure chest, the contents are appended to the dice string
             return false;
         }
@@ -147,6 +156,24 @@ public class Game {
         return true;
     }
 
+    public void skullScore(int skulls, int playerNum) {
+        if (fortunes[playerNum - 1] == 3) {
+            skulls ++;
+        }
+        if (fortunes[playerNum - 1] == 10) {
+            skulls ++;
+            skulls ++;
+        }
+        for (int i = 0; i < scores.length; i++) {
+            if (i != playerNum - 1) {
+                scores[i] -= skulls * 100;
+                if (scores[i] < 0) {
+                    scores[i] = 0;
+                }
+            }
+        }
+    }
+
     public void nextTurn() {
         if (currentTurn == playerCount) {
             //next turn goes to the first player
@@ -193,6 +220,12 @@ public class Game {
         //rigging for testing, set whole deck to be one card
         for (int i = 0; i < 35; i++) {
             deck.add(card);
+        }
+    }
+
+    public void setScores(int score) {
+        for (int i = 0; i < scores.length; i++) {
+            scores[i] = score;
         }
     }
 
