@@ -1112,7 +1112,7 @@ public class Tester {
                 @DisplayName("108SkullTest")
                 void OneHundredEightTest() {
                     Player p = new Player(Config.PLAYER_PORT_NUMBER);
-                    //setup according to line 108
+                    //setup according to line 109
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "PARROT", "PARROT", "SKULL", "MONKEY", "PARROT", "MONKEY", "MONKEY"));
                     //player is in skull island, start all player's with score of 1000
                     twoReRollTest(1000, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY", "MONKEY")), new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SWORD", "SKULL")), "125", "2467", 10);
@@ -1129,7 +1129,7 @@ public class Tester {
                 @DisplayName("110SkullTest")
                 void OneHundredTenTest() {
                     Player p = new Player(Config.PLAYER_PORT_NUMBER);
-                    //setup according to line 108
+                    //setup according to line 110
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "MONKEY", "SKULL", "MONKEY", "MONKEY"));
                     //player is in skull island, start all player's with score of 1000
                     oneReRollTest(1500, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "GOLD", "SKULL")), "467", 1);
@@ -1146,7 +1146,7 @@ public class Tester {
                 @DisplayName("111SkullTest")
                 void OneHundredElevenTest() {
                     Player p = new Player(Config.PLAYER_PORT_NUMBER);
-                    //setup according to line 108
+                    //setup according to line 111
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SKULL", "SWORD", "SWORD", "SWORD", "SWORD"));
                     //player is in skull island, start all player's with score of 1000
                     oneReRollTest(600, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "GOLD", "SKULL", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD")), "17654", 10);
@@ -1160,7 +1160,27 @@ public class Tester {
                     p.close();
                 }
             }
-
+            @Nested
+            @DisplayName("SeaBattleTests")
+            class SeaBattleTests {
+                @Test
+                @DisplayName("114BattleTest")
+                void OneHundredFourteenTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 114
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "MONKEY", "SKULL", "SKULL", "MONKEY", "MONKEY", "MONKEY", "SWORD"));
+                    //player is in skull island, start all player's with score of 1000
+                    noReRollTest(300, 0, p, setup, 4);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(300, 0), p.getLastMessage());
+                    //asserts on each player's score are outside done in functions called by twoReRollTest
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
+            }
         }
     }
 
