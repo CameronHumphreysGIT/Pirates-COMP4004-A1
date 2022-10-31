@@ -1108,6 +1108,23 @@ public class Tester {
                     //teardown
                     p.close();
                 }
+                @Test
+                @DisplayName("108SkullTest")
+                void OneHundredEightTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 108
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "PARROT", "PARROT", "SKULL", "MONKEY", "PARROT", "MONKEY", "MONKEY"));
+                    //player is in skull island, start all player's with score of 1000
+                    twoReRollTest(1000, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY", "MONKEY")), new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SWORD", "SKULL")), "125", "2467", 10);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+                    //asserts on each player's score are outside done in functions called by twoReRollTest
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
             }
 
         }
@@ -1154,6 +1171,27 @@ public class Tester {
         serverResponseDice(player, Config.FORTUNE_CARDS.get(fc));
     }
 
+    void twoReRollTest(int initial, int end, Player player, ArrayList<String> setup, ArrayList<String> setupTwo, ArrayList<String> setupThree, String reRoll, String reRollTwo, int fc) {
+        setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
+        //do reRolls
+        assertTrue(player.reRoll(reRoll));
+        System.out.println("================Initial reRoll:========================");
+        player.displayDice();
+        player.setDice(setupTwo);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //do reRolls
+        assertTrue(player.reRoll(reRollTwo));
+        System.out.println("================Second reRoll:========================");
+        player.displayDice();
+        player.setDice(setupThree);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //now simulate server response and endturn
+        serverResponseDice(initial, end, player, Config.FORTUNE_CARDS.get(fc));
+
+    }
+
     void setupSinglePlayer(Player p, ArrayList<String> dice, String fc) {
         p.setTurn(true);
         p.setFortune(fc);
@@ -1164,6 +1202,7 @@ public class Tester {
         System.out.println("Setup:");
         p.displayDice();
     }
+
     void serverResponseDice(Player p, String fc) {
         Game g = new Game();
         Server s = new Server(g);
@@ -1180,6 +1219,31 @@ public class Tester {
             System.exit(1);
         }
         p.endTurn();
+        //teardown
+        datagramTeardown(sendSocket, sendPacket);
+        s.close();
+    }
+
+    void serverResponseDice(int initial, int end, Player p, String fc) {
+        Game g = new Game();
+        Server s = new Server(g);
+        g.setFortune(fc, 1);
+        g.setScores(initial);
+        //let's simulate the server to send the response
+        DatagramSocket sendSocket = setupSocket(false, true);
+        //scorePlayer will send a nice response for the player
+        byte msg[] = s.scorePlayer(p.getDiceString(), 1).getBytes();
+        DatagramPacket sendPacket = setupPacket(msg, false, false);
+        try {
+            sendSocket.send(sendPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        p.endTurn();
+        assertEquals(g.getScores()[0], initial);
+        assertEquals(g.getScores()[1], end);
+        assertEquals(g.getScores()[2], end);
         //teardown
         datagramTeardown(sendSocket, sendPacket);
         s.close();
