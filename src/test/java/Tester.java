@@ -1059,6 +1059,21 @@ public class Tester {
                     //teardown
                     p.close();
                 }
+                @Test
+                @DisplayName("103FullTest")
+                void OneHundredThreeTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 103
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("MONKEY", "GOLD", "MONKEY", "DIAMOND", "PARROT", "DIAMOND", "DIAMOND", "GOLD"));
+                    noReRollTest(p, setup, 9);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1200), p.getLastMessage());
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
             }
         }
     }
