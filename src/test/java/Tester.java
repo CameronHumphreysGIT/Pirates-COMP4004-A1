@@ -1192,6 +1192,12 @@ public class Tester {
         serverResponseDice(player, Config.FORTUNE_CARDS.get(fc));
     }
 
+    void noReRollTest(int initial, int end, Player player, ArrayList<String> setup, int fc) {
+        setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
+        //now simulate server response and endturn
+        serverResponseDice(initial, end, player, Config.FORTUNE_CARDS.get(fc));
+    }
+
     void oneReRollTest(Player player, ArrayList<String> setup, ArrayList<String> setupTwo, String reRoll, int fc) {
         setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
         //do reRolls (SWORDS)
@@ -1308,9 +1314,16 @@ public class Tester {
             System.exit(1);
         }
         p.endTurn();
-        assertEquals(g.getScores()[0], initial);
-        assertEquals(g.getScores()[1], end);
-        assertEquals(g.getScores()[2], end);
+        if (g.getFortune(1) == 4 || g.getFortune(1) == 5 || g.getFortune(1) == 6) {
+            //basically if we have a sea battle...
+            assertEquals(g.getScores()[0], end);
+            assertEquals(g.getScores()[1], initial);
+            assertEquals(g.getScores()[2], initial);
+        }else {
+            assertEquals(g.getScores()[0], initial);
+            assertEquals(g.getScores()[1], end);
+            assertEquals(g.getScores()[2], end);
+        }
         //teardown
         datagramTeardown(sendSocket, sendPacket);
         s.close();

@@ -79,7 +79,14 @@ public class Game {
                     //looks weird, just getting the dice from the chest and adding to the diceCount
                     diceCount[Integer.parseInt(dice.charAt(i) + "")]++;
                 }
-            }else {
+            }else if (fortunes[player - 1] == 4 && diceCount[1] <= 2) {
+                //deduct score
+                scores[player - 1] -= Config.SEABATTLE_BONUS[0];
+                if (scores[player - 1] < 0) {
+                    scores[player - 1] = 0;
+                }
+                return true;
+            } else {
                 //There are exactly three skulls
                 //don't change the score.
                 scores[player - 1] += 0;
@@ -134,8 +141,13 @@ public class Game {
                 //we know the sword amount, and we are sea battle 2
                 if (diceCount[1] >= 2) {
                     score += Config.SEABATTLE_BONUS[0];
+                    //this also means we scored with those two dice
+                }else {
+                    //can't possibly be full
+                    score -= Config.SEABATTLE_BONUS[0];
+                    full = false;
+                    break;
                 }
-                //this also means we scored with those two dice
             } else if (diceCount[i] < 3 && diceCount[i] != 0) {
                 full = false;
                 break;
@@ -152,6 +164,9 @@ public class Game {
             scores[player - 1] += score;
         }
         scores[player - 1] += score;
+        if (scores[player - 1] < 0) {
+            scores[player - 1] = 0;
+        }
         nextTurn();
         return true;
     }
