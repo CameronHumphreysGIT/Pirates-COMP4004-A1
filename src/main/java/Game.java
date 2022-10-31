@@ -52,6 +52,14 @@ public class Game {
             return false;
         }
         //non error
+        try {
+            if (Config.FORTUNE_CARDS.get(fortunes[player - 1]).substring(0, 5).equals("SKULL")) {
+                //basically, take the end of the fortune card name (either 1 or 2) and add it to the amount of skulls in the count
+                diceCount[0] += Integer.parseInt(Config.FORTUNE_CARDS.get(fortunes[player - 1]).charAt(5) + "");
+            }
+        } catch (StringIndexOutOfBoundsException ignored) {
+        }
+
         if (diceCount[0] >= 3) {
             if (fortunes[player - 1] == 0) {
                 //they got the treasure chest and died

@@ -133,8 +133,14 @@ public class Server {
         if (game.score(dice, player)) {
             //final score is calculated and set already
             String death = "";
+            int skullCard = 0;
+            if (game.getFortune(player) == 3) {
+                skullCard = 1;
+            }else if (game.getFortune(player) == 10){
+                skullCard = 2;
+            }
             //append a "YOU'VE DIED " message if they died
-            if (Integer.parseInt(dice.charAt(0)+ "") >= 3) {
+            if (Integer.parseInt(dice.charAt(0)+ "") + skullCard >= 3) {
                 death = "YOU'VE DIED ";
             }
             return death + Config.SERVER_SCORE_MESSAGE(first, game.getScores()[player - 1]);
