@@ -113,8 +113,13 @@ public class Game {
         boolean full = true;
         //loop through sword, parrot and monkey, gold and diamond score no matter what
         for (int i = 1; i < 4; i++) {
-            //fullchest can be ignored if the count is 1 or 2 for any non gold/diamond
-            if (diceCount[i] < 3 && diceCount[i] != 0) {
+            if (i == 1 && fortunes[player - 1] == 4) {
+                //we know the sword amount, and we are sea battle 2
+                if (diceCount[1] >= 2) {
+                    score += Config.SEABATTLE_BONUS[0];
+                }
+                //this also means we scored with those two dice
+            } else if (diceCount[i] < 3 && diceCount[i] != 0) {
                 full = false;
                 break;
             }
