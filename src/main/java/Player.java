@@ -265,14 +265,16 @@ public class Player {
         }
         if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
             skullIsland = true;
+            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
         }
         if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
             skullIsland = true;
+            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
         }
         if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
             skullIsland = true;
+            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
         }
-        System.out.println("WELCOME TO THE ISLAND OF SKULLS");
     }
 
     public boolean reRoll(String indices) {
@@ -447,20 +449,24 @@ public class Player {
     }
 
     public void setDice(ArrayList<String> dice) {
-        boolean firstTurn = (dice.isEmpty());
+        boolean firstTurn = (this.dice.size() == 0);
         this.dice.clear();
         this.dice.addAll(dice);
-        if (firstTurn) {
+        if (firstTurn || skullIsland) {
+            //basically, if none of the following are true, skull island shouldn't be either.
+            skullIsland = false;
             if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
                 skullIsland = true;
+                System.out.println("WELCOME TO THE ISLAND OF SKULLS");
             }
             if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
                 skullIsland = true;
+                System.out.println("WELCOME TO THE ISLAND OF SKULLS");
             }
             if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
                 skullIsland = true;
+                System.out.println("WELCOME TO THE ISLAND OF SKULLS");
             }
-            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
         }
     }
 }

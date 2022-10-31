@@ -322,6 +322,7 @@ public class Tester {
         void PlayerDiceRoll() {
             //create a player
             Player p = new Player();
+            p.setFortune(Config.FORTUNE_CARDS.get(7));
             //use dice roll function
             p.rollDice();
             //confirm each dice is of the possible dice and add them up
@@ -337,7 +338,7 @@ public class Tester {
             assertEquals("" + countDie[0] + countDie[1] + countDie[2] + countDie[3] + countDie[4] + countDie[5], diceString);
         }
         @ParameterizedTest
-        @ValueSource(strings = {"020000", "123456", "0131210", "150210","-103402"})
+        @ValueSource(strings = {"020000", "123456", "0131212", "150210","-103402"})
         @DisplayName("ScoreDiceInvalidTest")
         void ScoreDiceInvalidTest(String dice) {
             //create a game
@@ -1286,8 +1287,11 @@ public class Tester {
         p.setTurn(true);
         p.setFortune(fc);
         System.out.println("Initial roll:");
+        //preventing possible skull island by convincing the player it isn't their first turn.
+        p.setDice(new ArrayList<>());
         p.rollDice();
         p.displayDice();
+        p.setDice(new ArrayList<>());
         p.setDice(dice);
         System.out.println("Setup:");
         p.displayDice();
