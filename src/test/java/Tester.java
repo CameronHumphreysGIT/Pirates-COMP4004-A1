@@ -1142,6 +1142,23 @@ public class Tester {
                     //teardown
                     p.close();
                 }
+                @Test
+                @DisplayName("111SkullTest")
+                void OneHundredElevenTest() {
+                    Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                    //setup according to line 108
+                    ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SKULL", "SWORD", "SWORD", "SWORD", "SWORD"));
+                    //player is in skull island, start all player's with score of 1000
+                    oneReRollTest(600, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "GOLD", "SKULL", "SKULL", "GOLD", "GOLD", "GOLD", "GOLD")), "17654", 10);
+                    //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                    assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(600, 600), p.getLastMessage());
+                    //asserts on each player's score are outside done in functions called by twoReRollTest
+                    System.out.println(p.getLastMessage());
+                    //shouldn't be the player's turn anymore
+                    assertFalse(p.getTurn());
+                    //teardown
+                    p.close();
+                }
             }
 
         }
@@ -1166,6 +1183,19 @@ public class Tester {
         player.displayDice();
         //now simulate server response and endturn
         serverResponseDice(player, Config.FORTUNE_CARDS.get(fc));
+    }
+
+    void oneReRollTest(int initial, int end, Player player, ArrayList<String> setup, ArrayList<String> setupTwo, String reRoll, int fc) {
+        setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
+        //do reRolls (SWORDS)
+        assertTrue(player.reRoll(reRoll));
+        System.out.println("================Initial reRoll:========================");
+        player.displayDice();
+        player.setDice(setupTwo);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //now simulate server response and endturn
+        serverResponseDice(initial, end, player, Config.FORTUNE_CARDS.get(fc));
     }
 
     void twoReRollTest(Player player, ArrayList<String> setup, ArrayList<String> setupTwo, ArrayList<String> setupThree, String reRoll, String reRollTwo, int fc) {
