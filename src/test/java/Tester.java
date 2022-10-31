@@ -1308,6 +1308,23 @@ public class Tester {
                 //teardown
                 p.close();
             }
+            @Test
+            @DisplayName("124BattleTest")
+            void OneHundredTwentyFourTest() {
+                Player p = new Player(Config.PLAYER_PORT_NUMBER);
+                //setup according to line 124
+                ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "PARROT", "PARROT", "DIAMOND", "SWORD", "MONKEY", "MONKEY", "MONKEY"));
+                //player is in skull island, start all player's with score of 1000
+                twoReRollTest( p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SWORD", "DIAMOND", "SWORD", "MONKEY", "MONKEY", "MONKEY")), new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SWORD", "DIAMOND", "SWORD", "PARROT", "SWORD", "PARROT")), "12", "567", 6);
+                //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
+                assertEquals(Config.SERVER_SCORE_MESSAGE(0, 1300), p.getLastMessage());
+                //asserts on each player's score are outside done in functions called by twoReRollTest
+                System.out.println(p.getLastMessage());
+                //shouldn't be the player's turn anymore
+                assertFalse(p.getTurn());
+                //teardown
+                p.close();
+            }
         }
     }
 
