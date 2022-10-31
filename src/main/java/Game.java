@@ -141,14 +141,14 @@ public class Game {
         boolean full = true;
         //loop through sword, parrot and monkey, gold and diamond score no matter what
         for (int i = 1; i < 4; i++) {
-            if (i == 1 && fortunes[player - 1] == 4) {
+            if (i == 1 && (fortunes[player - 1] == 4 || fortunes[player - 1] == 5 || fortunes[player - 1] == 6)) {
                 //we know the sword amount, and we are sea battle 2
-                if (diceCount[1] >= 2) {
-                    score += Config.SEABATTLE_BONUS[0];
+                if (diceCount[1] >= (fortunes[player - 1] - 2)) {
+                    score += Config.SEABATTLE_BONUS[fortunes[player - 1] - 4];
                     //this also means we scored with those two dice
                 }else {
                     //can't possibly be full
-                    score -= Config.SEABATTLE_BONUS[0];
+                    score -= Config.SEABATTLE_BONUS[fortunes[player - 1] - 4];
                     full = false;
                     break;
                 }
