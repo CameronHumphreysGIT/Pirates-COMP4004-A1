@@ -1187,7 +1187,7 @@ public class Tester {
                     //setup according to line 115
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "PARROT", "PARROT", "SWORD", "PARROT", "PARROT"));
                     //player is in skull island, start all player's with score of 1000
-                    oneReRollTest(500, 0, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SKULL", "SKULL", "SWORD", "SKULL", "SKULL")), "3467", 4);
+                    oneReRollTest(500, 0, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SWORD", "SKULL", "SKULL", "SKULL", "SWORD", "SKULL", "SKULL")), "3467", 5);
                     //Server Score message is the word response the server gives with a given initial and final score, which should be zero since we rerolled and had three skulls
                     assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(500, 0), p.getLastMessage());
                     //asserts on each player's score are outside done in functions called by twoReRollTest

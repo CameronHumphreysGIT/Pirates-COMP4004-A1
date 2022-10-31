@@ -79,9 +79,13 @@ public class Game {
                     //looks weird, just getting the dice from the chest and adding to the diceCount
                     diceCount[Integer.parseInt(dice.charAt(i) + "")]++;
                 }
-            }else if (fortunes[player - 1] == 4 && diceCount[1] <= 2) {
+            }else if (fortunes[player - 1] == 4 || fortunes[player - 1] == 5 || fortunes[player - 1] == 6) {
+                System.out.println(diceCount[1] + "   " + (fortunes[player - 1] - 2));
                 //deduct score
-                scores[player - 1] -= Config.SEABATTLE_BONUS[0];
+                if (diceCount[1] < (fortunes[player - 1] - 2)) {
+                    // we lost the battle
+                    scores[player - 1] -=  Config.SEABATTLE_BONUS[fortunes[player - 1] - 4];
+                }
                 if (scores[player - 1] < 0) {
                     scores[player - 1] = 0;
                 }

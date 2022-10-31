@@ -447,17 +447,20 @@ public class Player {
     }
 
     public void setDice(ArrayList<String> dice) {
+        boolean firstTurn = (dice.isEmpty());
         this.dice.clear();
         this.dice.addAll(dice);
-        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
-            skullIsland = true;
+        if (firstTurn) {
+            if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
+                skullIsland = true;
+            }
+            if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
+                skullIsland = true;
+            }
+            if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
+                skullIsland = true;
+            }
+            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
         }
-        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
-            skullIsland = true;
-        }
-        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
-            skullIsland = true;
-        }
-        System.out.println("WELCOME TO THE ISLAND OF SKULLS");
     }
 }
