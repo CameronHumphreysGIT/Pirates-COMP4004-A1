@@ -213,18 +213,26 @@ public class Player {
             System.out.println("type response as an undivided sequence of indices ie: 037 , type nothing to end your turn.\n");
             Scanner input = new Scanner(System.in);
             response = input.nextLine();
-            while (!(reRoll(response))) {
-                Config.LOGGER.info("Invalid input, try again");
-                System.out.println("Invalid input, try again");
-                response = input.nextLine();
+            if (fortuneCard.equals("TREASURE") && ((response.charAt(0) == 'A' || response.charAt(0) == 'R'))) {
+                while ((response.charAt(0) == 'A' && !(addChest(response))) || (response.charAt(0) == 'R' && !(removeChest(response)))) {
+                    Config.LOGGER.info("Invalid Treasure Chest input, try again");
+                    System.out.println("Invalid Treasure Chest input, try again");
+                    response = input.nextLine();
+                }
+            }else {
+                while (!(reRoll(response))) {
+                    Config.LOGGER.info("Invalid input, try again");
+                    System.out.println("Invalid input, try again");
+                    response = input.nextLine();
+                }
             }
-            //good response, already reRolled
+            //good response, already reRolled / added/ removed
             displayDice();
         }
         //check if we died:
         if (!response.equals("")) {
-            Config.LOGGER.info("You have three Skulls and have died, no points for you");
-            System.out.println("You have three Skulls and have died, no points for you");
+            Config.LOGGER.info("You have three Skulls and have died, maybe points for you");
+            System.out.println("You have three Skulls and have died, maybe points for you");
         }
         //that's all...
     }
@@ -233,6 +241,7 @@ public class Player {
         System.out.println("Dice shown as a list with numbers representing the position in the list.\n");
         if (fortuneCard.equals("TREASURE")) {
             System.out.println("Values surrounded by {} are in your Treasure Chest");
+            System.out.println("Add things to you're chest by following the reRoll instructions, but with an A or R to add or remove items\n");
         }
         for (int i = 0; i < dice.size(); i++) {
             if (inChest[i]) {
@@ -328,6 +337,10 @@ public class Player {
     }
 
     public boolean addChest(String indices) {
+        //remove the A or R if there is one...
+        if (indices.charAt(0) == 'A') {
+            indices = indices.substring(1);
+        }
         //error checking
         if (!fortuneCard.equals("TREASURE")) {
             return false;
@@ -353,6 +366,10 @@ public class Player {
     }
 
     public boolean removeChest(String indices) {
+        //remove the A or R if there is one...
+        if (indices.charAt(0) == 'R') {
+            indices = indices.substring(1);
+        }
         //error checking
         if (!fortuneCard.equals("TREASURE")) {
             return false;

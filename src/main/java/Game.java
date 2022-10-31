@@ -20,8 +20,9 @@ public class Game {
             scores[i] = 0;
         }
         //set fortune cards
-        setupDeck();
+        //setupDeck();
         //setupDeck(2);
+        setupDeck(0);
         for (int i = 0; i < playerCount; i++) {
             //get the fortune and remove it.
             fortunes[i] = deck.get(0);
@@ -31,7 +32,7 @@ public class Game {
 
     public boolean score(String dice, int player) {
         try {
-            if (Integer.parseInt("" + dice.charAt(6)) == 0) {
+            if (Integer.parseInt("" + dice.charAt(6)) == 0 && (fortunes[player - 1] != 0)) {
                 //this means we are in skull island, score differently.
                 //this func will score for skull island, give it the amount of skulls and the player num
                 skullScore(Integer.parseInt("" + dice.charAt(0)), player);
