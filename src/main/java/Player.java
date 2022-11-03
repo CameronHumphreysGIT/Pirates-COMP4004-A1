@@ -158,7 +158,7 @@ public class Player {
         if (number == 1) {
             String msg;
             Scanner input = new Scanner(System.in);
-            while(!(lastMessage.equals("Welcome"))) {
+            while(!(lastMessage.equals("Welcome")) && !(lastMessage.equals("Timeout"))) {
                 while (!lastMessage.equals("Would you like to close the Lobby?")) {
                     System.out.println(lastMessage);
                     receive();
