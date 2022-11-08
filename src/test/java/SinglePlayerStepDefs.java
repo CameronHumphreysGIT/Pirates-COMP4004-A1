@@ -1,3 +1,4 @@
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -31,6 +32,16 @@ public class SinglePlayerStepDefs {
     }
     @Then("The player's last message is {int}")
     public void the_player_s_last_message_is(Integer finalScore) {
-        Assert.assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, finalScore), p.getLastMessage());
+        if (finalScore == 0) {
+            Assert.assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+        }else {
+            Assert.assertEquals(Config.SERVER_SCORE_MESSAGE(0, finalScore), p.getLastMessage());
+        }
+
+    }
+
+    @And("The player socket is closed.")
+    public void thePlayerSocketIsClosed() {
+        p.close();
     }
 }
