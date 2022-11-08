@@ -13,3 +13,4 @@ Feature: test a single turn with no reRolls
           | 55  | "DIAMOND", "DIAMOND", "SWORD", "DIAMOND", "PARROT", "SKULL", "SKULL", "MONKEY" | 7           | 500            |
           | 56  | "GOLD", "GOLD", "SKULL", "SWORD", "GOLD", "SWORD", "SKULL", "GOLD"             | 8           | 700            |
           | 57  | "SKULL", "PARROT", "PARROT", "SWORD", "PARROT", "SWORD", "PARROT", "SWORD"     | 7           | 400            |
+          | 62  | "MONKEY", "MONKEY", "SKULL", "MONKEY", "MONKEY", "MONKEY", "SKULL", "MONKEY"   | 7           | 1100           |
