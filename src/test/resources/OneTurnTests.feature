@@ -28,3 +28,4 @@ Feature: test a single turn with no reRolls
           | 106 | "SKULL", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD", "SWORD"         | 10          | 0              |
           | 107 | "SKULL", "SWORD", "SWORD", "SKULL", "SWORD", "SWORD", "SWORD", "SWORD"         | 3           | 0              |
           | 117 | "PARROT", "SWORD", "MONKEY", "MONKEY", "MONKEY", "SWORD", "PARROT", "GOLD"     | 4           | 500            |
+          | 120 | "SWORD", "SWORD", "MONKEY", "MONKEY", "SWORD", "SKULL", "SWORD", "MONKEY"      | 5           | 800            |
