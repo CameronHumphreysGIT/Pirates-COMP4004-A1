@@ -22,4 +22,4 @@ Feature: test a single turn with no reRolls
           | 82  | "MONKEY", "PARROT", "PARROT", "MONKEY", "PARROT", "GOLD", "SKULL", "MONKEY"    | 9           | 1100           |
           | 84  | "MONKEY", "PARROT", "SKULL", "MONKEY", "PARROT", "SKULL", "MONKEY", "SKULL"    | 9           | 0              |
           | 97  | "MONKEY", "SWORD", "SWORD", "MONKEY", "SWORD", "DIAMOND", "MONKEY", "PARROT"   | 7           | 400            |
-          | 97  | "MONKEY", "SWORD", "SWORD", "MONKEY", "SWORD", "DIAMOND", "MONKEY", "PARROT"   | 7           | 400            |
+          | 98  | "MONKEY", "SWORD", "SWORD", "MONKEY", "GOLD", "SWORD", "MONKEY", "GOLD"        | 1           | 1800           |
