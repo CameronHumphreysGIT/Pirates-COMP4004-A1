@@ -41,7 +41,12 @@ public class Server {
         game.start();
         while(true) {
             //doTurn will tell player 1 to do their turn and wait for a reply.
+            System.out.println("Player" + game.getCurrentTurn() + "s turn");
             me.doTurn(game.getCurrentTurn());
+            if (game.getCurrentTurn() == 1) {
+                //player 1's turn, send updated scoring info:
+                me.sendScores();
+            }
         }
     }
 
@@ -156,6 +161,19 @@ public class Server {
         //send welcome to each player sequentially
         for (int i = 0; i < game.getPlayerCount(); i++) {
             send("Welcome", playerPorts.get(i));
+        }
+    }
+
+    public void sendScores() {
+        //send Scoring to each player sequentially
+        String message = "Round: " + game.getRound();
+        //make the message
+        for (int i = 0; i < game.getPlayerCount(); i++) {
+            message = message + " Player" + (i+1) + " Score: " + game.getScores()[i];
+        }
+        //send em
+        for (int i = 0; i < game.getPlayerCount(); i++) {
+            send(message, playerPorts.get(i));
         }
     }
 

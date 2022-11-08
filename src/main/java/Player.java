@@ -107,7 +107,6 @@ public class Player {
         receivePacket = new DatagramPacket(data, data.length);
 
         Config.LOGGER.info("Player" + number + ": receiving message");
-
         try {
             // Block until a datagram packet is received from receiveSocket.
             sendSocket.receive(receivePacket);
@@ -189,15 +188,17 @@ public class Player {
         try {
             response = lastMessage.substring(0, 16);
         } catch (StringIndexOutOfBoundsException e) {
-            response = "something";
+            response = lastMessage;
         }
         while (!response.equals("It's you're turn")) {
-            System.out.println("SERVER: " + response);
+            if (lastMessage != "Timeout") {
+                System.out.println("SERVER: " + lastMessage);
+            }
             receive();
             try {
                 response = lastMessage.substring(0, 16);
             } catch (StringIndexOutOfBoundsException e) {
-                response = "something";
+                response = lastMessage;
             }
         }
         isTurn = true;
@@ -292,17 +293,20 @@ public class Player {
             //get the string that corresponds to the index from Config
             dice.add(Config.DICE.get(roll));
         }
-        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 3 && fortuneCard.equals("SKULL1")) {
-            skullIsland = true;
-            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
-        }
-        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 2 && fortuneCard.equals("SKULL2")) {
-            skullIsland = true;
-            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
-        }
-        if (Integer.parseInt(getDiceString().charAt(0) + "")  >= 4) {
-            skullIsland = true;
-            System.out.println("WELCOME TO THE ISLAND OF SKULLS");
+        if (fortuneCard != Config.FORTUNE_CARDS.get(4) || fortuneCard != Config.FORTUNE_CARDS.get(5) || fortuneCard != Config.FORTUNE_CARDS.get(6)) {
+            //sea battle means can't go to skull island.
+            if (Integer.parseInt(getDiceString().charAt(0) + "") >= 3 && fortuneCard.equals("SKULL1")) {
+                skullIsland = true;
+                System.out.println("WELCOME TO THE ISLAND OF SKULLS");
+            }
+            if (Integer.parseInt(getDiceString().charAt(0) + "") >= 2 && fortuneCard.equals("SKULL2")) {
+                skullIsland = true;
+                System.out.println("WELCOME TO THE ISLAND OF SKULLS");
+            }
+            if (Integer.parseInt(getDiceString().charAt(0) + "") >= 4) {
+                skullIsland = true;
+                System.out.println("WELCOME TO THE ISLAND OF SKULLS");
+            }
         }
     }
 

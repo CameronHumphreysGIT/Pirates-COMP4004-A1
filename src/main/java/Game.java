@@ -7,6 +7,7 @@ public class Game {
     private int[] scores = new int[3];
     private int[] fortunes = new int[3];
     private ArrayList<Integer> deck = new ArrayList<>();
+    private int round = 0;
 
     public void addPlayer() {
         playerCount++;
@@ -198,6 +199,8 @@ public class Game {
         if (currentTurn == playerCount) {
             //next turn goes to the first player
             currentTurn = 1;
+            //we completed a round
+            round++;
         }else {
             currentTurn++;
         }
@@ -258,6 +261,10 @@ public class Game {
         }else {
             return false;
         }
+    }
+
+    public int getRound() {
+        return round;
     }
 
     public int getFortune(int playerNum) {
