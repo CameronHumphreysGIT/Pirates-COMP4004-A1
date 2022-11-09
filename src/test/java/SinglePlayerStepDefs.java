@@ -1,3 +1,5 @@
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -5,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SinglePlayerStepDefs {
     Player p;
@@ -15,21 +18,19 @@ public class SinglePlayerStepDefs {
         p = new Player(Config.PLAYER_PORT_NUMBER);
     }
 
-    @When("NoReRollTest is run with {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string} and {int}")
-    public void no_re_roll_test_is_run_with_and(String dice1, String dice2, String dice3, String dice4, String dice5, String dice6, String dice7, String dice8, Integer fc) {
-        //ik this looks done, but it radically helps my ability to quickly add to the data table in the scenario
-        setup = new ArrayList<>();
-        setup.add(dice1);
-        setup.add(dice2);
-        setup.add(dice3);
-        setup.add(dice4);
-        setup.add(dice5);
-        setup.add(dice6);
-        setup.add(dice7);
-        setup.add(dice8);
+    @And("Setup is made with dice")
+    public void setupIsMadeWithDice(DataTable table) {
+        List<List<String>> rows = table.asLists(String.class);
+        //should only be one row...
+        setup = new ArrayList<String>(rows.get(0));
+    }
+
+    @When("NorerollTest is run with {int}")
+    public void norerolltestIsRunWithFortuneCard(Integer fc) {
         Tester test = new Tester();
         test.noReRollTest(p, setup, fc);
     }
+
     @Then("The player's last message is {int}")
     public void the_player_s_last_message_is(Integer finalScore) {
         if (finalScore == 0) {
