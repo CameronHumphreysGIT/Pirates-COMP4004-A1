@@ -1,4 +1,4 @@
-Feature: test a single turn with no reRolls
+Feature: 45,52,54,55,56,57,62,63,64,65,66,72,82,84,97,98,99,103,106,107,117,120,123 test a single turn with no reRolls
     @Outline
       Scenario Outline:
         Given The Player has been setup as the first player

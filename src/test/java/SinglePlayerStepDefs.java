@@ -12,6 +12,7 @@ import java.util.List;
 public class SinglePlayerStepDefs {
     Player p;
     ArrayList<String> setup;
+    ArrayList<String> reRoll;
 
     @Given("The Player has been setup as the first player")
     public void the_player_has_been_setup_as_the_first_player() {
@@ -44,5 +45,19 @@ public class SinglePlayerStepDefs {
     @And("The player socket is closed.")
     public void thePlayerSocketIsClosed() {
         p.close();
+    }
+
+    @And("Initial and Reroll are setup with dice")
+    public void initialAndRerollAreSetupWithDice(DataTable table) {
+        List<List<String>> rows = table.asLists(String.class);
+        //should only be two rows...
+        setup = new ArrayList<String>(rows.get(0));
+        reRoll = new ArrayList<String>(rows.get(1));
+    }
+
+    @When("onererollTest is run with {int} and {string}")
+    public void onererolltestIsRunWithFortuneCardAndReRoll(Integer fc, String rr) {
+        Tester test = new Tester();
+        test.oneReRollTest(p, setup, reRoll, rr, fc);
     }
 }
