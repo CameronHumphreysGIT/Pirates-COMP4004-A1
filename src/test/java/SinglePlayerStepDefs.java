@@ -13,6 +13,8 @@ public class SinglePlayerStepDefs {
     Player p;
     ArrayList<String> setup;
     ArrayList<String> reRoll;
+    int first = 0;
+    int other = 0;
 
     @Given("The Player has been setup as the first player")
     public void the_player_has_been_setup_as_the_first_player() {
@@ -24,6 +26,12 @@ public class SinglePlayerStepDefs {
         List<List<String>> rows = table.asLists(String.class);
         //should only be one row...
         setup = new ArrayList<String>(rows.get(0));
+    }
+
+    @And("the first and final scores for other players have been set with {int} and {int}")
+    public void theFirstAndFinalScoresForOtherPlayersHaveBeenSetWithFirstScoreAndOtherScore(Integer firstS, Integer finalS) {
+        first = firstS;
+        other = finalS;
     }
 
     @When("NorerollTest is run with {int}")
@@ -43,8 +51,8 @@ public class SinglePlayerStepDefs {
 
     @Then("The player's last message is {int} {int}")
     public void the_player_s_last_message_is(Integer firstScore, Integer finalScore) {
-        if (finalScore == 0) {
-            Assert.assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+        if (finalScore.equals(firstScore)) {
+            Assert.assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(firstScore, finalScore), p.getLastMessage());
         }else {
             Assert.assertEquals(Config.SERVER_SCORE_MESSAGE(firstScore, finalScore), p.getLastMessage());
         }
@@ -66,6 +74,10 @@ public class SinglePlayerStepDefs {
     @When("onererollTest is run with {int} and {string}")
     public void onererolltestIsRunWithFortuneCardAndReRoll(Integer fc, String rr) {
         Tester test = new Tester();
-        test.oneReRollTest(p, setup, reRoll, rr, fc);
+        if (first != 0) {
+            test.oneReRollTest(first, other, p, setup, reRoll, rr, fc);
+        } else {
+            test.oneReRollTest(p, setup, reRoll, rr, fc);
+        }
     }
 }
