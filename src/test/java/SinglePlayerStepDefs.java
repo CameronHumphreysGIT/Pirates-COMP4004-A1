@@ -58,6 +58,26 @@ public class SinglePlayerStepDefs {
         test.noReRollTest(p, setup, fc);
     }
 
+    @When("onererollTest is run with {int} and {string}")
+    public void onererolltestIsRunWithFortuneCardAndReRoll(Integer fc, String rr) {
+        Tester test = new Tester();
+        if (first != 0) {
+            test.oneReRollTest(first, other, p, setup, reRoll, rr, fc);
+        } else {
+            test.oneReRollTest(p, setup, reRoll, rr, fc);
+        }
+    }
+
+    @When("tworerollTest is run with {int} and {string} and {string}")
+    public void tworerolltestIsRunWithFortuneCardAndReRoll(Integer fc, String rr, String rrr) {
+        Tester test = new Tester();
+        if (first != 0) {
+            test.twoReRollTest(first, other, p, setup, reRoll, reRollTwo, rr, rrr, fc);
+        } else {
+            test.twoReRollTest(p, setup, reRoll, reRollTwo, rr, rrr, fc);
+        }
+    }
+
     @Then("The player's last message is {int}")
     public void the_player_s_last_message_is(Integer finalScore) {
         if (finalScore == 0) {
@@ -79,23 +99,5 @@ public class SinglePlayerStepDefs {
     @And("The player socket is closed.")
     public void thePlayerSocketIsClosed() {
         p.close();
-    }
-
-    @When("onererollTest is run with {int} and {string}")
-    public void onererolltestIsRunWithFortuneCardAndReRoll(Integer fc, String rr) {
-        Tester test = new Tester();
-        if (first != 0) {
-            test.oneReRollTest(first, other, p, setup, reRoll, rr, fc);
-        } else {
-            test.oneReRollTest(p, setup, reRoll, rr, fc);
-        }
-    }
-
-    @When("onererollTest is run with <FortuneCard> and <reRoll> and <reRollTwo>")
-    public void onererolltestIsRunWithFortuneCardAndReRollAndReRollTwo() {
-    }
-
-    @Then("The player's last message is <First Score> <Expected Score>")
-    public void thePlayerSLastMessageIsFirstScoreExpectedScore() {
     }
 }
