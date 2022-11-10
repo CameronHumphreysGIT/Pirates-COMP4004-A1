@@ -1,4 +1,4 @@
-Feature: test a single turn with one reRolls
+Feature: 46, 47, 53, 58,59,67,69,70,71,83,100,110,111,115,118,121 test a single turn with one reRolls
   @Outline
   Scenario Outline:
     Given The Player has been setup as the first player
@@ -28,7 +28,7 @@ Feature: test a single turn with one reRolls
       | 115 |  SKULL    |  SWORD    |  SKULL    |  PARROT   |  PARROT   |  SWORD    |  PARROT   |  PARROT   | SKULL     |  SWORD    |  SKULL    |  SKULL    |  SKULL    |  SWORD    |  SKULL    |  SKULL    | "3467" | 5           | 500         | 0              | 0           |
       | 118 |  PARROT   |  SWORD    |  MONKEY   |  MONKEY   |  MONKEY   |  SKULL    |  PARROT   |  MONKEY   | SWORD     |  SWORD    |  MONKEY   |  MONKEY   |  MONKEY   |  SKULL    |  SKULL    |  MONKEY   | "06"   | 4           | 0           | 500            | 0           |
       | 121 |  MONKEY   |  SWORD    |  MONKEY   |  MONKEY   |  SKULL    |  SKULL    |  SWORD    |  MONKEY   | SKULL     |  SWORD    |  SWORD    |  SKULL    |  SKULL    |  SKULL    |  SWORD    |  SWORD    | "0237" | 5           | 500         | 0              | 0           |
-    
+
 
 
 

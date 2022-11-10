@@ -13,6 +13,7 @@ public class SinglePlayerStepDefs {
     Player p;
     ArrayList<String> setup;
     ArrayList<String> reRoll;
+    ArrayList<String> reRollTwo;
     int first = 0;
     int other = 0;
 
@@ -26,6 +27,23 @@ public class SinglePlayerStepDefs {
         List<List<String>> rows = table.asLists(String.class);
         //should only be one row...
         setup = new ArrayList<String>(rows.get(0));
+    }
+
+    @And("Initial and Reroll are setup with dice")
+    public void initialAndRerollAreSetupWithDice(DataTable table) {
+        List<List<String>> rows = table.asLists(String.class);
+        //should only be two rows...
+        setup = new ArrayList<String>(rows.get(0));
+        reRoll = new ArrayList<String>(rows.get(1));
+    }
+
+    @And("Initial, Second and Reroll are setup with dice")
+    public void initialSecondAndRerollAreSetupWithDice(DataTable table) {
+        List<List<String>> rows = table.asLists(String.class);
+        //should only be two rows...
+        setup = new ArrayList<String>(rows.get(0));
+        reRoll = new ArrayList<String>(rows.get(1));
+        reRollTwo = new ArrayList<String>(rows.get(2));
     }
 
     @And("the first and final scores for other players have been set with {int} and {int}")
@@ -63,14 +81,6 @@ public class SinglePlayerStepDefs {
         p.close();
     }
 
-    @And("Initial and Reroll are setup with dice")
-    public void initialAndRerollAreSetupWithDice(DataTable table) {
-        List<List<String>> rows = table.asLists(String.class);
-        //should only be two rows...
-        setup = new ArrayList<String>(rows.get(0));
-        reRoll = new ArrayList<String>(rows.get(1));
-    }
-
     @When("onererollTest is run with {int} and {string}")
     public void onererolltestIsRunWithFortuneCardAndReRoll(Integer fc, String rr) {
         Tester test = new Tester();
@@ -79,5 +89,13 @@ public class SinglePlayerStepDefs {
         } else {
             test.oneReRollTest(p, setup, reRoll, rr, fc);
         }
+    }
+
+    @When("onererollTest is run with <FortuneCard> and <reRoll> and <reRollTwo>")
+    public void onererolltestIsRunWithFortuneCardAndReRollAndReRollTwo() {
+    }
+
+    @Then("The player's last message is <First Score> <Expected Score>")
+    public void thePlayerSLastMessageIsFirstScoreExpectedScore() {
     }
 }
