@@ -13,6 +13,7 @@ Feature: test a single turn with one reRolls
       | 46  |  PARROT   |  SKULL    |  PARROT   |  SWORD    |  PARROT   |  SWORD    |  SWORD    |  PARROT   |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  SWORD    | PARROT    | "356"  | 7           | 0           | 0              |
       | 47  |  PARROT   |  SKULL    |  PARROT   |  SWORD    |  PARROT   |  SWORD    |  SKULL    |  PARROT   |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  PARROT   |  SWORD    |  SKULL    | PARROT    | "35"   | 7           | 0           | 0              |
       | 53  |  MONKEY   |  SKULL    |  MONKEY   |  PARROT   |  SWORD    |  PARROT   |  SWORD    |  SKULL    |  MONKEY   |  SKULL    |  MONKEY   |  MONKEY   |  SWORD    |  SWORD    |  SWORD    | SKULL     | "35"   | 7           | 0           | 300            |
+      | 58  |  SWORD    |  SWORD    |  PARROT   |  PARROT   |  SWORD    |  GOLD     |  SKULL    |  GOLD     |  SWORD    |  SWORD    |  GOLD     |  SWORD    |  SWORD    |  GOLD     |  SKULL    | GOLD      | "23"   | 7           | 0           | 800            |
 
 
 
