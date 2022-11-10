@@ -18,6 +18,7 @@ Feature: test a single turn with one reRolls
       | 67  |  MONKEY   |  SWORD    |  MONKEY   |  MONKEY   |  SWORD    |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   |  MONKEY   | MONKEY    | "14"   | 7           | 0           | 4600           |
       | 68  |  MONKEY   |  SWORD    |  PARROT   |  PARROT   |  SWORD    |  MONKEY   |  SKULL    |  SKULL    |  MONKEY   |  SWORD    |  DIAMOND  |  DIAMOND  |  SWORD    |  MONKEY   |  SKULL    | SKULL     | "23"   | 8           | 0           | 400            |
       | 69  |  MONKEY   |  SWORD    |  PARROT   |  DIAMOND  |  SWORD    |  MONKEY   |  SKULL    |  SKULL    |  DIAMOND  |  SWORD    |  PARROT   |  DIAMOND  |  SWORD    |  DIAMOND  |  SKULL    | SKULL     | "05"   | 7           | 0           | 500            |
+      | 70  |  MONKEY   |  SWORD    |  PARROT   |  SWORD    |  SWORD    |  GOLD     |  SKULL    |  GOLD     |  MONKEY   |  PARROT   |  PARROT   |  GOLD     |  MONKEY   |  GOLD     |  SKULL    | GOLD      | "134"  | 7           | 0           | 600            |
 
 
 
