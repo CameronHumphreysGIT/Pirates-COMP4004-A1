@@ -6,8 +6,8 @@ Feature: test a single turn with one reRolls
       |<First1>|<First2>|<First3>|<First4>|<First5>|<First6>|<First7>|<First8>|
       |<Final1>|<Final2>|<Final3>|<Final4>|<Final5>|<Final6>|<Final7>|<Final8>|
     When onererollTest is run with <FortuneCard> and <reRoll>
-    Then The player's last message is <Expected Score>
+    Then The player's last message is <First Score> <Expected Score>
     And The player socket is closed.
     Examples:
-      | Row | First1    | First2    | First3    | First4    | First5    | First6    | First7    | First8    | Final1    | Final2    | Final3    | Final4    | Final5    | Final6    | Final7    | Final8    | reRoll | FortuneCard | Expected Score |
-      | 46  |  PARROT   |  SKULL    |  PARROT   |  SWORD    |  PARROT   |  SWORD    |  SWORD    |  PARROT   |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  SWORD    | PARROT    | "356"  | 7           | 0              |
+      | Row | First1    | First2    | First3    | First4    | First5    | First6    | First7    | First8    | Final1    | Final2    | Final3    | Final4    | Final5    | Final6    | Final7    | Final8    | reRoll | FortuneCard | First Score | Expected Score |
+      | 46  |  PARROT   |  SKULL    |  PARROT   |  SWORD    |  PARROT   |  SWORD    |  SWORD    |  PARROT   |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  PARROT   |  SKULL    |  SWORD    | PARROT    | "356"  | 7           | 0          | 0              |

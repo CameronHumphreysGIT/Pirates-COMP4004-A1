@@ -39,7 +39,15 @@ public class SinglePlayerStepDefs {
         }else {
             Assert.assertEquals(Config.SERVER_SCORE_MESSAGE(0, finalScore), p.getLastMessage());
         }
+    }
 
+    @Then("The player's last message is {int} {int}")
+    public void the_player_s_last_message_is(Integer firstScore, Integer finalScore) {
+        if (finalScore == 0) {
+            Assert.assertEquals("YOU'VE DIED " + Config.SERVER_SCORE_MESSAGE(0, 0), p.getLastMessage());
+        }else {
+            Assert.assertEquals(Config.SERVER_SCORE_MESSAGE(firstScore, finalScore), p.getLastMessage());
+        }
     }
 
     @And("The player socket is closed.")
