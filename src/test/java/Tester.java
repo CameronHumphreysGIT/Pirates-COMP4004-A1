@@ -1140,7 +1140,7 @@ public class Tester {
                 @DisplayName("108SkullTest")
                 void OneHundredEightTest() {
                     Player p = new Player(Config.PLAYER_PORT_NUMBER);
-                    //setup according to line 109
+                    //setup according to line 108
                     ArrayList<String> setup = new ArrayList<>(Arrays.asList("SKULL", "PARROT", "PARROT", "SKULL", "MONKEY", "PARROT", "MONKEY", "MONKEY"));
                     //player is in skull island, start all player's with score of 1000
                     twoReRollTest(1000, 100, p, setup, new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SWORD", "SKULL", "MONKEY", "SKULL", "MONKEY", "MONKEY")), new ArrayList<>(Arrays.asList("SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SKULL", "SWORD", "SKULL")), "125", "2467", 10);
