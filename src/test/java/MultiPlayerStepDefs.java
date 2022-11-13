@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MultiPlayer130StepDefs {
+public class MultiPlayerStepDefs {
     Server s;
     Game g;
     Player p1;
@@ -59,6 +59,9 @@ public class MultiPlayer130StepDefs {
         noReRollTest(p1, new ArrayList<String>(Arrays.asList(rows.get(0).get(2).split(","))), Integer.parseInt(rows.get(0).get(1)));
         noReRollTest(p2, new ArrayList<String>(Arrays.asList(rows.get(1).get(2).split(","))), Integer.parseInt(rows.get(1).get(1)));
         noReRollTest(p3, new ArrayList<String>(Arrays.asList(rows.get(2).get(2).split(","))), Integer.parseInt(rows.get(2).get(1)));
+    }
+    @And("The game is ended")
+    public void theGameIsEnded() {
         //finally, call endGame from the server.
         s.EndGame();
         //once again, networking is broken since the three players are the same
@@ -118,5 +121,6 @@ public class MultiPlayer130StepDefs {
         //teardown
         test.datagramTeardown(sendSocket, sendPacket);
     }
+
 
 }
