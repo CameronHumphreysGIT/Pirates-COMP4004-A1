@@ -8,6 +8,11 @@ public class Game {
     private int[] fortunes = new int[3];
     private ArrayList<Integer> deck = new ArrayList<>();
     private int round = 0;
+    private int gameEnder = 0;
+    private int winner = 0;
+//game end stuff....
+    //everyone gets a turn...
+    //reevaluate game end cond. if after last turn, nobody wins...
 
     public void addPlayer() {
         playerCount++;
@@ -37,6 +42,7 @@ public class Game {
                 //this means we are in skull island, score differently.
                 //this func will score for skull island, give it the amount of skulls and the player num
                 skullScore(Integer.parseInt("" + dice.charAt(0)), player);
+                nextTurn();
                 return true;
             }
         } catch (StringIndexOutOfBoundsException ignored) {
@@ -170,6 +176,10 @@ public class Game {
         if (scores[player - 1] < 0) {
             scores[player - 1] = 0;
         }
+        //game ender is first past rthe threshhold
+        if (scores[player - 1] >= Config.WIN_SCORE && gameEnder == 0) {
+            gameEnder = player;
+        }
         nextTurn();
         return true;
     }
@@ -193,6 +203,10 @@ public class Game {
                 }
             }
         }
+        //check if we should still be gameending...
+        if (gameEnder != 0 && scores[gameEnder - 1] < Config.WIN_SCORE) {
+            gameEnder = 0;
+        }
     }
 
     public void nextTurn() {
@@ -203,6 +217,24 @@ public class Game {
             round++;
         }else {
             currentTurn++;
+        }
+        if (currentTurn == gameEnder) {
+            //we have ended the game, and everyone but the game ender has taken a final Turn.
+            for (int i = 0; i < playerCount; i++) {
+                if (scores[winner] < scores[i]) {
+                    winner = i;
+                }
+            }
+            //winner is player with max score...
+            if (scores[winner] < Config.WIN_SCORE) {
+                //reset winner
+                winner = 0;
+                //reset gameEnder
+                gameEnder = 0;
+            }else {
+                //winner is currently not a player number, it's an index.
+                winner++;
+            }
         }
     }
 
@@ -281,5 +313,13 @@ public class Game {
 
     public int[] getScores() {
         return scores;
+    }
+
+    public int getGameEnder() {
+        return gameEnder;
+    }
+
+    public int getWinner() {
+        return winner;
     }
 }

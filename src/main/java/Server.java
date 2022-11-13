@@ -39,15 +39,21 @@ public class Server {
         }
         me.sendWelcomes();
         game.start();
-        while(true) {
+        while(game.getWinner() == 0) {
             //doTurn will tell player 1 to do their turn and wait for a reply.
-            System.out.println("Player" + game.getCurrentTurn() + "s turn");
+            System.out.println("================Player" + game.getCurrentTurn() + "s turn " + game.getPlayerCount() + "=============================");
             me.doTurn(game.getCurrentTurn());
             if (game.getCurrentTurn() == 1) {
                 //player 1's turn, send updated scoring info:
                 me.sendScores();
             }
+            if (game.getGameEnder() != 0) {
+                //tell player's it is their last Turn.
+                me.sendEnding();
+            }
         }
+        //all done.
+        me.EndGame();
     }
 
     public String receive() {
@@ -175,6 +181,30 @@ public class Server {
         for (int i = 0; i < game.getPlayerCount(); i++) {
             send(message, playerPorts.get(i));
         }
+    }
+
+    public void sendEnding() {
+        //first, send the scores
+        sendScores();
+        //send final turn message to non game-enders.
+        for (int i = 1; i <= game.getPlayerCount(); i++) {
+            if (i != game.getGameEnder()) {
+                //send finalTurn message
+                send("FinalTurn", playerPorts.get(i - 1));
+            }
+        }
+    }
+
+    public void EndGame() {
+        //send final scores
+        sendScores();
+        //send winner and end game messages...
+        for (int i = 1; i <= game.getPlayerCount(); i++) {
+            //send winner message
+            send("Winner" + game.getWinner(), playerPorts.get(i - 1));
+        }
+        //game is over...
+        close();
     }
 
     public void doTurn(int playerNum) {

@@ -17,6 +17,7 @@ public class Player {
     private String fortuneCard;
     private boolean[] inChest = {false, false, false, false, false, false, false, false};
     private boolean skullIsland = false;
+    private boolean gameOver = false;
 
     public Player() {
         try {
@@ -57,6 +58,9 @@ public class Player {
         while (!me.getTurn()) {
             //wait for my turn
             me.waitTurn();
+            if (me.isGameOver()) {
+                break;
+            }
             //now it's my turn
             me.takeTurn();
             //now, end my turn
@@ -64,6 +68,8 @@ public class Player {
             //print new score
             System.out.println(me.getLastMessage());
         }
+        //game has ended...
+        me.close();
     }
 
     public void rpc_send(String message) {
@@ -191,7 +197,16 @@ public class Player {
             response = lastMessage;
         }
         while (!response.equals("It's you're turn")) {
-            if (lastMessage != "Timeout") {
+            if (lastMessage.equals("FinalTurn")) {
+                //it's my last turn, print that message.
+                System.out.println(Config.FINALTURN);
+            }else if (lastMessage.substring(0,6).equals("Winner")) {
+                //someone was declared winner... print winner
+                System.out.println(Config.WINNER(Integer.parseInt("" + lastMessage.charAt(6))));
+                //set gameover
+                gameOver = true;
+                return;
+            }else if (!lastMessage.equals("Timeout")) {
                 System.out.println("SERVER: " + lastMessage);
             }
             receive();
@@ -479,6 +494,10 @@ public class Player {
 
     public boolean getTurn() {
         return isTurn;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public void setFortune(String fortuneCard) {

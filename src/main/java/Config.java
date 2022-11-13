@@ -13,6 +13,7 @@ public class Config {
     public static int PLAYER_PORT_NUMBER = 3010;
     public static final int MAX_PLAYERS = 3;
     public static final int TIMEOUT = 5000; //5 seconds
+    public static final int WIN_SCORE = 1000;
     public static String SERVER_JOIN_MESSAGE(int i) {
         return "You are Player" + i;
     }
@@ -32,6 +33,26 @@ public class Config {
             "|  while avoiding the deadly Skulls                                   |\n" +
             "|  if you roll 3 skulls, your turn ends                               |\n" +
             "|=====================================================================|\n";
+    public static final String FINALTURN =
+            "|=====================================================================|\n" +
+            "|  GAME ENDING                                                        |\n" +
+            "|                                                                     |\n" +
+            "|  Your next Turn may be your last.                                   |\n" +
+            "|  One of your opponents has reached the win threshold (" + WIN_SCORE + "pts)      |\n" +
+            "|  You have one more turn, the player with the highest score will win,|\n" +
+            "|  If all players have less then the threshold, the game will continue|\n" +
+            "|=====================================================================|\n";
+    public static String WINNER(int winner) {
+        return
+                "|=====================================================================|\n" +
+                "|  GAME OVER                                                          |\n" +
+                "|                                                                     |\n" +
+                "|  CONGRATULATIONS Player" + winner + ", You've won                               |\n" +
+                "|  I hope you've enjoyed PIRATES                                      |\n" +
+                "|  I'll see you on the seven seas                                     |\n" +
+                "|=====================================================================|\n";
+    }
+
     public static final ArrayList<String> DICE = new ArrayList<>(Arrays.asList("SKULL", "SWORD", "MONKEY", "PARROT", "DIAMOND", "GOLD"));
     //awkwardly placed SKULL1 is due to the fact that there is no seabattle1...
     public static final ArrayList<String> FORTUNE_CARDS = new ArrayList<>(Arrays.asList("TREASURE", "CAPTAIN", "SORCERESS", "SKULL1", "SEABATTLE2", "SEABATTLE3", "SEABATTLE4", "GOLD", "DIAMOND","MONKEY", "SKULL2"));
