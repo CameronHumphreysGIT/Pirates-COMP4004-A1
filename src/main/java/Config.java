@@ -13,7 +13,7 @@ public class Config {
     public static int PLAYER_PORT_NUMBER = 3010;
     public static final int MAX_PLAYERS = 3;
     public static final int TIMEOUT = 5000; //5 seconds
-    public static final int WIN_SCORE = 1000;
+    public static final int WIN_SCORE = 3000;
     public static String SERVER_JOIN_MESSAGE(int i) {
         return "You are Player" + i;
     }

@@ -94,11 +94,13 @@ public class Game {
                 if (scores[player - 1] < 0) {
                     scores[player - 1] = 0;
                 }
+                nextTurn();
                 return true;
             } else {
                 //There are exactly three skulls
                 //don't change the score.
                 scores[player - 1] += 0;
+                nextTurn();
                 return true;
             }
         }

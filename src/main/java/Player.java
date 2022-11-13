@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Player {
     private DatagramPacket sendPacket;
     //server will send to the address data it received from
-    private DatagramSocket sendSocket;
+    public DatagramSocket sendSocket;
     private DatagramPacket receivePacket;
     private String lastMessage;
     private int number = 0;
@@ -528,5 +528,13 @@ public class Player {
                 System.out.println("WELCOME TO THE ISLAND OF SKULLS");
             }
         }
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 }

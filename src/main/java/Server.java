@@ -10,8 +10,9 @@ public class Server {
     private DatagramPacket sendPacket;
     private DatagramSocket sendSocket;
     private Game game;
-    private ArrayList<Integer> playerPorts = new ArrayList<Integer>();
+    public ArrayList<Integer> playerPorts = new ArrayList<Integer>();
     private int lastPort;
+    private String lastMessage;
 
     public Server(Game g) {
         game = g;
@@ -102,7 +103,7 @@ public class Server {
         }
         Config.LOGGER.info("Server: Message sent.\n");
         System.out.println("Server: Message sent.\n");
-
+        lastMessage = message;
     }
 
     public void addPlayer() {
@@ -227,5 +228,9 @@ public class Server {
 
     public Game getGame() {
         return game;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
     }
 }

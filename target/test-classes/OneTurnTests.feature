@@ -32,4 +32,3 @@ Feature: 45,52,54,55,56,57,62,63,64,65,66,72,82,84,97,98,99,103,106,107,117,120,
           | 117 |  PARROT  | SWORD    | MONKEY   | MONKEY   | MONKEY   | SWORD    | PARROT   | GOLD     | 4           | 500            |
           | 120 |  SWORD   | SWORD    | MONKEY   | MONKEY   | SWORD    | SKULL    | SWORD    | MONKEY   | 5           | 800            |
           | 123 |  MONKEY  | SWORD    | MONKEY   | MONKEY   | SWORD    | SWORD    | SWORD    | SKULL    | 6           | 1300           |
-          | dwa |  SWORD   | MONKEY   | MONKEY   | MONKEY   | PARROT   | PARROT   | SKULL    | DIAMOND  | 1           | 400            |
