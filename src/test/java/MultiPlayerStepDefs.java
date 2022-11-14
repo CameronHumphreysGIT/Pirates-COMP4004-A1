@@ -55,11 +55,18 @@ public class MultiPlayerStepDefs {
     public void eachPlayerHasAFortuneCardAndRolls(DataTable table) {
         List<List<String>> rows = table.asLists(String.class);
         //copying code bad... but i want to actually modify our server and game objects...
-        System.out.println(Arrays.asList(rows.get(0).get(2).split(",")));
         noReRollTest(p1, new ArrayList<String>(Arrays.asList(rows.get(0).get(2).split(","))), Integer.parseInt(rows.get(0).get(1)));
         noReRollTest(p2, new ArrayList<String>(Arrays.asList(rows.get(1).get(2).split(","))), Integer.parseInt(rows.get(1).get(1)));
         noReRollTest(p3, new ArrayList<String>(Arrays.asList(rows.get(2).get(2).split(","))), Integer.parseInt(rows.get(2).get(1)));
     }
+
+    @And("The first player rolls again")
+    public void theFirstPlayerRollsAgain(DataTable table) {
+        //addition for line 142 test
+        List<List<String>> rows = table.asLists(String.class);
+        noReRollTest(p1, new ArrayList<String>(Arrays.asList(rows.get(0).get(2).split(","))), Integer.parseInt(rows.get(0).get(1)));
+    }
+
     @And("The game is ended")
     public void theGameIsEnded() {
         //finally, call endGame from the server.
@@ -121,6 +128,4 @@ public class MultiPlayerStepDefs {
         //teardown
         test.datagramTeardown(sendSocket, sendPacket);
     }
-
-
 }
