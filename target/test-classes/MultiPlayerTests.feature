@@ -1,4 +1,4 @@
-Feature: 130,134 three player game end scenario.
+Feature: 130,134,142 three player game end scenario.
   #line 130
   Scenario:
     Given The Server has been created
@@ -49,3 +49,18 @@ Feature: 130,134 three player game end scenario.
     And PlayerTwo's Score is 4000
     And PlayerThree's Score is 0
     And Each player's last Message is "Winner1"
+  #line 147
+  Scenario:
+    Given The Server has been created
+    And Each player has been created
+    And Each player subsequently joins the game
+    When The first player rolls again
+      | 1        |  7          | SWORD,SKULL,SWORD,SWORD,SKULL,SWORD,SWORD,SWORD |
+    Then PlayerOne's Score is 1100
+    And The second player rolls and rerolls
+      | 2        |  2          | SKULL,SKULL,SKULL,GOLD,SKULL,SKULL,SKULL,SKULL | SKULL,PARROT,SKULL,GOLD,SKULL,SKULL,SKULL,SKULL | SKULL,SKULL,SKULL,SKULL,SKULL,SKULL,SKULL,SKULL | 1 | 13 |
+    And The game is ended
+    Then PlayerOne's Score is 300
+    And PlayerTwo's Score is 0
+    And PlayerThree's Score is 0
+    And Each player's last Message is "Round: 1 Player1 Score: 1100 Player2 Score: 0 Player3 Score: 0"

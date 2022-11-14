@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class MultiPlayerStepDefs {
     Server s;
     Game g;
@@ -65,6 +67,14 @@ public class MultiPlayerStepDefs {
         //addition for line 142 test
         List<List<String>> rows = table.asLists(String.class);
         noReRollTest(p1, new ArrayList<String>(Arrays.asList(rows.get(0).get(2).split(","))), Integer.parseInt(rows.get(0).get(1)));
+    }
+
+    @And("The second player rolls and rerolls")
+    public void theSecondPlayerRollsAndRerolls(DataTable table) {
+        //addition for line 147 test
+        List<List<String>> rows = table.asLists(String.class);
+        twoReRollTest(p2, new ArrayList<String>(Arrays.asList(rows.get(0).get(2).split(","))), new ArrayList<String>(Arrays.asList(rows.get(0).get(3).split(","))),
+                new ArrayList<String>(Arrays.asList(rows.get(0).get(4).split(","))), rows.get(0).get(5), rows.get(0).get(6),Integer.parseInt(rows.get(0).get(1)));
     }
 
     @And("The game is ended")
@@ -125,6 +135,41 @@ public class MultiPlayerStepDefs {
             System.exit(1);
         }
         p.endTurn();
+        //teardown
+        test.datagramTeardown(sendSocket, sendPacket);
+    }
+
+    void twoReRollTest(Player player, ArrayList<String> setup, ArrayList<String> setupTwo, ArrayList<String> setupThree, String reRoll, String reRollTwo, int fc) {
+        Tester test = new Tester();
+        test.setupSinglePlayer(player, setup, Config.FORTUNE_CARDS.get(fc));
+        //do reRolls
+        assertTrue(player.reRoll(reRoll));
+        System.out.println("================Initial reRoll:========================");
+        player.displayDice();
+        player.setDice(setupTwo);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //do reRolls
+        assertTrue(player.reRoll(reRollTwo));
+        System.out.println("================Second reRoll:========================");
+        player.displayDice();
+        player.setDice(setupThree);
+        System.out.println("================Setup reRoll:========================");
+        player.displayDice();
+        //now simulate server response and endturn
+        g.setFortune(Config.FORTUNE_CARDS.get(fc), player.getNumber());
+        //let's simulate the server to send the response
+        DatagramSocket sendSocket = test.setupSocket(false, true);
+        //scorePlayer will send a nice response for the player
+        byte msg[] = s.scorePlayer(player.getDiceString(), player.getNumber()).getBytes();
+        DatagramPacket sendPacket = test.setupPacket(msg, false, false);
+        try {
+            sendSocket.send(sendPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        player.endTurn();
         //teardown
         test.datagramTeardown(sendSocket, sendPacket);
     }
