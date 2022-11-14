@@ -219,8 +219,22 @@ public class Server {
             Config.LOGGER.info("Server: bad response, likely the wrong player");
             response = receive();
         }
+        //save each player's score
+        int[] scores = {0,0,0};
+        scores[0] = game.getScores()[0];
+        scores[1] = game.getScores()[1];
+        scores[2] = game.getScores()[2];
         //got response, score and send back
         send(scorePlayer(response, playerNum), playerPorts.get(playerNum - 1));
+        //the player has been scored, let's send deductions, if necessary
+        for (int i = 0; i < game.getPlayerCount() - 1; i++) {
+            //difference between old and new scores
+            int currentDiff = scores[i] - game.getScores()[i];
+            if (currentDiff > 0) {
+                //send a deduction message to the player.
+                send("DEDUCTION " + Config.SERVER_SCORE_MESSAGE(scores[i], game.getScores()[i]), playerPorts.get(i));
+            }
+        }
     }
 
     public void close() {
