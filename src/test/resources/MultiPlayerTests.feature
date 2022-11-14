@@ -1,4 +1,4 @@
-Feature: 130,134,142 three player game end scenario.
+Feature: 130,134,142,147 three player game end scenario.
   #line 130
   Scenario:
     Given The Server has been created
@@ -63,4 +63,5 @@ Feature: 130,134,142 three player game end scenario.
     Then PlayerOne's Score is 300
     And PlayerTwo's Score is 0
     And PlayerThree's Score is 0
-    And Each player's last Message is "Round: 1 Player1 Score: 1100 Player2 Score: 0 Player3 Score: 0"
+    #expected is round 0 since spec doesn't say to complete a round ie: only player 1 and 2 do a turn
+    And Each player's last Message is "Round: 0 Player1 Score: 300 Player2 Score: 0 Player3 Score: 0"

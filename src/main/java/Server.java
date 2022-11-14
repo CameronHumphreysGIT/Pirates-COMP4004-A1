@@ -200,12 +200,14 @@ public class Server {
         //send final scores
         sendScores();
         //send winner and end game messages...
-        for (int i = 1; i <= game.getPlayerCount(); i++) {
-            //send winner message
-            send("Winner" + game.getWinner(), playerPorts.get(i - 1));
+        if (game.getWinner() != 0) {
+            for (int i = 1; i <= game.getPlayerCount(); i++) {
+                //send winner message
+                send("Winner" + game.getWinner(), playerPorts.get(i - 1));
+            }
+            //game is over...
+            close();
         }
-        //game is over...
-        close();
     }
 
     public void doTurn(int playerNum) {
