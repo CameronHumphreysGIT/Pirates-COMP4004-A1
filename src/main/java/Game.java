@@ -26,8 +26,8 @@ public class Game {
             scores[i] = 0;
         }
         //set fortune cards
-        //setupDeck();
-        setupDeck(4);
+        setupDeck();
+        //setupDeck(4);
         //setupDeck(0);
         for (int i = 0; i < playerCount; i++) {
             //get the fortune and remove it.
